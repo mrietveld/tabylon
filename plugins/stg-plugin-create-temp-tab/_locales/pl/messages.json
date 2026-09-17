@@ -1,6 +1,0 @@
-{
-    "needInstallSTGExtension": {
-        "message": "Zainstaluj dodatek __MSG_STGextensionName__\nNaciśnij tu aby przejść do strony domowej __MSG_STGextensionName__",
-        "description": "Need install Simple Tab Groups extention\nClick here to open Simple Tab Groups home page"
-    }
-}
