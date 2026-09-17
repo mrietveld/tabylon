@@ -59,11 +59,6 @@ CUSTOM_EVENT_SCHEMES.set('runtime.onMessage', {
     noListenerPromiseHandler: () => Promise.reject(new Error('No listener for "runtime.onMessage", please call back later')),
 });
 
-CUSTOM_EVENT_SCHEMES.set('runtime.onMessageExternal', {
-    returnPromise: true,
-    noListenerPromiseHandler: () => Promise.reject(new Error('No listener for "runtime.onMessageExternal", please call back later')),
-});
-
 CUSTOM_EVENT_SCHEMES.set('runtime.onInstalled', {
     calledOnce: true,
 });

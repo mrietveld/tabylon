@@ -18,13 +18,11 @@ import * as Containers from '/js/containers.js';
 import * as Groups from '/js/groups.js';
 import * as Tabs from '/js/tabs.js';
 import * as Utils from '/js/utils.js';
-import * as Cloud from '/js/sync/cloud/cloud.js';
 
 import defaultGroupMixin from '/js/mixins/default-group.mixin.js';
 import globalMixin from '/js/mixins/global.mixin.js';
 import optionsMixin from '/js/mixins/options.mixin.js';
 import popupHelpersMixin from '/js/mixins/popup-helpers.mixin.js';
-import syncCloudMixin from '/js/mixins/sync-cloud.mixin.js';
 import tabGroupsMixin from '/js/mixins/tab-groups.mixin.js';
 
 const MODULE_NAME = Constants.PAGES.isSidebar ? Constants.MODULES.SIDEBAR : Constants.MODULES.POPUP;
@@ -46,7 +44,6 @@ export default {
         defaultGroupMixin,
         optionsMixin,
         popupHelpersMixin,
-        syncCloudMixin,
         tabGroupsMixin,
     ],
     data() {
@@ -163,23 +160,6 @@ export default {
 
             return filteredGroups;
         },
-        syncTitle() {
-            let result = this.lang('syncStart');
-
-            if (this.syncCloudLastUpdateAgo) {
-                result += ' (' + this.lang('lastUpdate') + `: ${this.syncCloudLastUpdateAgo})`;
-            }
-
-            if (this.syncCloudHasChanges) {
-                result += '\n' + this.lang('cloudHasChanges');
-            }
-
-            if (this.syncCloudErrorMessage) {
-                result += '\n' + this.syncCloudErrorMessage;
-            }
-
-            return result;
-        },
     },
     methods: {
         lang: Lang,
@@ -222,17 +202,6 @@ export default {
                 .$on('drag-moving', (item, isMoving) => item.isMoving = isMoving)
                 .$on('drag-over', (item, isOver) => item.isOver = isOver);
 
-            Cloud.on('sync-error', async result => {
-                if (this.syncCloudProgress < 5) { // for better visibility of the progress bar
-                    this.syncCloudProgress = 15;
-                }
-
-                const confirmed = await this.confirm(result.name, result.message, 'openSettings', 'is-info');
-
-                if (confirmed) {
-                    this.openOptionsPage('backup/sync');
-                }
-            });
         },
 
         onGroupRemoved(request) {
@@ -1140,27 +1109,6 @@ export default {
                 <img src="/icons/icon.svg" />
             </figure>
             <span v-text="lang('manageGroupsTitle')"></span>
-        </div>
-        <div
-            v-if="options.syncEnable"
-            tabindex="0"
-            class="sync"
-            @click="syncCloud()"
-            @keydown.enter="syncCloud()"
-            :title="syncTitle"
-            >
-            <div class="circle-progress" :class="{
-                    'is-success': !syncCloudErrorMessage && syncCloudProgress === 100,
-                    'is-danger': !!syncCloudErrorMessage,
-                }" :style="{
-                    '--progress-percent': `${syncCloudProgress}%`,
-                }"
-                >
-                <figure class="image is-16x16">
-                    <img src="/icons/cloud-arrow-up-solid.svg" />
-                    <img v-if="syncCloudErrorMessage" id="sync-error-icon" src="/icons/exclamation-triangle-yellow.svg">
-                </figure>
-            </div>
         </div>
         <div
             tabindex="0"

@@ -121,17 +121,14 @@ async function saveConsoleLogs() {
     const [
             UP_TIME,
             platformInfo,
-            extensions,
             storage,
             permissionBookmarks,
-            permissionNativeMessaging,
             permissionBrowserSettings,
             windows,
             tabs,
         ] = await Promise.all([
             getUpTime(),
             browser.runtime.getPlatformInfo().catch(onCatch('getPlatformInfo', Object)),
-            browser.management.getAll().catch(onCatch('management', Array)),
             browser.storage.local.get().catch(onCatch('storage', Object)),
             browser.permissions.contains(Constants.PERMISSIONS.BOOKMARKS).catch(onCatch('permissions BOOKMARKS', Object)),
             browser.permissions.contains(Constants.PERMISSIONS.NATIVE_MESSAGING).catch(onCatch('permissions NATIVE_MESSAGING', Object)),
@@ -159,16 +156,6 @@ async function saveConsoleLogs() {
     let loadedTabs = await Promise.all(tabs.map(tab => Cache.loadTabSession(tab)));
     loadedTabs = loadedTabs.filter(Boolean);
 
-    const filteredExtensions = (function() {
-        try {
-            return extensions
-                .filter(({id, enabled, type}) => !id.endsWith('@search.mozilla.org') && enabled && type === browser.management.ExtensionType.EXTENSION)
-                .map(({id, name, version, hostPermissions}) => ({id, name, version, hostPermissions}))
-        } catch (e) {
-            return onCatch('filter extensions', Array, extensions)(e);
-        }
-    })();
-
     const LOGS_OBJ = normalizeAndClear({
         CRITICAL_ERRORS,
         addon: {
@@ -177,7 +164,6 @@ async function saveConsoleLogs() {
             UUID: Constants.STG_BASE_URL,
             permissions: {
                 bookmarks: permissionBookmarks,
-                nativeMessaging: permissionNativeMessaging,
                 browserSettings: permissionBrowserSettings,
             },
             storage,
@@ -187,7 +173,6 @@ async function saveConsoleLogs() {
                 ...platformInfo,
                 ...Constants.BROWSER,
             },
-            extensions: filteredExtensions,
         },
         windows: loadedWindows,
         tabs: loadedTabs,

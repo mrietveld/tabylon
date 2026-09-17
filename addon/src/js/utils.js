@@ -177,31 +177,6 @@ export async function sha256Hex(str) {
     return bytesToHex(await sha256Bytes(str));
 }
 
-export function isAllowExternalRequestAndSender(request, sender, extensionRules = {}) {
-    // if (sender?.id?.startsWith('test-stg-action')) {
-    //     return true;
-    // }
-
-    let extension = Constants.EXTENSIONS_WHITE_LIST[sender.id];
-
-    if (!extension) {
-        return false;
-    }
-
-    Object.assign(extensionRules, extension);
-
-    if (!request || 'object' !== type(request)) {
-        extensionRules.error = 'request is wrong';
-        return false;
-    }
-
-    return extension.getActions.includes(request.action);
-}
-
-export function getSupportedExternalExtensionName(extId) {
-    return Constants.EXTENSIONS_WHITE_LIST[extId] ? Constants.EXTENSIONS_WHITE_LIST[extId].title : 'Unknown';
-}
-
 // only protocols `chrome:`, `about:`, `resource:` and `data`:
 const availableFavIconUrlRegExp = /^(data:|chrome:\/\/(global|browser|branding)\/content\/)/;
 export function isAvailableFavIconUrl(favIconUrl) {

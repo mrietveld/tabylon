@@ -8,7 +8,6 @@ import * as Tabs from '/js/tabs.js';
 import * as Groups from '/js/groups.js';
 import * as Utils from '/js/utils.js';
 import * as Windows from '/js/windows.js';
-import * as Cloud from '/js/sync/cloud/cloud.js';
 
 const mainStorage = localStorage.create(Constants.MODULES.BACKGROUND);
 
@@ -179,12 +178,6 @@ export default {
                 this.onGroupsUpdatedAll?.(request);
             }));
 
-            list.add(Cloud.on('sync-end', async request => {
-                if (request.changes.local) {
-                    await this.tabGroupsLoad();
-                    this.onGroupsSyncEnd?.(request);
-                }
-            }));
         },
 
         tabGroupsRemoveListeners() {

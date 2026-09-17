@@ -31,7 +31,7 @@ import * as Constants from './constants.js';
 import * as Utils from './utils.js';
 import * as Storage from './storage.js';
 import mainMigrations from './migrations-main.js';
-import syncMigrations from './migrations-sync.js';
+import {normalizeStandaloneOptions} from './standalone-normalization.js';
 
 const logger = new Logger('Migration');
 
@@ -39,7 +39,7 @@ const CURRENT_VERSION = Constants.MANIFEST.version;
 
 const LEGACY_VERSION = '0';
 
-for (const migrations of [mainMigrations, syncMigrations]) {
+for (const migrations of [mainMigrations]) {
     let prevVersion = null;
 
     for (const {version} of migrations) {
@@ -157,7 +157,7 @@ export async function initLocalData() {
         return {data: null, error: result.error};
     }
 
-    if (result.migrated) {
+    if (normalizeStandaloneOptions(result.data) || result.migrated) {
         await Storage.set(result.data);
 
         // only after the migrated data is committed - a crash before this point leaves the
@@ -170,46 +170,4 @@ export async function initLocalData() {
 
     log.stop();
     return {data: result.data, error: null};
-}
-
-export async function migrateSyncData(data) {
-    const log = logger.start('migrateSyncData', 'data version:', data.version);
-
-    const result = {
-        data,
-        migrated: false,
-        error: null,
-        keysToRemove: [],
-    };
-
-    if (!Object.keys(data).length) {
-        log.stop('sync area is empty');
-        return result;
-    }
-
-    if (isDataVersionNewer(data.version)) {
-        result.error = 'updateAddonToLatestVersion';
-        log.stopError(result.error);
-        return result;
-    }
-
-    const originalKeys = new Set(Object.keys(data));
-    const dataBefore = JSON.stringify(data);
-    const keysToRemove = new Set;
-
-    for (const migration of syncMigrations) {
-        await migration.migration?.(data);
-
-        migration.remove?.forEach(key => originalKeys.has(key) && keysToRemove.add(key));
-    }
-
-    if (keysToRemove.size) {
-        keysToRemove.forEach(key => delete data[key]);
-        result.keysToRemove = Array.from(keysToRemove);
-    }
-
-    result.migrated = keysToRemove.size > 0 || JSON.stringify(data) !== dataBefore;
-
-    log.stop('migrated:', result.migrated);
-    return result;
 }

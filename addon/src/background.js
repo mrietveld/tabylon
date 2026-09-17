@@ -7,7 +7,6 @@ import Listeners, {getExtensionStartTime} from '/js/listeners.js\
 &windows.onRemoved\
 &runtime.onConnect\
 &runtime.onMessage\
-&runtime.onMessageExternal\
 &runtime.onInstalled\
 &browserAction.onClicked\
 &commands.onCommand\
@@ -39,22 +38,18 @@ import * as Containers from '/js/containers.js?add-listeners';
 import * as Storage from '/js/storage.js';
 import * as Cache from '/js/cache.js';
 import * as File from '/js/file.js';
-import * as Host from '/js/host.js';
 import * as Menus from '/js/menus.js';
 import * as MenusMain from '/js/menus-main.js';
 // import * as MenusBookmark from '/js/menus-bookmark.js';
 import * as Groups from '/js/groups.js';
 import * as GroupsNative from '/js/groups-native.js';
-import * as GroupsExternal from '/js/groups-external.js';
 import * as Operations from '/js/operations.js';
 import * as Tabs from '/js/tabs.js';
 import * as Windows from '/js/windows.js';
-import * as Extensions from '/js/extensions.js?auto-detect-conflicted';
 import * as Bookmarks from '/js/bookmarks.js';
 import * as Permissions from '/js/permissions.js';
 import * as BrowserSettings from '/js/browser-settings.js';
-import * as Cloud from '/js/sync/cloud/cloud.js?can-do-synchronization';
-import * as NewCloudGroups from '/js/sync/new-cloud-groups.js';
+import {normalizeStandaloneOptions} from '/js/standalone-normalization.js';
 
 const storage = localStorage.create(Constants.MODULES.BACKGROUND);
 
@@ -76,27 +71,20 @@ self.loggerFuncs = {
 
 const options = self.options = {};
 
-const ignoreExtForReopenContainer = new Set([...Constants.SAFE_EXTENSIONS_FOR_REOPEN_TAB_IN_CONTAINER]);
+function mapGroupsForPage(groups) {
+    return groups.map(group => ({
+        id: group.id,
+        title: Groups.getTitle(group),
+        isArchive: group.isArchive,
+        isSticky: group.isSticky,
+        iconUrl: Groups.getIconUrl(group),
+    }));
+}
 
 // TODO temp
 self.CacheTabs = Cache.tabs;
 self.CacheLastTabsState = Cache.lastTabsState;
 self.CacheWindows = Cache.windows;
-
-function sendExternalMessage(...args) {
-    if (!storage.inited) {
-        logger.warn('sendExternalMessage addon not yet loaded');
-        return;
-    }
-
-    const message = Messages.normalizeSendData(...args);
-
-    for (const [exId, params] of Object.entries(Constants.EXTENSIONS_WHITE_LIST)) {
-        if (params.postActions?.includes(message.action) && Extensions.isEnabled(exId)) {
-            Messages.sendExternalMessage(exId, message);
-        }
-    }
-}
 
 const moveTabsBatch = new BatchProcessor(async (tabIds, groupId) => {
     tabIds = Array.from(tabIds);
@@ -118,7 +106,6 @@ const reopenTabsBatch = new BatchProcessor(async (paramsByTabId, groupId) => {
 // https://bugzilla.mozilla.org/show_bug.cgi?id=1683646
 // only onBeforeNavigate can detect view-source, but it's need new permission "webNavigation" in manifest
 const canceledRequests = new Map;
-const reopenedForExtension = new Map;
 
 async function getRequestedTab(tabId, requestedUrl) {
     const tab = await Tabs.get(tabId);
@@ -249,54 +236,9 @@ const onBeforeTabRequest = catchFunc(async function onBeforeTabRequest({
         return {};
     }
 
-    const originExt = Extensions.getByUUID(Extensions.extractUUID(originUrl), true);
-
     function rememberFor(map, key, ms) {
         clearTimeout(map.get(key));
         map.set(key, setTimeout(() => map.delete(key), ms));
-    }
-
-    function getNewAddonTabUrl(asInfo) {
-        const params = {
-            url: tab.url,
-            anotherCookieStoreId: tab.cookieStoreId,
-            destCookieStoreId: newTabContainer,
-            conflictedExtId: originExt.id,
-            groupId: tabGroup.id,
-        };
-
-        if (asInfo) {
-            params.asInfo = true;
-        }
-
-        return Utils.setUrlSearchParams(Constants.PAGES.HELP.OPEN_IN_CONTAINER, params);
-    }
-
-    if (originExt && Constants.CONFLICTED_EXTENSIONS_FOR_REOPEN_TAB_IN_CONTAINER.includes(originExt.id)) {
-        let showNotif = storage.ignoreExtensionsForReopenTabInContainer ?? 0;
-
-        if (showNotif < 3) {
-            storage.ignoreExtensionsForReopenTabInContainer = ++showNotif;
-
-            const str = Lang('__MSG_helpPageOpenInContainerMainTitle__\n\n__MSG_clickHereForInfo__', {
-                helpPageOpenInContainerMainTitle: Containers.get(newTabContainer).name,
-            }, {html: false});
-
-            Notification(str, {
-                module: ['tabs', 'create', {
-                    active: true,
-                    url: getNewAddonTabUrl(true),
-                    groupId: tabGroup.id,
-                }, {skipTrackingCreated: false}],
-            });
-        }
-
-        log.stop('deny reopen tab in required conteiner by extension', originExt.id);
-        return {};
-    }
-
-    if (Constants.CONFLICTED_EXTENSIONS_FOR_REOPEN_TAB_IN_CONTAINER.some(Extensions.isEnabled)) {
-        await Utils.wait(100);
     }
 
     // the copy is built from this object: the whole session of the original goes with it
@@ -314,20 +256,6 @@ const onBeforeTabRequest = catchFunc(async function onBeforeTabRequest({
         cookieStoreId: newTabContainer,
         ...Groups.getNewTabParams(tabGroup),
     };
-
-    const mayAskUser = !tab.hidden && originExt && !ignoreExtForReopenContainer.has(originExt.id);
-    const reopenKey = mayAskUser ? `${originExt.id} ${requestedUrl}` : null;
-    const alreadyReopened = reopenedForExtension.has(reopenKey);
-
-    if (reopenKey) {
-        rememberFor(reopenedForExtension, reopenKey, 10_000);
-    }
-
-    if (alreadyReopened) {
-        log.log('extension reopened the tab in its container again, ask the user', originExt.id);
-        newTabParams.active = true;
-        newTabParams.url = getNewAddonTabUrl();
-    }
 
     reopenTabsBatch.add([tab.id, newTabParams], tabGroup.id);
 
@@ -348,14 +276,6 @@ const onPermissionsAdded = catchFunc(async function onPermissionsAdded(permissio
 const onPermissionsRemoved = catchFunc(async function onPermissionsRemoved(permissions) {
     const log = logger.start('onPermissionsRemoved', permissions);
 
-    if (Permissions.hasAny(permissions, Permissions.NATIVE_MESSAGING)) {
-        if (options.autoBackupLocation === Constants.AUTO_BACKUP_LOCATIONS.HOST) {
-            await saveOptions({
-                autoBackupLocation: Constants.AUTO_BACKUP_LOCATIONS.DOWNLOADS,
-            });
-        }
-    }
-
     // if (Permissions.hasAny(permissions, Permissions.BOOKMARKS)) {
     //     await MenusMain.permissionChanged();
     // }
@@ -375,12 +295,6 @@ async function onAlarm({name}) {
                 autoBackupIncludeTabFavIcons: options.autoBackupIncludeTabFavIcons,
                 autoBackupIncludeTabThumbnails: options.autoBackupIncludeTabThumbnails,
             }]));
-    } else if (name === Cloud.ALARM_NAME) {
-        await cloudSync({trigger: Cloud.TRIGGER_AUTO})
-            .catch(log.onCatch("can't auto cloudSync"));
-    } else if (name === Cloud.ALARM_NAME_RETRY) {
-        await cloudSync({trigger: Cloud.TRIGGER_RETRY})
-            .catch(log.onCatch("can't cloudSync retry"));
     }
 
     log.stop();
@@ -404,7 +318,6 @@ function addEvents() {
 
     Tabs.addListeners();
     Windows.addListeners();
-    GroupsExternal.addListeners();
     GroupsNative.addListeners();
 
     Permissions.onAdded.add(onPermissionsAdded);
@@ -421,7 +334,6 @@ function removeEvents() {
 
     Tabs.removeListeners();
     Windows.removeListeners();
-    GroupsExternal.removeListeners();
     GroupsNative.removeListeners();
 
     Permissions.onAdded.clear();
@@ -433,7 +345,6 @@ function removeEvents() {
     Menus.removeListeners();
     MenusMain.removeListeners();
 
-    Extensions.removeListeners();
 
     removeListenerOnBeforeRequest();
 }
@@ -444,51 +355,6 @@ Listeners.runtime.onConnect.add(Messages.createListenerOnConnectedBackground(onB
 Listeners.runtime.onMessage.add(onBackgroundMessage);
 Listeners.commands.onCommand.add(name => onBackgroundMessage(name, self));
 
-Listeners.runtime.onMessageExternal.add(async function onMessageExternal(request, sender) {
-    const log = logger.start(['info', 'onMessageExternal'], `RECEIVED-EXTERNAL-ACTION#${request?.action}`, {request, sender});
-
-    if (request?.action === 'ignore-ext-for-reopen-container') {
-        ignoreExtForReopenContainer.add(sender.id);
-        log.stop('add to ignore', sender.id, 'done');
-        return {
-            ok: true,
-        };
-    }
-
-    if (!storage.inited) {
-        log.stopWarn('background not inited');
-        return {
-            ok: false,
-            error: `[STG] I'm not loaded yet.`,
-        };
-    }
-
-    const extensionRules = {};
-
-    if (!Utils.isAllowExternalRequestAndSender(request, sender, extensionRules)) {
-        log.stopWarn('sender is not allowed');
-        return {
-            ok: false,
-            error: '[STG] Your extension/action does not in white list. If you want to add your extension/action to white list - please contact with me.',
-            yourExtentionRules: extensionRules,
-        };
-    }
-
-    if (!request?.action || typeof request.action !== 'string') {
-        log.stopWarn('unknown action');
-        return {
-            ok: false,
-            error: 'unknown action',
-        };
-    }
-
-    const result = await onBackgroundMessage(request, sender);
-
-    log.stop();
-
-    return result;
-});
-
 self.saveOptions = saveOptions;
 
 const INTERNAL_MODULES = {
@@ -496,7 +362,6 @@ const INTERNAL_MODULES = {
         saveOptions,
         restoreBackup,
         clearAddon,
-        cloudSync,
     },
     Tabs,
     Groups,
@@ -558,11 +423,6 @@ async function onBackgroundMessage(message, sender) {
             result.ok = true;
             return result;
 
-        case 'ignore-ext-for-reopen-container':
-            ignoreExtForReopenContainer.add(data.id);
-            result.ok = true;
-            return result;
-
         default: break;
     }
 
@@ -587,7 +447,7 @@ async function onBackgroundMessage(message, sender) {
 
     const log = logger.start(
         ['info', 'onBackgroundMessage'],
-        ...(isSTGMessage ? [`ACTION#${data.action}`] : [sender.id, `RECEIVED-EXTERNAL-ACTION#${data.action}`, data])
+        ...(isSTGMessage ? [`ACTION#${data.action}`] : ['REJECTED-FOREIGN-ACTION', data])
     );
 
     try {
@@ -610,10 +470,6 @@ async function onBackgroundMessage(message, sender) {
         log.log('check action, data:', data);
 
         switch (data.action) {
-            case 'get-groups-list':
-                result.groupsList = groups.map(Groups.mapForExternalExtension);
-                result.ok = true;
-                break;
             case 'load-next-group':
                 result.ok = await Groups.applyByPosition('next', currentWindow.id, notArchivedGroups, currentGroup?.id);
                 break;
@@ -703,7 +559,7 @@ async function onBackgroundMessage(message, sender) {
                             action: 'show-groups-popup',
                             popupAction: 'load-custom-group',
                             popupTitle: Lang('hotkeyActionTitleLoadCustomGroup'),
-                            groups: notArchivedGroups.map(Groups.mapForExternalExtension),
+                            groups: mapGroupsForPage(notArchivedGroups),
                             disableGroupIds: [currentGroup?.id].filter(Boolean),
                         });
 
@@ -729,7 +585,7 @@ async function onBackgroundMessage(message, sender) {
                     const newGroup = await Groups.add(data.windowId, data.tabIds, data.title);
 
                     result.ok = true;
-                    result.group = Groups.mapForExternalExtension(newGroup);
+                    result.group = newGroup;
                 } else {
                     const activeTab = await Tabs.getActive();
                     const {defaultGroupProps} = await Groups.getDefaults();
@@ -784,7 +640,7 @@ async function onBackgroundMessage(message, sender) {
                             action: 'show-groups-popup',
                             popupAction: 'rename-group',
                             popupTitle: Lang('hotkeyActionTitleRenameGroup'),
-                            groups: groups.map(Groups.mapForExternalExtension),
+                            groups: mapGroupsForPage(groups),
                             focusedGroupId: currentGroup?.id,
                             disableNewGroupItem: true,
                         });
@@ -879,7 +735,7 @@ async function onBackgroundMessage(message, sender) {
                             action: 'show-groups-popup',
                             popupAction: 'export-group-to-bookmarks',
                             popupTitle: Lang('exportGroupToBookmarks'),
-                            groups: groups.map(Groups.mapForExternalExtension),
+                            groups: mapGroupsForPage(groups),
                             focusedGroupId: currentGroup?.id,
                             disableNewGroupItem: true,
                         });
@@ -993,7 +849,7 @@ async function onBackgroundMessage(message, sender) {
                             action: 'show-groups-popup',
                             popupAction: data.action,
                             popupTitle: Lang('hotkeyActionTitleMoveSelectedTabsToCustomGroup'),
-                            groups: notArchivedGroups.map(Groups.mapForExternalExtension),
+                            groups: mapGroupsForPage(notArchivedGroups),
                             focusedGroupId: activeTab.groupId,
                         });
 
@@ -1031,7 +887,7 @@ async function onBackgroundMessage(message, sender) {
                                 action: 'show-groups-popup',
                                 popupAction: 'discard-group',
                                 popupTitle: Lang('hotkeyActionTitleDiscardGroup'),
-                                groups: notArchivedGroups.map(Groups.mapForExternalExtension),
+                                groups: mapGroupsForPage(notArchivedGroups),
                                 focusedGroupId: currentGroup?.id,
                                 disableNewGroupItem: true,
                             });
@@ -1082,22 +938,6 @@ async function onBackgroundMessage(message, sender) {
                 result.ok = true;
 
                 break;
-            case 'get-current-group':
-                if (Number.isSafeInteger(data.windowId) && data.windowId > 0) {
-                    let groupId = Cache.getWindowGroup(data.windowId),
-                        group = groups.find(gr => gr.id === groupId);
-
-                    if (group) {
-                        group = Groups.mapForExternalExtension(group);
-                    }
-
-                    result.group = group || null;
-                    result.ok = true;
-                } else {
-                    throw new Error(data.windowId ? 'Invalid window id' : 'windowId is required');
-                }
-
-                break;
             case 'exclude-container-for-group':
                 let group = groups.find(group => group.id === data.groupId);
 
@@ -1139,19 +979,6 @@ async function onBackgroundMessage(message, sender) {
                     result.ok = true;
                 }
 
-                break;
-            case 'start-cloud-sync':
-                if (options.syncEnable) {
-                    const syncResult = await cloudSync({});
-
-                    result.ok = syncResult.ok;
-
-                    if (!syncResult.ok) {
-                        throw objectToNativeError(syncResult);
-                    }
-                } else {
-                    result.error = Lang('syncIsDisabled');
-                }
                 break;
             default:
                 throw new Error(`Action '${data.action}' is wrong`);
@@ -1210,10 +1037,6 @@ async function saveOptions(_options) {
         await resetLocalBackupAlarm();
     }
 
-    if (optionsKeys.some(key => ['syncEnable', 'syncOptionsLocation', 'syncIntervalKey', 'syncIntervalValue'].includes(key))) {
-        await resetSyncAlarm();
-    }
-
     if (optionsKeys.includes('temporaryContainerTitle')) {
         await Containers.updateTemporaryContainerTitle(options.temporaryContainerTitle);
     }
@@ -1234,16 +1057,6 @@ async function resetLocalBackupAlarm() {
         options.autoBackupIntervalKey,
         options.autoBackupIntervalValue,
         storage.autoBackupLastTimeStamp
-    );
-}
-
-async function resetSyncAlarm(useCurrentTimeAsLastRun = false) {
-    await resetAlarm(
-        Cloud.ALARM_NAME,
-        options.syncEnable,
-        options.syncIntervalKey,
-        options.syncIntervalValue,
-        useCurrentTimeAsLastRun ? undefined : storage.autoSyncLastTimeStamp
     );
 }
 
@@ -1303,13 +1116,11 @@ async function createBackup(params = {}, isAutoBackup = false) {
     const pinnedTabs = await Tabs.query({pinned: true}, {withSession: false});
 
     if (pinnedTabs.length) {
-        Extensions.tabsToId(pinnedTabs);
         data.pinnedTabs = Tabs.prepareForSave(pinnedTabs, {includeOpener: false});
     }
 
     data.groups = groups.map(group => {
         if (!group.isArchive) {
-            Extensions.tabsToId(group.tabs);
             group.groupsNative = GroupsNative.referencedGroupsNative(group);
         }
 
@@ -1321,11 +1132,7 @@ async function createBackup(params = {}, isAutoBackup = false) {
     data.containers = Containers.getToExport(data);
 
     if (isAutoBackup) {
-        if (data.autoBackupLocation === Constants.AUTO_BACKUP_LOCATIONS.DOWNLOADS) {
-            await File.saveBackup(data, true);
-        } else {
-            await Host.saveBackup(data);
-        }
+        await File.saveBackup(data, true);
 
         await Bookmarks.exportGroups(data.groups).catch(log.onCatch('cant create bookmarks', false));
 
@@ -1341,16 +1148,11 @@ async function createBackup(params = {}, isAutoBackup = false) {
 
 // data may not be a full backup, but a partial of it
 async function restoreBackup(data, clearAddonDataBeforeRestore = false) {
-    // before any teardown: a separately downloaded gist restored as a backup holds cloud stubs
-    // {id, uploadToCloud: false} without tabs (migration.js header) - they are not groups and are
-    // dropped; anything else without tabs is a broken file, refuse it while nothing is touched yet
-    data.groups = data.groups?.filter(group => {
-        if (group.uploadToCloud === false && !group.tabs) {
-            return false;
-        }
+    normalizeStandaloneOptions(data);
 
+    data.groups = data.groups?.filter(group => {
         if (!group.tabs) {
-            throw new Error(`group "${group.id}" has no tabs and is not a cloud stub`);
+            throw new Error(`group "${group.id}" has no tabs`);
         }
 
         return true;
@@ -1448,10 +1250,6 @@ async function restoreBackup(data, clearAddonDataBeforeRestore = false) {
             }
         }
 
-        if (!newGroup.isArchive) {
-            Extensions.tabsToUUID(newGroup.tabs);
-        }
-
         for (const tab of newGroup.tabs) {
             if (Containers.isDefault(tab.cookieStoreId) || Containers.isTemporary(tab.cookieStoreId)) {
                 continue;
@@ -1462,8 +1260,6 @@ async function restoreBackup(data, clearAddonDataBeforeRestore = false) {
 
         return newGroup;
     });
-
-    const restoredGroupIds = data.groups.map(group => group.id);
 
     data.groups = [...currentData.groups, ...data.groups];
     data.hotkeys = [...currentData.hotkeys, ...data.hotkeys];
@@ -1510,15 +1306,12 @@ async function restoreBackup(data, clearAddonDataBeforeRestore = false) {
     if (Array.isArray(data.pinnedTabs)) {
         const currentPinnedTabs = await Tabs.query({pinned: true}, {withSession: false});
 
-        Extensions.tabsToId(currentPinnedTabs);
-
         data.pinnedTabs = data.pinnedTabs.filter(tab => {
             tab.pinned = true;
             return !currentPinnedTabs.some(t => t.url === tab.url);
         });
 
         if (data.pinnedTabs.length) {
-            Extensions.tabsToUUID(data.pinnedTabs);
             await Tabs.createMultiple(data.pinnedTabs);
         }
     }
@@ -1534,8 +1327,6 @@ async function restoreBackup(data, clearAddonDataBeforeRestore = false) {
     } else {
         result = data;
     }
-
-    NewCloudGroups.add(restoredGroupIds);
 
     await Storage.set(result);
 
@@ -1569,98 +1360,6 @@ async function clearAddon(reloadAddonOnFinish = true) {
         browser.runtime.reload(); // reload addon
     }
 }
-
-async function cloudSync({
-        trigger = Cloud.TRIGGER_MANUAL,
-        trust = null,
-        revision = null,
-    }) {
-    const log = logger.start(cloudSync, {trust, trigger, revision: revision?.slice(0, 7) ?? null});
-
-    let shouldResetSyncAlarm = false;
-
-    if (trigger === Cloud.TRIGGER_MANUAL) {
-        const autoSyncLastTimeStamp = (storage.autoSyncLastTimeStamp ?? 0) * 1000;
-        const EXTENSION_START_TIME = await getExtensionStartTime();
-        shouldResetSyncAlarm = autoSyncLastTimeStamp < EXTENSION_START_TIME;
-    }
-
-    const syncSuccessColor = 'hsl(153, 53%, 53%)'; // --bulma-success
-    const syncDangerColor = 'hsl(348, 100%, 70%)'; // --bulma-danger
-
-    const rawProgressSvg = await fetch('/icons/progress.svg').then(r => r.text());
-
-    function browserActionProgress(progress, color = undefined, enable = null) {
-        const iconSize = 16;
-        const strokeWidth = 2.5;
-        const iconSizeHalf = iconSize / 2;
-        const radius = iconSizeHalf - strokeWidth / 2;
-        const dashoffset = 2 * Math.PI * radius;
-        const offset = dashoffset - (progress / 100) * dashoffset;
-
-        const progressSvg = Utils.format(rawProgressSvg, {color, offset, radius, strokeWidth, iconSize, iconSizeHalf});
-        const progressUrl = Utils.convertSvgToUrl(progressSvg);
-
-        Browser.actionAllWindows({
-            title: Lang('syncProgressTitle', progress),
-            icon: progressUrl,
-            enable,
-        });
-    }
-
-    const actionListeners = new Set();
-    actionListeners.add(Cloud.on('sync-start', () => browserActionProgress(0, undefined, false)));
-    actionListeners.add(Cloud.on('sync-progress', ({progress}) => browserActionProgress(progress)));
-    actionListeners.add(Cloud.on('sync-end', () => browserActionProgress(100, syncSuccessColor, true)));
-    actionListeners.add(Cloud.on('sync-error', ({progress}) => browserActionProgress(progress, syncDangerColor, true)));
-    actionListeners.add(Cloud.on('sync-finish', ({ok}) => {
-        cloudSync.resetTimer = setTimeout(() => Browser.actionLoading(false), ok ? 0 : 5_000);
-    }));
-    clearTimeout(cloudSync.resetTimer);
-
-    const syncResult = await Cloud.synchronization(trust, revision);
-
-    actionListeners.forEach(off => off());
-
-    if (syncResult.inProgress) {
-        log.stopWarn('sync in progress');
-        return syncResult;
-    }
-
-    if (await Cloud.shouldShowSyncErrorNotification(syncResult, trigger)) {
-        Notification(objectToNativeError(syncResult), {
-            id: Cloud.ERROR_NOTIFICATION_ID,
-            module: ['tabs', 'createUrlOnce', Constants.PAGES.SETTINGS + '#backup/sync'],
-            expires: trigger === Cloud.TRIGGER_MANUAL ? undefined : Cloud.RETRY_DELAY_MINUTES * 60,
-        });
-    }
-
-    const retryDelayInMinutes = await Cloud.getSyncRetryDelayInMinutes(syncResult, trigger);
-
-    if (retryDelayInMinutes) {
-        await browser.alarms.create(Cloud.ALARM_NAME_RETRY, {
-            delayInMinutes: retryDelayInMinutes,
-        });
-    } else {
-        await browser.alarms.clear(Cloud.ALARM_NAME_RETRY);
-    }
-
-    if (shouldResetSyncAlarm) {
-        // use current time as last run to prevent situation when user do MANUAL sync, then auto sync will run immediately because last run time is before extension start time
-        await resetSyncAlarm(true);
-    }
-
-    if (syncResult.ok) {
-        log.stop(syncResult);
-    } else {
-        log.stopError(syncResult);
-    }
-
-    return syncResult;
-}
-
-self.sendExternalMessage = sendExternalMessage;
-
 
 self.addListenerOnBeforeRequest = addListenerOnBeforeRequest;
 self.removeListenerOnBeforeRequest = removeListenerOnBeforeRequest;
@@ -1705,26 +1404,11 @@ async function init() {
 
         Utils.assignKeys(options, data, Constants.ALL_OPTION_KEYS);
 
-        NewCloudGroups.keepOnly(data.groups.map(group => group.id));
-
         if (await BrowserSettings.hasPermission()) {
             await BrowserSettings.set(options.browserSettings);
         }
 
         dataChanged.add(Groups.normalizeContainersInGroups(data.groups));
-
-        if (data.autoBackupLocation === Constants.AUTO_BACKUP_LOCATIONS.HOST) {
-            if (Constants.IS_WINDOWS && await Host.hasPermission()) {
-                Host.checkVersion().catch(e => {
-                    Notification(e, {
-                        module: ['browser', 'tabs.create', {url: Constants.HOST.DOWNLOAD_URL}],
-                    });
-                });
-            } else {
-                data.autoBackupLocation = Constants.AUTO_BACKUP_LOCATIONS.DOWNLOADS;
-                dataChanged.add(true);
-            }
-        }
 
         if (dataChanged.has(true)) {
             log.log('data was changed, saving data');
@@ -1800,7 +1484,6 @@ async function init() {
         sendMessageFromBackground('i-am-back');
 
         // send message for addon plugins
-        sendExternalMessage('i-am-back');
 
         log.log('loading groups for creating cache...');
         await Groups.load(null, true, {includeFavIconUrl: true}); // load favIconUrls, speed up first run popup

@@ -133,7 +133,6 @@ Permissions used:
 * **<all_urls>(Access your data for all websites)**: for tab thumbnails and catch/move/reopen tabs in needed containers/groups
 * **webRequest** & **webRequestBlocking**: for catch/move/reopen tabs in needed containers/groups</li>
 * **(optional) bookmarks**: access for create bookmarks
-* **(optional) nativeMessaging**: Used for [STGHost](host) to create backups in any folder (Windows only)
 
 ## License and Credits
 

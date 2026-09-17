@@ -42,7 +42,6 @@
 
     "optional_permissions": [
         "bookmarks",
-        "nativeMessaging",
         "browserSettings"
     ],
 
@@ -155,9 +154,6 @@
         },
         "create-backup": {
             "description": "__MSG_exportAddonSettingsButton__"
-        },
-        "start-cloud-sync": {
-            "description": "__MSG_syncStart__"
         }
     }
 

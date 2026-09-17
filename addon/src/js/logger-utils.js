@@ -25,7 +25,6 @@ const DELETE_STACK_LINE_STARTS_WITH = [
     'PageStack',
     'setLoggerFuncs',
     'sendMessage',
-    'sendExternalMessage',
     'getArgumentsModuleCall',
     'catchFunc',
 ];

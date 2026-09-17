@@ -3,12 +3,10 @@ import '/js/prefixed-storage.js';
 import Lang from '/js/lang.js';
 import JSON from '/js/json.js';
 import * as Constants from '/js/constants.js';
-import * as Extensions from '/js/extensions.js';
 import * as Utils from '/js/utils.js';
 import * as Cache from '/js/cache.js';
 import * as Tabs from '/js/tabs.js';
 import * as Windows from '/js/windows.js';
-import * as Messages from '/js/messages.js';
 
 const storage = localStorage.create(Constants.MODULES.BACKGROUND);
 
@@ -166,7 +164,6 @@ export default [{
             discardTabsAfterHide: false,
             discardExcludeAudioTabs: false,
             prependTitleToWindow: false,
-            uploadToCloud: true,
             exportToBookmarks: true,
             newTabContainer: Constants.DEFAULT_COOKIE_STORE_ID,
             ifDifferentContainerReOpen: false,
@@ -265,10 +262,6 @@ export default [{
             if (Object.hasOwn(group, 'exportToBookmarksWhenAutoBackup')) {
                 group.exportToBookmarks = group.exportToBookmarksWhenAutoBackup;
                 delete group.exportToBookmarksWhenAutoBackup;
-            }
-
-            if (group.isArchive) {
-                Extensions.tabsToId(group.tabs);
             }
 
             for (const key in exampleGroup) {
@@ -595,53 +588,6 @@ export default [{
                 }
             }));
 
-            // migrate STG addons
-            const STG_GROUP_NOTES_ID = 'stg-plugin-group-notes@drive4ik';
-            const result = await Messages.sendExternalMessage(STG_GROUP_NOTES_ID, {
-                action: 'get-backup',
-            });
-
-            if (result?.backup) {
-                const backupData = {};
-                const keyStart = 'group-';
-                let hasOldKeys = false;
-
-                for (const [key, value] of Object.entries(result.backup)) {
-                    let groupId;
-
-                    if (Number(key) == key) {
-                        groupId = Number(key);
-                    } else if (key.startsWith(keyStart)) {
-                        const keyPart = key.slice(keyStart.length);
-
-                        if (!Utils.isUUID(keyPart)) {
-                            groupId = Number(keyPart);
-                        }
-                    }
-
-                    // set-backup replaces the WHOLE plugin storage - unknown keys (plugin
-                    // options, notes already keyed by UUID) must survive the round trip
-                    if (groupId === undefined) {
-                        backupData[key] = value;
-                        continue;
-                    }
-
-                    hasOldKeys = true;
-
-                    const newGroupId = getNewGroupId(groupId);
-
-                    if (newGroupId) {
-                        backupData[`${keyStart}${newGroupId}`] = value;
-                    }
-                }
-
-                if (hasOldKeys) {
-                    await Messages.sendExternalMessage(STG_GROUP_NOTES_ID, {
-                        action: 'set-backup',
-                        backup: backupData,
-                    });
-                }
-            }
         }
 
         // migrate backup folder to file path

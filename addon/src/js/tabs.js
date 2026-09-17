@@ -19,7 +19,6 @@ import * as Constants from './constants.js';
 import * as Utils from './utils.js';
 import * as Cache from './cache.js';
 import * as Containers from './containers.js';
-import * as Extensions from './extensions.js';
 import * as Groups from './groups.js';
 import * as GroupsNative from './groups-native.js';
 import * as Operations from './operations.js';
@@ -27,6 +26,8 @@ import * as Windows from './windows.js';
 import * as ConstantsBrowser from './constants-browser.js';
 import * as Storage from './storage.js';
 import * as BrowserSettings from './browser-settings.js';
+import {collectSavedOpenerLinks} from './opener-links.js';
+import {isTreeStyleTabEnabled} from './tree-style-tab.js';
 
 export {on, off} from './broadcast.js?channel=tabs';
 
@@ -571,17 +572,7 @@ export async function create({url, active, pinned, title, index, windowId, opene
         }
 
         if (Utils.isUrlAllowToCreate(url)) {
-            if (url.startsWith('moz-extension')) {
-                const uuid = Extensions.extractUUID(url);
-
-                if (Utils.isUUID(uuid)) {
-                    tab.url = url;
-                } else {
-                    tab.url = createUnsupportedUrlPage(url);
-                }
-            } else {
-                tab.url = url;
-            }
+            tab.url = url;
         } else if (url !== 'about:newtab') {
             tab.url = createUnsupportedUrlPage(url);
         }
@@ -872,15 +863,8 @@ every live tab gets its saved opener, without comparing with the current one: th
 and re-applying the link a tab already has is a no-op for a tree extension (docs/OPENER-BEHAVIOR.md T5); a link is never removed
 */
 export async function applyOpeners(savedTabs, aligned) {
-    const links = [];
-
-    for (const [tab, opener] of getOpenersByOffset(savedTabs, aligned)) {
-        if (opener && opener.id !== tab.id && opener.windowId === tab.windowId) {
-            links.push([tab.id, opener.id]);
-        }
-    }
-
-    await setOpeners(links);
+    if (!await isTreeStyleTabEnabled()) return;
+    await setOpeners(collectSavedOpenerLinks(savedTabs, aligned));
 }
 
 async function queryLiveMembers(windowIds) {

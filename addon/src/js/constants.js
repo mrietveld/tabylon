@@ -90,9 +90,6 @@ export const PERMISSIONS = Object.freeze({
     BOOKMARKS: {
         permissions: ['bookmarks'],
     },
-    NATIVE_MESSAGING: {
-        permissions: ['nativeMessaging'],
-    },
     BROWSER_SETTINGS: {
         permissions: ['browserSettings'],
     },
@@ -111,7 +108,6 @@ export const BROWSER_SETTINGS_SCHEME = Object.freeze({
 
 export const AUTO_BACKUP_LOCATIONS = Object.freeze({
     DOWNLOADS: 'downloads',
-    HOST: 'host',
 });
 
 const GROUP_ICON_VIEW_TYPES = {
@@ -190,14 +186,6 @@ export const POPUP_SETTINGS_MENU_ITEMS = Object.freeze([
     }, {
         key: 'hr',
     }, {
-        key: 'syncCloudOptions',
-        sendMessage: ['open-options-page', {
-            section: 'backup/sync',
-        }],
-        title: 'githubGistCloudSettingsTitle',
-        icon: 'settings',
-        closePopup: true,
-    }, {
         key: 'hr',
     }, {
         key: 'aboutAddon',
@@ -244,7 +232,7 @@ export const CONFLICTED_EXTENSIONS = Object.freeze([
     'Tab-Session-Manager@sienori', // https://addons.mozilla.org/firefox/addon/tab-session-manager/
 ]);
 
-export const EXTENSIONS_WHITE_LIST = Object.freeze({
+const removedIntegrationMetadata = Object.freeze({
     'stg-plugin-create-new-group@drive4ik': {
         id: 932675,
         title: 'Create new group',
@@ -399,7 +387,6 @@ export const EXTENSIONS_WHITE_LIST = Object.freeze({
 });
 
 export const SAFE_EXTENSIONS_FOR_REOPEN_TAB_IN_CONTAINER = Object.freeze([
-    ...Object.keys(EXTENSIONS_WHITE_LIST).filter(extId => extId.endsWith('@drive4ik')),
 
     'newtaboverride@agenedia.com', // https://addons.mozilla.org/firefox/addon/new-tab-override/
     'extension@tabliss.io', // https://addons.mozilla.org/firefox/addon/tabliss/
@@ -439,28 +426,6 @@ export const DONATE_ITEMS = Object.freeze({
         hasHelp: true,
     },
 });
-
-export const GIT_GIST_FILE_NAME_PARTS = Object.freeze({
-    start: 'STG-',
-    end: '.json',
-});
-
-export const DEFAULT_SYNC_OPTIONS = Object.freeze({
-    githubGistToken: '',
-    githubGistFileName: GIT_GIST_FILE_NAME_PARTS.start + 'backup' + GIT_GIST_FILE_NAME_PARTS.end,
-});
-
-const BROWSER_HAS_FSYNC = [
-    'Firefox Mozilla',
-    'Zen Mozilla',
-    'Floorp Mozilla',
-    'Waterfox WaterfoxLimited',
-    'r3dfox ESR Eclipse Community',
-].includes(BROWSER_FULL_NAME);
-
-export const IS_AVAILABLE_SYNC_STORAGE = browser.storage.sync instanceof Object && BROWSER_HAS_FSYNC;
-export const SYNC_STORAGE_FSYNC = 'ff-sync';
-export const SYNC_STORAGE_LOCAL = 'local';
 
 export const DEFAULT_OPTIONS = Object.freeze({
     groups: [],
@@ -518,12 +483,6 @@ export const DEFAULT_OPTIONS = Object.freeze({
     autoBackupFilePath: 'STG-backups-FF-{ff-version}/STG-backup {date-full} {time-short}',
     autoBackupIncludeTabThumbnails: true,
     autoBackupIncludeTabFavIcons: true,
-
-    syncEnable: true,
-    syncOptionsLocation: IS_AVAILABLE_SYNC_STORAGE ? SYNC_STORAGE_FSYNC : SYNC_STORAGE_LOCAL,
-    syncIntervalKey: INTERVAL_KEY.days, // hours, days
-    syncIntervalValue: 1,
-    syncTabFavIcons: false,
 
     colorScheme: 'auto', // auto, light, dark
 

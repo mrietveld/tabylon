@@ -4,10 +4,8 @@ import Vue from 'vue';
 import popup from '../components/popup.vue';
 import editGroup from '../components/edit-group.vue';
 import manageAddonBackup from './manage-addon-backup.vue';
-import githubGist from './github-gist.vue';
 // import contextMenu from '../components/context-menu.vue';
 import backupLocationDownloads from './backup-location-downloads.vue';
-import backupLocationHost from './backup-location-host.vue';
 
 import '/js/prefixed-storage.js';
 import * as Constants from '/js/constants.js';
@@ -15,13 +13,10 @@ import Logger, {errorEventHandler} from '/js/logger.js';
 import Notification from '/js/notification.js';
 import Lang from '/js/lang.js?translate-page';
 import * as Utils from '/js/utils.js';
-import * as Extensions from '/js/extensions.js';
 // import * as Containers from '/js/containers.js';
 import * as Bookmarks from '/js/bookmarks.js';
 import * as Storage from '/js/storage.js';
-import * as Cloud from '/js/sync/cloud/cloud.js';
 import * as File from '/js/file.js';
-import * as Host from '/js/host.js';
 import * as Groups from '/js/groups.js';
 import * as Permissions from '/js/permissions.js';
 import * as BrowserSettings from '/js/browser-settings.js';
@@ -71,10 +66,6 @@ export default {
         this.HOTKEY_ACTIONS_WITH_CUSTOM_GROUP = Constants.HOTKEY_ACTIONS_WITH_CUSTOM_GROUP;
         this.INTERVAL_KEY = Constants.INTERVAL_KEY;
 
-        this.PLUGINS = Object.fromEntries(
-            Object.entries(Constants.EXTENSIONS_WHITE_LIST).filter(([id]) => id.startsWith('stg'))
-        );
-
         this.BROWSER_SETTINGS_SCHEME = Constants.BROWSER_SETTINGS_SCHEME;
 
         this.DONATE_ITEMS = Constants.DONATE_ITEMS;
@@ -93,7 +84,6 @@ export default {
                 ...Constants.ONLY_BOOL_OPTION_KEYS,
                 'defaultBookmarksParent',
                 'autoBackupIntervalKey',
-                'syncIntervalKey',
                 'colorScheme',
                 'contextMenuTab',
                 'contextMenuGroup',
@@ -187,15 +177,11 @@ export default {
 
             permissions: {
                 bookmarks: false,
-                nativeMessaging: false,
                 browserSettings: false,
             },
 
             lastAutoBackup: null,
 
-            hasHost: false,
-            loadingRestoreLastHostBackup: false,
-            restoreLastBackupProgress: 0,
 
             defaultBookmarksParents: [],
             browserSettingsNotControllable: {},
@@ -209,10 +195,8 @@ export default {
         popup: popup,
         'edit-group': editGroup,
         'manage-addon-backup': manageAddonBackup,
-        'github-gist': githubGist,
         // 'context-menu': contextMenu,
         'backup-location-downloads': backupLocationDownloads,
-        'backup-location-host': backupLocationHost,
     },
     created() {
         window.$vm = this;
@@ -232,12 +216,6 @@ export default {
         window.addEventListener('focus', () => this.initLastUpdateBackups(), false);
         window.addEventListener('hashchange', () => this.hashChanged());
 
-        Cloud.on('sync-end', ({changes}) => {
-            if (changes.local) {
-                this.optionsReload();
-                this.loadGroups();
-            }
-        });
     },
     beforeDestroy() {
         this.groupsOffListeners.forEach(off => off());
@@ -258,14 +236,6 @@ export default {
     },
     methods: {
         addCustomWatchers() {
-            this.optionsWatch('autoBackupLocation', value => {
-                if (value === this.AUTO_BACKUP_LOCATIONS.HOST) {
-                    this.loadNativeMessagingPermissions();
-                }
-
-                return value;
-            });
-
             this.optionsWatch('browserSettings', async browserSettings => {
                 if (await BrowserSettings.hasPermission()) {
                     const rawSettings = await BrowserSettings.set(browserSettings);
@@ -276,7 +246,6 @@ export default {
 
             this.optionsWatch('autoBackupIntervalValue', value => Utils.clamp(value, 1, 50));
 
-            this.optionsWatch('syncIntervalValue', value => Utils.clamp(value, 1, 50));
 
             this.optionsWatch('temporaryContainerTitle', value => value || undefined);
 
@@ -647,34 +616,6 @@ export default {
             this.setManageAddonSettings(data, title, true);
         },
 
-        async tryRestoreLastHostBackup() {
-            try {
-                this.loadingRestoreLastHostBackup = true;
-
-                let data;
-                const response = await Host.getLastBackup(progress => this.restoreLastBackupProgress = progress);
-
-                const resultMigrate = await Migration(response.data);
-
-                if (resultMigrate.migrated) {
-                    data = resultMigrate.data;
-                } else if (resultMigrate.error) {
-                    Notification(resultMigrate.error);
-                    return;
-                } else {
-                    data = response.data;
-                }
-
-                const title = this.lang('importAddonSettingsTitle') + ': ' + response.relativeFilePath;
-                this.setManageAddonSettings(data, title, false, true);
-            } catch (e) {
-                Notification(e);
-            } finally {
-                this.loadingRestoreLastHostBackup = false;
-                this.restoreLastBackupProgress = 0;
-            }
-        },
-
         runClearAddonConfirm() {
             this.showClearAddonConfirmPopup = false;
             this.showLoadingMessage = true;
@@ -691,10 +632,6 @@ export default {
 
         loadPermissions() {
             this.loadBookmarksPermissions();
-
-            if (this.IS_WINDOWS) {
-                this.loadNativeMessagingPermissions();
-            }
 
             this.loadBrowserSettingsPermissions();
         },
@@ -713,19 +650,6 @@ export default {
 
             if (this.permissions.bookmarks) {
                 this.defaultBookmarksParents = await Bookmarks.get(Constants.DEFAULT_BOOKMARKS_PARENTS);
-            }
-        },
-
-        async loadNativeMessagingPermissions() {
-            this.permissions.nativeMessaging = await Host.hasPermission();
-        },
-
-        async setPermissionsNativeMessaging(event) {
-            if (event.target.checked) {
-                this.permissions.nativeMessaging = event.target.checked = await Host.requestPermission();
-            } else {
-                await Host.removePermission();
-                this.permissions.nativeMessaging = false;
             }
         },
 
@@ -769,16 +693,6 @@ export default {
             navigator.clipboard.writeText(content);
         },
 
-        isInstalledExtension(id) {
-            return Extensions.isInstalled(id);
-        },
-        isEnabledExtension(id) {
-            return Extensions.isEnabled(id);
-        },
-        getPluginIcon(id) {
-            const firstPart = String(id).slice(0, -3);
-            return `https://addons.mozilla.org/user-media/addon_icons/${firstPart}/${id}-64.png`;
-        },
     },
 }
 </script>
@@ -1263,83 +1177,7 @@ export default {
                     </div>
                 </div>
 
-                <template v-if="IS_WINDOWS">
-                    <div class="field is-horizontal">
-                        <div class="field-label is-normal">
-                            <label class="label colon" v-text="lang('backupLocation')"></label>
-                        </div>
-                        <div class="field-body py-2">
-                            <div class="radios">
-                                <label class="radio">
-                                    <input type="radio" :value="AUTO_BACKUP_LOCATIONS.DOWNLOADS" v-model="options.autoBackupLocation" />
-                                    <span v-text="lang('downloadsFolder')"></span>
-                                </label>
-                                <label class="radio" :disabled="!permissions.nativeMessaging">
-                                    <input type="radio" :value="AUTO_BACKUP_LOCATIONS.HOST" v-model="options.autoBackupLocation" :disabled="!permissions.nativeMessaging" />
-                                    <span v-text="lang('otherFolder')"></span>
-                                </label>
-                                <label class="checkbox">
-                                    <input :checked="permissions.nativeMessaging" @click="setPermissionsNativeMessaging" type="checkbox" />
-                                    <span v-text="lang('allowAccessToNativeMessaging')"></span>
-                                </label>
-                            </div>
-                        </div>
-                    </div>
-
-                    <backup-location-downloads
-                        v-if="options.autoBackupLocation === AUTO_BACKUP_LOCATIONS.DOWNLOADS"
-                        ></backup-location-downloads>
-
-                    <backup-location-host
-                        v-else-if="options.autoBackupLocation === AUTO_BACKUP_LOCATIONS.HOST"
-                        @has="value => hasHost = value"
-                        ></backup-location-host>
-                </template>
-
-                <backup-location-downloads v-else></backup-location-downloads>
-            </template>
-        </div>
-
-        <hr>
-
-        <div id="sync-block" class="field">
-            <div class="field">
-                <label class="checkbox">
-                    <input v-model="options.syncEnable" type="checkbox" />
-                    <span v-text="lang('syncEnableTitle')"></span>
-                </label>
-            </div>
-
-            <template v-if="options.syncEnable">
-                <div class="field">
-                    <label class="checkbox">
-                        <input v-model="options.syncTabFavIcons" type="checkbox" />
-                        <span v-text="lang('includeTabFavIconsIntoBackup')"></span>
-                    </label>
-                </div>
-
-                <div class="field is-horizontal">
-                    <div class="field-label is-normal">
-                        <label class="label colon" v-text="lang('autoBackupCreateEveryTitle')"></label>
-                    </div>
-                    <div class="field-body">
-                        <div class="field has-addons">
-                            <div class="control is-expanded">
-                                <input type="number" class="input" v-model.lazy.number="options.syncIntervalValue" min="1" max="50" />
-                            </div>
-                            <div class="control">
-                                <div class="select">
-                                <select v-model="options.syncIntervalKey">
-                                    <option :value="INTERVAL_KEY.hours" v-text="lang('intervalKeyHours')"></option>
-                                    <option :value="INTERVAL_KEY.days" v-text="lang('intervalKeyDays')"></option>
-                                </select>
-                            </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <github-gist></github-gist>
+                <backup-location-downloads></backup-location-downloads>
             </template>
         </div>
 
@@ -1357,25 +1195,6 @@ export default {
                             </figure>
                         </span>
                         <span v-text="lang('restoreBackup')"></span>
-                    </button>
-                    <button
-                        v-if="IS_WINDOWS && permissions.nativeMessaging && hasHost"
-                        @click="tryRestoreLastHostBackup"
-                        class="button is-info is-soft"
-                        :class="{'is-loading': loadingRestoreLastHostBackup}"
-                        >
-                        <span class="icon">
-                            <figure class="image is-16x16">
-                                <img src="/icons/icon.svg" />
-                            </figure>
-                        </span>
-                        <span v-text="lang('restoreLastBackup')"></span>
-                        <span v-if="loadingRestoreLastHostBackup" class="icon">
-                            <div class="circle-progress" :style="{
-                                    '--progress-percent': `${restoreLastBackupProgress}%`,
-                                }"
-                                ></div>
-                        </span>
                     </button>
                 </div>
             </div>

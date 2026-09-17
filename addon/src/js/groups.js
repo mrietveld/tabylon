@@ -11,7 +11,6 @@ import Lang from '/js/lang.js';
 import * as Containers from './containers.js';
 import * as Browser from './browser.js';
 import * as Bookmarks from './bookmarks.js';
-import * as Extensions from './extensions.js';
 import * as Menus from './menus.js';
 import * as MenusMain from './menus-main.js';
 // import * as Messages from './messages.js';
@@ -21,7 +20,6 @@ import * as GroupsNative from './groups-native.js';
 import * as Operations from './operations.js';
 import * as Windows from './windows.js';
 import * as Utils from './utils.js';
-import * as NewCloudGroups from './sync/new-cloud-groups.js';
 import GroupsHistory from './groups-history.js';
 
 export {on, off} from './broadcast.js?channel=groups';
@@ -440,7 +438,6 @@ export function create(id, title, defaultGroupProps = {}) {
         discardTabsAfterHide: false,
         discardExcludeAudioTabs: false,
         prependTitleToWindow: false,
-        uploadToCloud: true,
         exportToBookmarks: true,
         newTabContainer: Constants.DEFAULT_COOKIE_STORE_ID,
         ifDifferentContainerReOpen: false,
@@ -530,7 +527,6 @@ async function addNow(windowId, tabIds = [], title = null) {
 
         newGroup.title = Utils.format(newGroup.title, {index: groups.length});
 
-        NewCloudGroups.add(newGroup.id);
 
         await saveNow(groups);
 
@@ -656,7 +652,6 @@ function removeRefs(group, groups, defaultGroupProps) {
 async function removeFinish(group) {
     const log = logger.start(removeFinish, group.id);
 
-    NewCloudGroups.remove(group.id);
 
     await MenusMain.groupRemoved(group).catch(log.onCatch('cant remove menus', false));
 
@@ -731,7 +726,6 @@ async function restoreNow(groupId) {
 
         normalizeContainersInGroups(groups);
 
-        NewCloudGroups.add(group.id);
 
         await saveNow(groups);
     });
@@ -790,10 +784,6 @@ async function updateNow(groupId, updateData) {
         const {defaultGroupProps} = await getDefaults();
         updateData.title = createTitle(updateData.title, groupId, defaultGroupProps).slice(0, 256);
         updateData.title = Utils.format(updateData.title, {index: groupIndex + 1});
-    }
-
-    if (!group.uploadToCloud && updateData.uploadToCloud === true) {
-        NewCloudGroups.add(group.id);
     }
 
     Object.assign(group, updateData);
@@ -1040,15 +1030,11 @@ async function archiveToggleNow(groupId) {
         if (group.isArchive) {
             group.isArchive = false;
 
-            Extensions.tabsToUUID(group.tabs);
-
             savedTabs = group.tabs;
             creation = await Tabs.createMultiple(setNewTabsParams(savedTabs, group), {hideUnloaded: false});
 
             group.tabs = [];
         } else {
-            Extensions.tabsToId(group.tabs);
-
             tabsToRemove = group.tabs;
 
             group.isArchive = true;
@@ -1102,18 +1088,6 @@ export async function removeArchivedGroupsTabs(groups) {
     await Tabs.remove(tabsToRemove);
 
     log.stop();
-}
-
-export function mapForExternalExtension(group) {
-    return {
-        id: group.id,
-        title: getTitle(group),
-        isArchive: group.isArchive,
-        isSticky: group.isSticky,
-        iconUrl: getIconUrl(group),
-        contextualIdentity: Containers.get(group.newTabContainer),
-        windowId: Cache.getWindowId(group.id) || null,
-    };
 }
 
 export function getContainerParams({newTabContainer, ifDifferentContainerReOpen, excludeContainersForReOpen}) {

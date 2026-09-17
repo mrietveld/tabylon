@@ -23,14 +23,6 @@ export async function sendMessage(...args) {
         .catch(self.logger?.onCatch(['sendMessage', message]));
 }
 
-export function sendExternalMessage(exId, ...args) {
-    const message = normalizeSendData(...args);
-
-    self.logger?.info('sending', `SEND-EXTERNAL-MESSAGE#${message.action}`, 'to:', exId);
-
-    return browser.runtime.sendMessage(exId, message).catch(() => {});
-}
-
 // MODULES
 function getArgumentsModuleCall(ModuleFunc, ...args) {
     return [
