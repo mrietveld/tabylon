@@ -1,5 +1,7 @@
 
+# IDEs
 .vscode/
+.idea/
 
 node_modules/
 package-lock.json
@@ -9,3 +11,7 @@ CLAUDE.md
 !/README.md
 /.claude/*.local.json
 /sandbox/
+
+# Filesystems
+.DS_Store
+
