@@ -15,6 +15,46 @@
         "message": "Settings",
         "description": "Settings context button title"
     },
+    "smartOrganize": {
+        "message": "Smart organize",
+        "description": "Open the Smart Organizer from the popup"
+    },
+    "organizerTitle": {
+        "message": "Smart Organizer",
+        "description": "Smart Organizer settings tab title"
+    },
+    "organizerServiceUrl": {
+        "message": "Organizer service URL",
+        "description": "Smart Organizer service URL setting"
+    },
+    "organizerMinimumGroupSize": {
+        "message": "Minimum group size",
+        "description": "Minimum number of tabs in a Smart Organizer suggestion"
+    },
+    "organizerDefaultScope": {
+        "message": "Default scope",
+        "description": "Default set of tabs used by Smart Organizer"
+    },
+    "organizerScopeUngroupedCurrentWindow": {
+        "message": "Ungrouped tabs in the current window",
+        "description": "Smart Organizer scope for ungrouped tabs in the current window"
+    },
+    "organizerScopeCurrentGroup": {
+        "message": "Current group",
+        "description": "Smart Organizer scope for the active Simple Tab Groups group"
+    },
+    "organizerScopeSelected": {
+        "message": "Selected tabs",
+        "description": "Smart Organizer scope for selected tabs"
+    },
+    "organizerScopeAll": {
+        "message": "All eligible tabs",
+        "description": "Smart Organizer scope for all eligible browser tabs"
+    },
+    "organizerPrivacy": {
+        "message": "Smart Organizer sends tab titles and URLs to the configured service to generate grouping suggestions.",
+        "description": "Privacy disclosure for Smart Organizer"
+    },
     "settingsMenu": {
         "message": "Settings menu",
         "description": "Settings menu title"

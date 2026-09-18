@@ -1,4 +1,5 @@
 import * as Messages from '/js/messages.js';
+import * as Constants from '/js/constants.js';
 import Logger from '/js/logger.js';
 import * as Utils from '/js/utils.js';
 
@@ -34,6 +35,13 @@ export default {
         },
         openManageGroups() {
             this.sendMessage('open-manage-groups');
+            this.closeWindow?.();
+        },
+        openOrganizer(tabIds = []) {
+            const selectedTabIds = tabIds.filter(Number.isSafeInteger);
+            const query = selectedTabIds.length ? `?scope=selected&tabId=${selectedTabIds.join(',')}` : '';
+
+            browser.tabs.create({url: Constants.PAGES.ORGANIZE + query});
             this.closeWindow?.();
         },
         openOptionsPage(section) {

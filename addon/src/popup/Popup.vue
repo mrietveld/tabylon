@@ -1110,6 +1110,12 @@ export default {
             </figure>
             <span v-text="lang('manageGroupsTitle')"></span>
         </div>
+        <div tabindex="0" class="is-flex-grow-1 organizer" @click="openOrganizer(multipleTabIds)" @keydown.enter="openOrganizer(multipleTabIds)" :title="lang('smartOrganize')">
+            <figure class="image is-16x16">
+                <img src="/icons/sparkles.svg" />
+            </figure>
+            <span v-text="lang('smartOrganize')"></span>
+        </div>
         <div
             tabindex="0"
             class="settings"
@@ -1350,7 +1356,7 @@ html {
             gap: var(--gap-indent);
             position: relative;
 
-            &:not(.manage-groups) {
+            &:not(.manage-groups):not(.organizer) {
                 width: var(--footer-height);
                 justify-content: center;
             }

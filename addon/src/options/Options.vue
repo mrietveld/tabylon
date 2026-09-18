@@ -35,6 +35,7 @@ Vue.mixin(globalMixin);
 
 const SECTION_GENERAL = 'general';
 const SECTION_HOTKEYS = 'hotkeys';
+const SECTION_ORGANIZER = 'organizer';
 const SECTION_BACKUP = 'backup';
 const SECTION_ABOUT = 'about';
 
@@ -43,7 +44,7 @@ const HASH = {
         return self.location.hash.slice(1).split('/').filter(Boolean);
     },
     get section() {
-        return [SECTION_GENERAL, SECTION_HOTKEYS, SECTION_BACKUP, SECTION_ABOUT].includes(this.parts[0])
+        return [SECTION_GENERAL, SECTION_HOTKEYS, SECTION_ORGANIZER, SECTION_BACKUP, SECTION_ABOUT].includes(this.parts[0])
             ? this.parts[0]
             : SECTION_GENERAL;
     },
@@ -72,6 +73,7 @@ export default {
 
         this.SECTION_GENERAL = SECTION_GENERAL;
         this.SECTION_HOTKEYS = SECTION_HOTKEYS;
+        this.SECTION_ORGANIZER = SECTION_ORGANIZER;
         this.SECTION_BACKUP = SECTION_BACKUP;
         this.SECTION_ABOUT = SECTION_ABOUT;
 
@@ -85,6 +87,9 @@ export default {
                 'defaultBookmarksParent',
                 'autoBackupIntervalKey',
                 'colorScheme',
+                'organizerServiceUrl',
+                'organizerMinimumGroupSize',
+                'organizerDefaultScope',
                 'contextMenuTab',
                 'contextMenuGroup',
             ],
@@ -245,6 +250,7 @@ export default {
             }, {deep: true});
 
             this.optionsWatch('autoBackupIntervalValue', value => Utils.clamp(value, 1, 50));
+            this.optionsWatch('organizerMinimumGroupSize', value => Utils.clamp(value, 2, 500));
 
 
             this.optionsWatch('temporaryContainerTitle', value => value || undefined);
@@ -721,6 +727,16 @@ export default {
                     <span v-text="lang('hotkeysTitle')"></span>
                 </a>
             </li>
+            <li :class="{'is-active': section === SECTION_ORGANIZER}">
+                <a @click="section = SECTION_ORGANIZER" @keydown.enter="section = SECTION_ORGANIZER" tabindex="0">
+                    <span class="icon">
+                        <figure class="image is-16x16">
+                            <img src="/icons/sparkles.svg" />
+                        </figure>
+                    </span>
+                    <span v-text="lang('organizerTitle')"></span>
+                </a>
+            </li>
             <li :class="{'is-active': section === SECTION_BACKUP}">
                 <a @click="section = SECTION_BACKUP" @keydown.enter="section = SECTION_BACKUP" tabindex="0">
                     <span class="icon">
@@ -1011,6 +1027,56 @@ export default {
         <div id="debug-block">
             <button class="button is-warning is-soft" @click="openDebugPage" v-text="lang('helpPageStgDebugTitle')"></button>
         </div>
+    </div>
+
+    <div v-show="section === SECTION_ORGANIZER">
+        <div class="field is-horizontal">
+            <div class="field-label is-normal">
+                <label class="label colon" v-text="lang('organizerServiceUrl')"></label>
+            </div>
+            <div class="field-body">
+                <div class="field is-expanded">
+                    <div class="control">
+                        <input v-model.lazy.trim="options.organizerServiceUrl" class="input" type="url" autocomplete="url" placeholder="http://127.0.0.1:5050" />
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="field is-horizontal">
+            <div class="field-label is-normal">
+                <label class="label colon" v-text="lang('organizerMinimumGroupSize')"></label>
+            </div>
+            <div class="field-body">
+                <div class="field">
+                    <div class="control">
+                        <input v-model.lazy.number="options.organizerMinimumGroupSize" type="number" class="input" min="2" max="500" />
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="field is-horizontal">
+            <div class="field-label is-normal">
+                <label class="label colon" v-text="lang('organizerDefaultScope')"></label>
+            </div>
+            <div class="field-body">
+                <div class="field">
+                    <div class="control">
+                        <div class="select">
+                            <select v-model="options.organizerDefaultScope">
+                                <option value="ungrouped-current-window" v-text="lang('organizerScopeUngroupedCurrentWindow')"></option>
+                                <option value="current-group" v-text="lang('organizerScopeCurrentGroup')"></option>
+                                <option value="selected" v-text="lang('organizerScopeSelected')"></option>
+                                <option value="all" v-text="lang('organizerScopeAll')"></option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <p class="help" v-text="lang('organizerPrivacy')"></p>
     </div>
 
     <div v-show="section === SECTION_HOTKEYS">
