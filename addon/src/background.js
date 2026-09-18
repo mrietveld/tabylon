@@ -50,6 +50,7 @@ import * as Bookmarks from '/js/bookmarks.js';
 import * as Permissions from '/js/permissions.js';
 import * as BrowserSettings from '/js/browser-settings.js';
 import {normalizeStandaloneOptions} from '/js/standalone-normalization.js';
+import {createOrganizerWorkflow} from '/js/organizer/index.js';
 
 const storage = localStorage.create(Constants.MODULES.BACKGROUND);
 
@@ -74,6 +75,14 @@ self.loggerFuncs = {
 };
 
 const options = self.options = {};
+
+const Organizer = createOrganizerWorkflow({
+    getOptions: () => options,
+    getTabs: () => browser.tabs.query({}),
+    getCurrentWindow: () => Windows.getLastFocusedNormalWindow(false),
+    getGroupId: tabId => Cache.getTabGroup(tabId),
+    isCanNotBeHidden: Tabs.isCanNotBeHidden,
+});
 
 function mapGroupsForPage(groups) {
     return groups.map(group => ({
@@ -370,6 +379,7 @@ const INTERNAL_MODULES = {
     Tabs,
     Groups,
     Windows,
+    Organizer,
 };
 
 function isStgSender(sender) {
@@ -439,9 +449,10 @@ async function onBackgroundMessage(message, sender) {
             try {
                 return await moduleMethod(...data.args);
             } catch (e) {
+                const loggedArgs = data.action.startsWith('Organizer.') ? '[redacted]' : data.args;
                 logger.throwError([
                     'onBackgroundMessage call internal module:', `ACTION#${data.action}`,
-                    'args:', data.args,
+                    'args:', loggedArgs,
                     // 'sender:', senderToLogs,
                     objectToNativeError(data.breadcrumbs),
                 ], e);

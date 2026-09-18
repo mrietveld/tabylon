@@ -453,6 +453,9 @@ export const DEFAULT_OPTIONS = Object.freeze({
     showTabsWithThumbnailsInManageGroups: false,
     fullPopupWidth: false,
     temporaryContainerTitle: browser.i18n.getMessage('temporaryContainerTitle'),
+    organizerServiceUrl: 'http://127.0.0.1:5050',
+    organizerMinimumGroupSize: 5,
+    organizerDefaultScope: 'ungrouped-current-window',
 
     contextMenuTab: [
         'open-in-new-window',
