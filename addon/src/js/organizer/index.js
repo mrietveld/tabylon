@@ -34,6 +34,24 @@ function safeError(error) {
     };
 }
 
+function sameStoredValue(left, right) {
+    if (Object.is(left, right)) {
+        return true;
+    }
+    if (Array.isArray(left) || Array.isArray(right)) {
+        return Array.isArray(left) && Array.isArray(right) &&
+            left.length === right.length && left.every((value, index) => sameStoredValue(value, right[index]));
+    }
+    if (!left || !right || typeof left !== 'object' || typeof right !== 'object') {
+        return false;
+    }
+
+    const leftKeys = Object.keys(left);
+    const rightKeys = Object.keys(right);
+    return leftKeys.length === rightKeys.length && leftKeys.every(key =>
+        Object.hasOwn(right, key) && sameStoredValue(left[key], right[key]));
+}
+
 export function createOrganizerWorkflow({
     getOptions = () => ({}),
     getTabs,
@@ -116,11 +134,38 @@ export function createOrganizerWorkflow({
         validateDraft(draft);
         const state = await getState();
 
-        if (!state.snapshot || draft.requestId !== state.snapshot.requestId) {
+        if (!state.snapshot || !state.plan || draft.requestId !== state.snapshot.requestId) {
             throw new TypeError('draft.requestId does not match the active snapshot requestId');
         }
 
-        return persist({...state, draft, error: null});
+        if (draft.planId !== state.plan.planId) {
+            throw new TypeError('draft.planId does not match the active planId');
+        }
+
+        if (!sameStoredValue(draft.snapshot, state.snapshot)) {
+            throw new TypeError('draft.snapshot does not match the active snapshot');
+        }
+
+        const canonicalDraft = createDraft(state.snapshot, state.plan);
+        const canonicalGroups = new Map(canonicalDraft.groups.map(group => [group.id, group]));
+        const groups = draft.groups.map(group => {
+            const canonicalGroup = canonicalGroups.get(group.id);
+            if (!canonicalGroup) {
+                throw new TypeError(`draft contains unknown group ${group.id}`);
+            }
+            return {
+                ...canonicalGroup,
+                name: group.name,
+                tabIds: [...group.tabIds],
+            };
+        });
+        const sanitizedDraft = validateDraft({
+            ...canonicalDraft,
+            groups,
+            unassignedTabIds: [...draft.unassignedTabIds],
+        });
+
+        return persist({...state, draft: sanitizedDraft, error: null});
     }
 
     async function refresh() {

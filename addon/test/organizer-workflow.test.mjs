@@ -119,21 +119,48 @@ test('start records only structured safe error details when generation fails', a
     assert.equal(state.applyResult, null);
 });
 
-test('saveDraft validates edits before replacing the persisted workflow draft', async () => {
+test('saveDraft persists editable names and assignments but restores service-owned fields', async () => {
     const workflow = createOrganizerWorkflow(workflowDependencies());
     const state = await workflow.start();
-    const renamed = {
+    const edited = {
         ...state.draft,
-        groups: state.draft.groups.map(group => ({...group, name: 'Renamed'})),
+        scope: 'all',
+        summary: 'Submitted replacement summary',
+        warnings: ['Submitted replacement warning'],
+        groups: state.draft.groups.map(group => ({
+            ...group,
+            name: 'Renamed',
+            reason: 'Submitted replacement reason',
+            tabIds: [1, 2, 3, 4],
+        })),
+        unassignedTabIds: [5],
     };
 
-    const saved = await workflow.saveDraft(renamed);
+    const saved = await workflow.saveDraft(edited);
 
     assert.equal(saved.draft.groups[0].name, 'Renamed');
+    assert.deepEqual(saved.draft.groups[0].tabIds, [1, 2, 3, 4]);
+    assert.deepEqual(saved.draft.unassignedTabIds, [5]);
+    assert.equal(saved.draft.scope, 'ungrouped-current-window');
+    assert.equal(saved.draft.summary, 'One useful group');
+    assert.deepEqual(saved.draft.warnings, []);
+    assert.equal(saved.draft.groups[0].reason, 'Shared task');
     assert.equal((await workflow.getState()).draft.groups[0].name, 'Renamed');
+});
+
+test('saveDraft rejects replacement snapshots and inactive plan identities', async () => {
+    const workflow = createOrganizerWorkflow(workflowDependencies());
+    const state = await workflow.start();
+    const changedSnapshot = structuredClone(state.draft);
+    changedSnapshot.snapshot.tabs[0].url = 'https://attacker.example/replaced';
+
     await assert.rejects(
-        workflow.saveDraft({...renamed, requestId: 'another-request'}),
-        /requestId/i,
+        workflow.saveDraft(changedSnapshot),
+        /snapshot/i,
+    );
+    await assert.rejects(
+        workflow.saveDraft({...state.draft, planId: 'another-plan'}),
+        /planId/i,
     );
 });
 
