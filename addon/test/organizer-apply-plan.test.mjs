@@ -296,6 +296,56 @@ test('apply records recreated tab IDs and compensates with those actual IDs', as
     assert.deepEqual(fixture.events.slice(-1), [['restore', [101], 'old-a']]);
 });
 
+test('a later rejected move restores earlier recreated tabs in reverse order without removing the group', async () => {
+    const draft = draftFixture({
+        groups: [{id: 'draft-a', name: 'First', reason: 'First reason', tabIds: [1, 2, 3]}],
+        unassignedTabIds: [4, 5],
+    });
+    const fixture = operationFixture(draft);
+    let tabQuery = 0;
+    fixture.operations.getTabs = async () => ++tabQuery === 1
+        ? liveTabsFor(draft)
+        : [
+            ...liveTabsFor(draft).filter(tab => ![1, 2].includes(tab.id)),
+            {id: 101, windowId: 10, url: 'https://example.test/1'},
+            {id: 102, windowId: 10, url: 'https://example.test/2'},
+        ];
+    fixture.operations.moveTabs = async ([sourceTabId], groupId) => {
+        fixture.events.push(['move', [sourceTabId], groupId]);
+        if (sourceTabId === 3) throw new Error('move rejected');
+        const actualTabId = sourceTabId + 100;
+        fixture.memberships.delete(sourceTabId);
+        fixture.memberships.set(actualTabId, groupId);
+        return [{id: actualTabId}];
+    };
+    fixture.operations.removeGroup = async () => assert.fail('rollback must retain created groups');
+
+    const result = await applyDraft(draft, fixture.operations);
+
+    assert.equal(result.success, false);
+    assert.equal(result.failure.reason, 'operation-rejected');
+    assert.deepEqual(result.createdGroups, [{
+        draftGroupId: 'draft-a',
+        groupId: 'created-1',
+        sourceTabIds: [1, 2, 3],
+        tabIds: [101, 102],
+    }]);
+    assert.deepEqual(result.retainedGroups, [{
+        draftGroupId: 'draft-a',
+        groupId: 'created-1',
+        remainingTabIds: [],
+    }]);
+    assert.equal(result.rolledBack, false);
+    assert.deepEqual(fixture.events, [
+        ['add', 'First', 'created-1'],
+        ['move', [1], 'created-1'],
+        ['move', [2], 'created-1'],
+        ['move', [3], 'created-1'],
+        ['restore', [102], 'old-a'],
+        ['restore', [101], 'old-a'],
+    ]);
+});
+
 test('apply reports empty, malformed, and multiple single-tab move results precisely', async t => {
     const cases = [
         {name: 'empty', returned: [], reason: 'empty-result', returnedTabIds: []},

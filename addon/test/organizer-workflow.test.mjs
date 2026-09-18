@@ -1,6 +1,7 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
 
+import {createTrackedAddGroupOperation} from '../src/js/organizer/apply-plan.js';
 import {createOrganizerWorkflow} from '../src/js/organizer/index.js';
 import {DRAFT_STATE_STORAGE_KEY} from '../src/js/organizer/draft-store.js';
 
@@ -359,6 +360,41 @@ test('apply persists safe failure state when coordinator boundaries reject', asy
             assert.doesNotMatch(JSON.stringify({result, error: stored.error}), /secret/i);
         });
     }
+});
+
+test('apply persists uncertain group creation when add and its follow-up snapshot reject', async () => {
+    let groupSnapshot = 0;
+    const trackedAddGroup = createTrackedAddGroupOperation({
+        getGroups: async () => {
+            if (++groupSnapshot === 1) return [];
+            throw new Error('secret group storage failure');
+        },
+        addGroup: async () => {
+            throw new Error('secret post-persist menu failure');
+        },
+    });
+    const workflow = createOrganizerWorkflow(workflowDependencies({
+        getGroupId: () => null,
+        addGroup: trackedAddGroup,
+        moveTabs: async () => assert.fail('move must not follow a rejected add'),
+        removeGroup: async () => assert.fail('rollback deletion is forbidden'),
+    }));
+    await workflow.start();
+
+    const result = await workflow.apply();
+    const stored = await workflow.getState();
+
+    assert.equal(result.success, false);
+    assert.equal(result.rolledBack, false);
+    assert.equal(result.failure.stage, 'add-group');
+    assert.equal(result.failure.groupCreationUncertain, true);
+    assert.deepEqual(result.failure.retainedGroupIds, []);
+    assert.deepEqual(result.retainedGroups, []);
+    assert.equal(stored.phase, 'apply');
+    assert.equal(stored.status, 'error');
+    assert.notEqual(stored.draft, null);
+    assert.deepEqual(stored.applyResult, result);
+    assert.doesNotMatch(JSON.stringify(result), /secret/i);
 });
 
 test('apply persists an error result and keeps the active draft when preflight fails', async () => {
