@@ -36,6 +36,16 @@ Simple Tab Groups works across browser instances/windows too. If you select a gr
 
 This allows for easy switching between active and pre-loaded tabs across multiple browser windows.
 
+### Smart organize
+
+Smart organize proposes new Simple Tab Groups for related tabs. To set it up, open **Settings** → **Smart Organizer**, enter the HTTP or HTTPS URL of the organizer service, choose a minimum group size, and select a default scope. The default local service URL is `http://127.0.0.1:5050`.
+
+Use **Smart organize** in the popup to open the organizer. You can organize ungrouped tabs in the current window, the current group, selected tabs from the popup, or all eligible tabs across browser windows. Pinned and unsupported tabs are skipped and left unchanged.
+
+When a plan is generated, STG sends the titles and URLs of tabs in the chosen scope to the configured organizer service. Review its proposed groups before applying: rename or remove proposed groups, drag tabs between them, or leave tabs unassigned. The page uses STG's internal messaging only; it does not expose an external-extension messaging interface.
+
+Selecting **Apply groups** first checks that the planned tabs have not changed window, URL, or group since the plan was generated. STG then creates the approved groups and moves the assigned tabs. If the plan is stale, generate a fresh one. If an apply operation cannot complete, inspect the recovery details and your groups before trying again.
+
 ### This extension has these plugins
 
 * [Create new group](https://addons.mozilla.org/firefox/addon/stg-plugin-create-new-group/)

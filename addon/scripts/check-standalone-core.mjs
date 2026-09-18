@@ -8,6 +8,11 @@ const forbiddenTokens = [
     'onMessageExternal', 'sendExternalMessage', 'EXTENSIONS_WHITE_LIST',
     'groups-external', 'mapForExternalExtension', 'githubGist',
     'sync-cloud', 'sendNativeMessage', 'nativeMessaging', 'resetSyncAlarm',
+    'tab-organizer@example.local',
+];
+const forbiddenPatterns = [
+    ['cross-extension runtime sendMessage', /\bbrowser\.runtime\.sendMessage\s*\(\s*(['"`])[^'"`\r\n]*\1\s*,/],
+    ['cross-extension runtime connect', /\bbrowser\.runtime\.connect\s*\(\s*(['"`])[^'"`\r\n]*\1\s*(?:,|\))/],
 ];
 const scanRoots = [
     'addon/src', 'addon/webpack.config.mjs', 'addon/scripts/build-zip.js',
@@ -33,6 +38,9 @@ for (const scanRoot of scanRoots) {
         const text = readFileSync(file, 'utf8');
         for (const token of forbiddenTokens) {
             if (text.includes(token)) failures.push(`${relative(root, file)}: ${token}`);
+        }
+        for (const [name, pattern] of forbiddenPatterns) {
+            if (pattern.test(text)) failures.push(`${relative(root, file)}: ${name}`);
         }
     }
 }
