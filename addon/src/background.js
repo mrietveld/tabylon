@@ -82,6 +82,16 @@ const Organizer = createOrganizerWorkflow({
     getCurrentWindow: () => Windows.getLastFocusedNormalWindow(false),
     getGroupId: tabId => Cache.getTabGroup(tabId),
     isCanNotBeHidden: Tabs.isCanNotBeHidden,
+    addGroup: (windowId, tabIds, name) => Groups.add(windowId, tabIds, name),
+    moveTabs: (tabIds, groupId) => Tabs.move(tabIds, groupId),
+    restoreTabs: (tabIds, groupId) => {
+        if (groupId === null) {
+            throw new Error('Tabs that were originally ungrouped cannot be restored safely.');
+        }
+        return Tabs.move(tabIds, groupId);
+    },
+    removeGroup: groupId => Groups.remove(groupId),
+    runOperation: (name, operation) => Operations.run(name, operation),
 });
 
 function mapGroupsForPage(groups) {

@@ -206,3 +206,66 @@ test('refresh reuses workflow params and clear returns to an empty choose state'
         applyResult: null,
     });
 });
+
+test('apply uses the persisted draft, records completion, and clears the active draft', async () => {
+    const events = [];
+    const membership = new Map(tabs.map(tab => [tab.id, null]));
+    const dependencies = workflowDependencies({
+        getGroupId: tabId => membership.get(tabId),
+        addGroup: async (_windowId, _tabIds, name) => {
+            events.push(['add', name]);
+            return {id: 'created-1'};
+        },
+        moveTabs: async (tabIds, groupId) => {
+            events.push(['move', [...tabIds], groupId]);
+            tabIds.forEach(tabId => membership.set(tabId, groupId));
+        },
+        restoreTabs: async () => assert.fail('rollback should not run'),
+        removeGroup: async () => assert.fail('rollback should not run'),
+        runOperation: async (name, operation) => {
+            events.push(['run', name]);
+            return operation();
+        },
+    });
+    const workflow = createOrganizerWorkflow(dependencies);
+    const generated = await workflow.start();
+    await workflow.saveDraft({
+        ...generated.draft,
+        groups: generated.draft.groups.map(group => ({...group, name: 'Persisted name'})),
+    });
+
+    const result = await workflow.apply({groups: [{name: 'Untrusted argument'}]});
+    const stored = await workflow.getState();
+
+    assert.equal(result.success, true);
+    assert.deepEqual(events, [
+        ['run', 'apply-grouping-plan'],
+        ['add', 'Persisted name'],
+        ['move', [1, 2, 3, 4, 5], 'created-1'],
+    ]);
+    assert.equal(stored.phase, 'apply');
+    assert.equal(stored.status, 'complete');
+    assert.equal(stored.draft, null);
+    assert.deepEqual(stored.applyResult, result);
+});
+
+test('apply persists an error result and keeps the active draft when preflight fails', async () => {
+    let tabQuery = 0;
+    const workflow = createOrganizerWorkflow(workflowDependencies({
+        getTabs: async () => ++tabQuery === 1 ? tabs : tabs.slice(1),
+        addGroup: async () => assert.fail('preflight must run before mutation'),
+        moveTabs: async () => assert.fail('preflight must run before mutation'),
+        removeGroup: async () => assert.fail('preflight must run before mutation'),
+    }));
+    const generated = await workflow.start();
+
+    const result = await workflow.apply();
+    const stored = await workflow.getState();
+
+    assert.equal(result.success, false);
+    assert.equal(result.failure.stage, 'preflight');
+    assert.equal(stored.phase, 'apply');
+    assert.equal(stored.status, 'error');
+    assert.deepEqual(stored.draft, generated.draft);
+    assert.deepEqual(stored.applyResult, result);
+});

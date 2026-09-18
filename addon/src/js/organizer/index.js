@@ -1,4 +1,5 @@
 import {OrganizerClientError, generateGroupingPlan} from './client.js';
+import {applyDraft} from './apply-plan.js';
 import {createDraft, validateDraft} from './draft.js';
 import {clearDraftState, getDraftState, setDraftState} from './draft-store.js';
 import {collectSnapshot} from './snapshot.js';
@@ -62,6 +63,11 @@ export function createOrganizerWorkflow({
     storageArea,
     createRequestId,
     now,
+    addGroup,
+    moveTabs,
+    restoreTabs,
+    removeGroup,
+    runOperation = (_name, operation) => operation(),
 } = {}) {
     async function persist(state) {
         return setDraftState(state, storageArea);
@@ -178,11 +184,38 @@ export function createOrganizerWorkflow({
         return emptyState();
     }
 
+    async function apply(_submittedDraft) {
+        const state = await getState();
+        if (!state.draft) {
+            throw new TypeError('There is no active organizer draft to apply');
+        }
+
+        const result = await runOperation('apply-grouping-plan', () => applyDraft(state.draft, {
+            getTabs,
+            getTabGroup: getGroupId,
+            addGroup,
+            moveTabs,
+            restoreTabs,
+            removeGroup,
+        }));
+
+        await persist({
+            ...state,
+            phase: 'apply',
+            status: result.success ? 'complete' : 'error',
+            draft: result.success ? null : state.draft,
+            error: null,
+            applyResult: result,
+        });
+        return result;
+    }
+
     return Object.freeze({
         getState,
         start,
         saveDraft,
         refresh,
+        apply,
         clear,
     });
 }
