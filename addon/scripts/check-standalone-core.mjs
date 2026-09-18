@@ -7,7 +7,7 @@ const forbiddenPaths = ['plugins', 'host'];
 const forbiddenTokens = [
     'onMessageExternal', 'sendExternalMessage', 'EXTENSIONS_WHITE_LIST',
     'groups-external', 'mapForExternalExtension', 'githubGist',
-    'sync-cloud', 'sendNativeMessage', 'nativeMessaging',
+    'sync-cloud', 'sendNativeMessage', 'nativeMessaging', 'resetSyncAlarm',
 ];
 const scanRoots = [
     'addon/src', 'addon/webpack.config.mjs', 'addon/scripts/build-zip.js',

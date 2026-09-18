@@ -62,6 +62,10 @@ if (storage.enableDebug === Constants.DEBUG.AUTO) { // if debug was auto-enabled
 
 const logger = self.logger = new Logger(Constants.MODULES.BACKGROUND);
 
+function startupDebug(step, details = undefined) {
+    console.info('[STG startup]', step, details ?? '');
+}
+
 self.loggerFuncs = {
     getLogs,
     clearLogs,
@@ -1391,8 +1395,10 @@ Listeners.runtime.onInstalled.add(async ({reason, previousVersion, temporary}) =
 
 async function init() {
     const log = logger.start(['info', '[init]']);
+    startupDebug('init:start');
 
     try {
+        startupDebug('init:load-local-data');
         const {data, error} = await initLocalData();
 
         if (error) {
@@ -1403,6 +1409,7 @@ async function init() {
         const dataChanged = new Set;
 
         Utils.assignKeys(options, data, Constants.ALL_OPTION_KEYS);
+        startupDebug('init:options-loaded', {groups: data.groups?.length ?? 0});
 
         if (await BrowserSettings.hasPermission()) {
             await BrowserSettings.set(options.browserSettings);
@@ -1416,6 +1423,7 @@ async function init() {
         }
 
         let windows = await Windows.load();
+        startupDebug('init:windows-loaded', {count: windows.length});
 
         if (!windows.length) {
             log.error('no windows found');
@@ -1447,6 +1455,7 @@ async function init() {
         await Windows.tryRestoreMissedTabs(false);
 
         windows = await Windows.initializeGroups(data.groups, storage.isBackupRestoring);
+        startupDebug('init:groups-initialized', {windows: windows.length});
 
         await Groups.fillHistory(windows);
 
@@ -1458,8 +1467,8 @@ async function init() {
         await Tabs.restoreOldExtensionUrls();
         log.log('restoreOldExtensionUrls finish');
 
-        resetLocalBackupAlarm();
-        resetSyncAlarm();
+        await resetLocalBackupAlarm();
+        startupDebug('init:local-backup-alarm-ready');
 
         await MenusMain.create();
         log.log('MenusMain.create finish');
@@ -1479,6 +1488,7 @@ async function init() {
         await Browser.actionLoading(false);
 
         storage.inited = true;
+        startupDebug('init:ready');
 
         // send message for addon pages if it's open
         sendMessageFromBackground('i-am-back');
@@ -1490,6 +1500,7 @@ async function init() {
 
         log.stop();
     } catch (e) {
+        console.error('[STG startup] init:failed', e);
         await setActionToReloadAddon();
 
         if (e) {
@@ -1513,6 +1524,7 @@ async function setActionToReloadAddon() {
 }
 
 Listeners.extension.onStart.add(async () => {
+    startupDebug('extension:onStart');
     await Browser.action({
         title: '__MSG_loading__',
         badgeBackgroundColor: 'transparent',
