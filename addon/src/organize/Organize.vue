@@ -150,11 +150,19 @@ export default {
         },
     },
     async mounted() {
-        await this.optionsLoadPromise;
-        const query = parseOrganizerQuery(window.location.search, this.options.organizerDefaultScope);
-        this.scope = query.scope;
-        this.selectedTabIds = query.selectedTabIds;
-        await this.loadState();
+        this.isLoading = true;
+        this.pageError = false;
+        try {
+            await this.optionsLoadPromise;
+            const query = parseOrganizerQuery(window.location.search, this.options.organizerDefaultScope);
+            this.scope = query.scope;
+            this.selectedTabIds = query.selectedTabIds;
+            await this.loadState();
+        } catch (_error) {
+            this.pageError = true;
+        } finally {
+            this.isLoading = false;
+        }
     },
     methods: {
         setState(state) {
@@ -166,18 +174,10 @@ export default {
             this.editError = '';
         },
         async loadState() {
-            this.isLoading = true;
-            this.pageError = false;
-            try {
-                const state = await this.sendMessageModule('Organizer.getState');
-                this.setState(state);
-                if (state?.params?.scope && state.phase !== 'choose') {
-                    this.scope = state.params.scope;
-                }
-            } catch (_error) {
-                this.pageError = true;
-            } finally {
-                this.isLoading = false;
+            const state = await this.sendMessageModule('Organizer.getState');
+            this.setState(state);
+            if (state?.params?.scope && state.phase !== 'choose') {
+                this.scope = state.params.scope;
             }
         },
         async start() {
