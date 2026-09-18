@@ -2,6 +2,7 @@ import * as Messages from '/js/messages.js';
 import * as Constants from '/js/constants.js';
 import Logger from '/js/logger.js';
 import * as Utils from '/js/utils.js';
+import {createOrganizerPageUrl} from '/js/organizer/settings.js';
 
 const MODULE_NAME = 'global.mixin';
 const logger = new Logger(MODULE_NAME, [Utils.getNameFromPath(location.href)]);
@@ -38,10 +39,7 @@ export default {
             this.closeWindow?.();
         },
         openOrganizer(tabIds = []) {
-            const selectedTabIds = tabIds.filter(Number.isSafeInteger);
-            const query = selectedTabIds.length ? `?scope=selected&tabId=${selectedTabIds.join(',')}` : '';
-
-            browser.tabs.create({url: Constants.PAGES.ORGANIZE + query});
+            browser.tabs.create({url: createOrganizerPageUrl(Constants.PAGES.ORGANIZE, tabIds)});
             this.closeWindow?.();
         },
         openOptionsPage(section) {

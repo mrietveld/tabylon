@@ -23,6 +23,11 @@ import * as BrowserSettings from '/js/browser-settings.js';
 import {isValidHotkeyValue, eventToHotkeyValue} from '/js/hotkeys.js';
 import JSON from '/js/json.js';
 import Migration from '/js/migration.js';
+import {
+    normalizeOrganizerDefaultScope,
+    normalizeOrganizerMinimumGroupSize,
+    normalizeOrganizerServiceUrl,
+} from '/js/organizer/settings.js';
 
 import globalMixin from '/js/mixins/global.mixin.js';
 import defaultGroupMixin from '/js/mixins/default-group.mixin.js';
@@ -87,9 +92,6 @@ export default {
                 'defaultBookmarksParent',
                 'autoBackupIntervalKey',
                 'colorScheme',
-                'organizerServiceUrl',
-                'organizerMinimumGroupSize',
-                'organizerDefaultScope',
                 'contextMenuTab',
                 'contextMenuGroup',
             ],
@@ -250,7 +252,9 @@ export default {
             }, {deep: true});
 
             this.optionsWatch('autoBackupIntervalValue', value => Utils.clamp(value, 1, 50));
-            this.optionsWatch('organizerMinimumGroupSize', value => Utils.clamp(value, 2, 500));
+            this.optionsWatch('organizerServiceUrl', normalizeOrganizerServiceUrl);
+            this.optionsWatch('organizerMinimumGroupSize', normalizeOrganizerMinimumGroupSize);
+            this.optionsWatch('organizerDefaultScope', normalizeOrganizerDefaultScope);
 
 
             this.optionsWatch('temporaryContainerTitle', value => value || undefined);
@@ -1067,7 +1071,6 @@ export default {
                             <select v-model="options.organizerDefaultScope">
                                 <option value="ungrouped-current-window" v-text="lang('organizerScopeUngroupedCurrentWindow')"></option>
                                 <option value="current-group" v-text="lang('organizerScopeCurrentGroup')"></option>
-                                <option value="selected" v-text="lang('organizerScopeSelected')"></option>
                                 <option value="all" v-text="lang('organizerScopeAll')"></option>
                             </select>
                         </div>

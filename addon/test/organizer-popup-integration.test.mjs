@@ -10,7 +10,7 @@ test('popup opens Smart Organizer with its selected tab IDs', async () => {
         source('../src/popup/Popup.vue'),
     ]);
 
-    assert.match(globalMixin, /openOrganizer\(tabIds = \[\]\)[\s\S]*scope=selected[\s\S]*tabId=[\s\S]*Constants\.PAGES\.ORGANIZE/);
+    assert.match(globalMixin, /openOrganizer\(tabIds = \[\]\)[\s\S]*createOrganizerPageUrl\(Constants\.PAGES\.ORGANIZE, tabIds\)/);
     assert.match(popup, /@click="openOrganizer\(multipleTabIds\)"/);
 });
 
@@ -23,12 +23,14 @@ test('options exposes persistent organizer settings with privacy copy', async ()
 
     assert.match(options, /const SECTION_ORGANIZER = 'organizer';/);
     assert.match(options, /\[SECTION_GENERAL, SECTION_HOTKEYS, SECTION_ORGANIZER, SECTION_BACKUP, SECTION_ABOUT\]/);
-    assert.match(options, /'organizerServiceUrl',[\s\S]*'organizerMinimumGroupSize',[\s\S]*'organizerDefaultScope'/);
     assert.match(options, /v-model\.lazy\.trim="options\.organizerServiceUrl"/);
     assert.match(options, /v-model\.lazy\.number="options\.organizerMinimumGroupSize"/);
     assert.match(options, /type="number" class="input" min="2" max="500"/);
-    assert.match(options, /optionsWatch\('organizerMinimumGroupSize', value => Utils\.clamp\(value, 2, 500\)\)/);
+    assert.match(options, /optionsWatch\('organizerServiceUrl', normalizeOrganizerServiceUrl\)/);
+    assert.match(options, /optionsWatch\('organizerMinimumGroupSize', normalizeOrganizerMinimumGroupSize\)/);
+    assert.match(options, /optionsWatch\('organizerDefaultScope', normalizeOrganizerDefaultScope\)/);
     assert.match(options, /v-model="options\.organizerDefaultScope"/);
+    assert.doesNotMatch(options, /<option value="selected"/);
 
     for (const key of [
         'organizerTitle',
