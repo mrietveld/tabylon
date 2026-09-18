@@ -31,6 +31,7 @@ export default {
         'popup/popup': './popup/popup.js',
         'options/options': './options/options.js',
         'manage/manage': './manage/manage.js',
+        'organize/organize': './organize/organize.js',
         'web/content-script': './web/content-script.js',
     },
     experiments: {
@@ -117,6 +118,7 @@ export default {
                 // pages
                 'popup/popup.html',
                 'manage/manage.html',
+                'organize/organize.html',
                 'options/options.html',
 
                 // manifest

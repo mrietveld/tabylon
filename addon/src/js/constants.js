@@ -63,6 +63,7 @@ export const STG_HELP_PAGES = Object.freeze([
 export const PAGES = Object.freeze({
     POPUP: browser.runtime.getURL('popup/popup.html'),
     MANAGE: browser.runtime.getURL('manage/manage.html'),
+    ORGANIZE: browser.runtime.getURL('organize/organize.html'),
     SETTINGS: browser.runtime.getURL('options/options.html'),
     HELP: {
         WELCOME: browser.runtime.getURL('help/welcome.html'),
