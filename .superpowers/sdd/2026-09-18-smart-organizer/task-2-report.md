@@ -106,3 +106,72 @@ Result:
 - The workflow composer should pass STG's `Tabs.isCanNotBeHidden` as
   `isCanNotBeHidden`, and choose how it obtains current group membership before
   exposing the UI action.
+
+## Review fixes
+
+### Root cause and changes
+
+The initial collector supplied a fallback movability predicate that only
+recognized pinned tabs. That meant a caller that omitted STG's
+`Tabs.isCanNotBeHidden` could incorrectly include sharing-protected tabs. The
+fallback is removed: both `collectSnapshot` and public scope selection now
+require an `isCanNotBeHidden` function and fail closed when it is absent.
+
+The initial membership lookup passed each full tab object to `getGroupId` and
+used strict equality with `null`. STG Cache lookups use a tab ID and commonly
+return `undefined` for ungrouped tabs. Selection and snapshot fingerprinting
+now call `getGroupId(tab.id)` and normalize its result with `?? null`.
+
+### Review-fix RED
+
+Command, from `addon/`:
+
+```sh
+node --test test/organizer-snapshot.test.mjs
+```
+
+Before the production change, the new regressions failed as expected:
+
+```text
+✖ selectTabsForScope treats undefined STG membership as ungrouped and resolves membership by tab ID
+  actual: []
+  expected: [1]
+...
+✖ collectSnapshot rejects collection without the STG movability predicate
+  AssertionError [ERR_ASSERTION]: Missing expected rejection.
+...
+ℹ tests 8
+ℹ pass 3
+ℹ fail 5
+```
+
+The existing scope tests also failed in that RED run after their fixtures were
+updated to the correct ID-based callback contract, confirming the original
+implementation was passing a tab object rather than its ID.
+
+### Review-fix focused GREEN
+
+After requiring the safety predicate and normalizing ID-based membership, the
+same focused command reported:
+
+```text
+ℹ tests 8
+ℹ pass 8
+ℹ fail 0
+```
+
+### Review-fix full addon suite
+
+Command, from `addon/`:
+
+```sh
+npm test
+```
+
+Result:
+
+```text
+ℹ tests 30
+ℹ pass 30
+ℹ fail 0
+```

@@ -8,20 +8,16 @@ function tabId(tab) {
     return tab.id;
 }
 
-function defaultGroupId(tab) {
-    return tab.groupId ?? null;
-}
-
-function defaultIsCanNotBeHidden(tab) {
-    return tab.pinned === true;
+function defaultGroupId() {
+    return null;
 }
 
 function isInScope(tab, {scope, currentWindowId, currentGroupId, selectedTabIds, getGroupId}) {
     switch (scope) {
         case 'ungrouped-current-window':
-            return tab.windowId === currentWindowId && getGroupId(tab) === null;
+            return tab.windowId === currentWindowId && (getGroupId(tabId(tab)) ?? null) === null;
         case 'current-group':
-            return currentGroupId != null && getGroupId(tab) === currentGroupId;
+            return currentGroupId != null && getGroupId(tabId(tab)) === currentGroupId;
         case 'selected':
             return selectedTabIds.has(tabId(tab));
         case 'all':
@@ -37,13 +33,16 @@ export function selectTabsForScope(tabs, {
     currentGroupId = null,
     selectedTabIds = [],
     getGroupId = defaultGroupId,
-    isCanNotBeHidden = defaultIsCanNotBeHidden,
+    isCanNotBeHidden,
 } = {}) {
     if (!Array.isArray(tabs)) {
         fail('tabs must be an array');
     }
     if (!ORGANIZER_SCOPES.includes(scope)) {
         fail(`scope must be one of: ${ORGANIZER_SCOPES.join(', ')}`);
+    }
+    if (typeof isCanNotBeHidden !== 'function') {
+        fail('isCanNotBeHidden must be a function');
     }
 
     const selectedIds = new Set(selectedTabIds);
@@ -104,12 +103,15 @@ export async function collectSnapshot({
 } = {}, {
     getTabs,
     getGroupId = defaultGroupId,
-    isCanNotBeHidden = defaultIsCanNotBeHidden,
+    isCanNotBeHidden,
     createRequestId = () => crypto.randomUUID(),
     now = () => new Date().toISOString(),
 } = {}) {
     if (typeof getTabs !== 'function') {
         fail('getTabs must be a function');
+    }
+    if (typeof isCanNotBeHidden !== 'function') {
+        fail('isCanNotBeHidden must be a function');
     }
 
     const selected = selectTabsForScope(await getTabs(), {
@@ -120,7 +122,7 @@ export async function collectSnapshot({
         getGroupId,
         isCanNotBeHidden,
     });
-    const normalizedTabs = selected.tabs.map(tab => normalizeOrganizerTab(tab, getGroupId(tab)));
+    const normalizedTabs = selected.tabs.map(tab => normalizeOrganizerTab(tab, getGroupId(tabId(tab)) ?? null));
     const request = createGroupingRequest(normalizedTabs, {minimumGroupSize, scope});
 
     return {

@@ -20,7 +20,7 @@ const context = overrides => ({
     currentWindowId: 10,
     currentGroupId: 'project',
     selectedTabIds: [2, 4],
-    getGroupId: tab => groupByTabId.get(tab.id) ?? null,
+    getGroupId: tabId => groupByTabId.get(tabId) ?? null,
     isCanNotBeHidden: tab => tab.id === 5,
     ...overrides,
 });
@@ -37,6 +37,20 @@ test('selectTabsForScope selects only ungrouped tabs in the current window and r
         {tabId: 3, reason: 'pinned'},
         {tabId: 5, reason: 'unsupported'},
     ]);
+});
+
+test('selectTabsForScope treats undefined STG membership as ungrouped and resolves membership by tab ID', () => {
+    const resolvedTabIds = [];
+    const result = selectTabsForScope([browserTabs[0]], context({
+        scope: 'ungrouped-current-window',
+        getGroupId: tabId => {
+            resolvedTabIds.push(tabId);
+            return undefined;
+        },
+    }));
+
+    assert.deepEqual(selectedIds(result), [1]);
+    assert.deepEqual(resolvedTabIds, [1]);
 });
 
 test('selectTabsForScope selects the current STG group without considering other scopes', () => {
@@ -99,7 +113,7 @@ test('collectSnapshot captures a validated service request while retaining the f
         minimumGroupSize: 2,
     }, {
         getTabs: async () => browserTabs,
-        getGroupId: tab => groupByTabId.get(tab.id) ?? null,
+        getGroupId: tabId => groupByTabId.get(tabId) ?? null,
         isCanNotBeHidden: tab => tab.id === 5,
         createRequestId: () => 'request-789',
         now: () => '2026-09-18T12:00:00.000Z',
@@ -135,4 +149,19 @@ test('collectSnapshot captures a validated service request while retaining the f
             scope: 'ungrouped-current-window',
         },
     });
+});
+
+test('collectSnapshot rejects collection without the STG movability predicate', async () => {
+    await assert.rejects(
+        collectSnapshot({
+            scope: 'all',
+            minimumGroupSize: 2,
+        }, {
+            getTabs: async () => [browserTabs[0]],
+            getGroupId: () => null,
+            createRequestId: () => 'request-unsafe',
+            now: () => '2026-09-18T13:00:00.000Z',
+        }),
+        /isCanNotBeHidden/i,
+    );
 });
