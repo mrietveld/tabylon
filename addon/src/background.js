@@ -50,6 +50,7 @@ import * as Bookmarks from '/js/bookmarks.js';
 import * as Permissions from '/js/permissions.js';
 import * as BrowserSettings from '/js/browser-settings.js';
 import {normalizeStandaloneOptions} from '/js/standalone-normalization.js';
+import {createTrackedAddGroupOperation} from '/js/organizer/apply-plan.js';
 import {createOrganizerWorkflow} from '/js/organizer/index.js';
 
 const storage = localStorage.create(Constants.MODULES.BACKGROUND);
@@ -82,7 +83,10 @@ const Organizer = createOrganizerWorkflow({
     getCurrentWindow: () => Windows.getLastFocusedNormalWindow(false),
     getGroupId: tabId => Cache.getTabGroup(tabId),
     isCanNotBeHidden: Tabs.isCanNotBeHidden,
-    addGroup: (windowId, tabIds, name) => Groups.add(windowId, tabIds, name),
+    addGroup: createTrackedAddGroupOperation({
+        getGroups: () => Groups.load().then(({groups}) => groups),
+        addGroup: (windowId, tabIds, name) => Groups.add(windowId, tabIds, name),
+    }),
     moveTabs: (tabIds, groupId) => Tabs.move(tabIds, groupId),
     restoreTabs: (tabIds, groupId) => {
         if (groupId === null) {
@@ -90,7 +94,6 @@ const Organizer = createOrganizerWorkflow({
         }
         return Tabs.move(tabIds, groupId);
     },
-    removeGroup: groupId => Groups.remove(groupId),
     runOperation: (name, operation) => Operations.run(name, operation),
 });
 

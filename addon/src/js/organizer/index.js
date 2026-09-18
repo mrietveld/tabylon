@@ -35,6 +35,21 @@ function safeError(error) {
     };
 }
 
+function safeApplyFailure() {
+    return {
+        success: false,
+        preflight: null,
+        createdGroups: [],
+        failure: {
+            stage: 'workflow',
+            message: 'The organizer plan could not be applied.',
+        },
+        rolledBack: false,
+        rollbackFailures: [],
+        retainedGroups: [],
+    };
+}
+
 function sameStoredValue(left, right) {
     if (Object.is(left, right)) {
         return true;
@@ -66,7 +81,6 @@ export function createOrganizerWorkflow({
     addGroup,
     moveTabs,
     restoreTabs,
-    removeGroup,
     runOperation = (_name, operation) => operation(),
 } = {}) {
     async function persist(state) {
@@ -190,21 +204,31 @@ export function createOrganizerWorkflow({
             throw new TypeError('There is no active organizer draft to apply');
         }
 
-        const result = await runOperation('apply-grouping-plan', () => applyDraft(state.draft, {
-            getTabs,
-            getTabGroup: getGroupId,
-            addGroup,
-            moveTabs,
-            restoreTabs,
-            removeGroup,
-        }));
+        let result;
+        let error = null;
+        try {
+            result = await runOperation('apply-grouping-plan', () => applyDraft(state.draft, {
+                getTabs,
+                getTabGroup: getGroupId,
+                addGroup,
+                moveTabs,
+                restoreTabs,
+            }));
+        } catch (_applyError) {
+            result = safeApplyFailure();
+            error = {
+                code: 'apply-error',
+                message: result.failure.message,
+                status: null,
+            };
+        }
 
         await persist({
             ...state,
             phase: 'apply',
             status: result.success ? 'complete' : 'error',
             draft: result.success ? null : state.draft,
-            error: null,
+            error,
             applyResult: result,
         });
         return result;

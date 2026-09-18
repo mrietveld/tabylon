@@ -1,7 +1,11 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
 
-import {applyDraft, preflightDraft} from '../src/js/organizer/apply-plan.js';
+import {
+    applyDraft,
+    createTrackedAddGroupOperation,
+    preflightDraft,
+} from '../src/js/organizer/apply-plan.js';
 
 function draftFixture({groups, unassignedTabIds = []} = {}) {
     const tabs = [
@@ -81,6 +85,7 @@ function operationFixture(draft, overrides = {}) {
         async moveTabs(tabIds, groupId) {
             events.push(['move', [...tabIds], groupId]);
             tabIds.forEach(tabId => memberships.set(tabId, groupId));
+            return tabIds.map(id => ({id}));
         },
         async restoreTabs(tabIds, groupId) {
             events.push(['restore', [...tabIds], groupId]);
@@ -126,15 +131,17 @@ test('apply creates and moves groups in draft order', async () => {
     assert.equal(result.success, true);
     assert.equal(result.failure, null);
     assert.deepEqual(result.createdGroups, [
-        {draftGroupId: 'draft-a', groupId: 'created-1', tabIds: [1, 2]},
-        {draftGroupId: 'draft-b', groupId: 'created-2', tabIds: [3, 4]},
+        {draftGroupId: 'draft-a', groupId: 'created-1', sourceTabIds: [1, 2], tabIds: [1, 2]},
+        {draftGroupId: 'draft-b', groupId: 'created-2', sourceTabIds: [3, 4], tabIds: [3, 4]},
     ]);
     assert.deepEqual(result.rollbackFailures, []);
     assert.deepEqual(events, [
         ['add', 'First', 'created-1'],
-        ['move', [1, 2], 'created-1'],
+        ['move', [1], 'created-1'],
+        ['move', [2], 'created-1'],
         ['add', 'Second', 'created-2'],
-        ['move', [3, 4], 'created-2'],
+        ['move', [3], 'created-2'],
+        ['move', [4], 'created-2'],
     ]);
 });
 
@@ -143,10 +150,11 @@ test('apply compensates failed work in reverse group order', async () => {
     const fixture = operationFixture(draft);
     const baseMoveTabs = fixture.operations.moveTabs;
     fixture.operations.moveTabs = async (tabIds, groupId) => {
-        await baseMoveTabs(tabIds, groupId);
-        if (groupId === 'created-2') {
-            throw new Error('second move failed after changing membership');
+        if (tabIds[0] === 4) {
+            fixture.events.push(['move', [...tabIds], groupId]);
+            return [];
         }
+        return baseMoveTabs(tabIds, groupId);
     };
 
     const result = await applyDraft(draft, fixture.operations);
@@ -156,20 +164,27 @@ test('apply compensates failed work in reverse group order', async () => {
         stage: 'move-tabs',
         draftGroupId: 'draft-b',
         groupId: 'created-2',
-        message: 'second move failed after changing membership',
+        sourceTabId: 4,
+        reason: 'empty-result',
+        returnedTabIds: [],
+        message: 'Moving tab 4 did not return exactly one live tab.',
     });
     assert.deepEqual(result.rollbackFailures, []);
-    assert.equal(result.rolledBack, true);
+    assert.equal(result.rolledBack, false);
+    assert.deepEqual(result.retainedGroups, [
+        {draftGroupId: 'draft-b', groupId: 'created-2', remainingTabIds: []},
+        {draftGroupId: 'draft-a', groupId: 'created-1', remainingTabIds: []},
+    ]);
     assert.deepEqual(fixture.events, [
         ['add', 'First', 'created-1'],
-        ['move', [1, 2], 'created-1'],
+        ['move', [1], 'created-1'],
+        ['move', [2], 'created-1'],
         ['add', 'Second', 'created-2'],
-        ['move', [3, 4], 'created-2'],
+        ['move', [3], 'created-2'],
+        ['move', [4], 'created-2'],
         ['restore', [3], 'old-b'],
-        ['restore', [4], null],
-        ['remove', 'created-2'],
-        ['restore', [1, 2], 'old-a'],
-        ['remove', 'created-1'],
+        ['restore', [2], 'old-a'],
+        ['restore', [1], 'old-a'],
     ]);
 });
 
@@ -184,8 +199,9 @@ test('apply reports rollback failure and never removes a group that still owns a
     const fixture = operationFixture(draft);
     fixture.operations.moveTabs = async (tabIds, groupId) => {
         fixture.events.push(['move', [...tabIds], groupId]);
+        if (groupId === 'created-2') return [];
         tabIds.forEach(tabId => fixture.memberships.set(tabId, groupId));
-        if (groupId === 'created-2') throw new Error('stop');
+        return tabIds.map(id => ({id}));
     };
     fixture.operations.restoreTabs = async (tabIds, groupId) => {
         fixture.events.push(['restore', [...tabIds], groupId]);
@@ -206,51 +222,153 @@ test('apply reports rollback failure and never removes a group that still owns a
             tabIds: [4],
             message: 'ungrouped restoration is unsafe',
         },
-        {
-            stage: 'remove-group',
-            draftGroupId: 'draft-a',
-            groupId: 'created-1',
-            remainingTabIds: [4],
-            message: 'Created group still contains tabs after rollback; removal was skipped.',
-        },
+    ]);
+    assert.deepEqual(result.retainedGroups, [
+        {draftGroupId: 'draft-b', groupId: 'created-2', remainingTabIds: []},
+        {draftGroupId: 'draft-a', groupId: 'created-1', remainingTabIds: [4]},
     ]);
     assert.deepEqual(fixture.events, [
         ['add', 'First', 'created-1'],
         ['move', [4], 'created-1'],
         ['add', 'Second', 'created-2'],
         ['move', [3], 'created-2'],
-        ['restore', [3], 'old-b'],
-        ['remove', 'created-2'],
         ['restore', [4], null],
     ]);
 });
 
-test('rollback verifies all live tabs before removing a created group', async () => {
+test('rollback never removes created groups even when restored membership appears empty', async () => {
     const draft = draftFixture();
     const fixture = operationFixture(draft);
-    fixture.operations.getTabs = async () => [
-        ...liveTabsFor(draft),
-        {id: 99, windowId: 30, url: 'https://unrelated.test/'},
-    ];
-    fixture.memberships.set(99, null);
+    fixture.operations.removeGroup = async () => assert.fail('rollback must retain created groups');
     fixture.operations.moveTabs = async (tabIds, groupId) => {
         fixture.events.push(['move', [...tabIds], groupId]);
+        if (tabIds[0] === 4) return [];
         tabIds.forEach(tabId => fixture.memberships.set(tabId, groupId));
-        if (groupId === 'created-1') fixture.memberships.set(99, groupId);
-        if (groupId === 'created-2') throw new Error('stop');
+        return tabIds.map(id => ({id}));
     };
 
     const result = await applyDraft(draft, fixture.operations);
 
     assert.equal(result.rolledBack, false);
-    assert.deepEqual(result.rollbackFailures, [{
-        stage: 'remove-group',
+    assert.deepEqual(result.rollbackFailures, []);
+    assert.deepEqual(result.retainedGroups, [
+        {draftGroupId: 'draft-b', groupId: 'created-2', remainingTabIds: []},
+        {draftGroupId: 'draft-a', groupId: 'created-1', remainingTabIds: []},
+    ]);
+    assert.equal(fixture.events.some(event => event[0] === 'remove'), false);
+});
+
+test('apply records recreated tab IDs and compensates with those actual IDs', async () => {
+    const draft = draftFixture({
+        groups: [
+            {id: 'draft-a', name: 'First', reason: 'First reason', tabIds: [1]},
+            {id: 'draft-b', name: 'Second', reason: 'Second reason', tabIds: [3]},
+        ],
+        unassignedTabIds: [2, 4, 5],
+    });
+    const fixture = operationFixture(draft);
+    let tabQuery = 0;
+    fixture.operations.moveTabs = async (tabIds, groupId) => {
+        fixture.events.push(['move', [...tabIds], groupId]);
+        if (tabIds[0] === 1) {
+            fixture.memberships.delete(1);
+            fixture.memberships.set(101, groupId);
+            return [{id: 101}];
+        }
+        return [];
+    };
+    fixture.operations.getTabs = async () => ++tabQuery === 1
+        ? liveTabsFor(draft)
+        : [
+            ...liveTabsFor(draft).filter(tab => tab.id !== 1),
+            {id: 101, windowId: 10, url: 'https://example.test/1'},
+        ];
+
+    const result = await applyDraft(draft, fixture.operations);
+
+    assert.equal(result.success, false);
+    assert.deepEqual(result.createdGroups[0], {
         draftGroupId: 'draft-a',
         groupId: 'created-1',
-        remainingTabIds: [99],
-        message: 'Created group still contains tabs after rollback; removal was skipped.',
+        sourceTabIds: [1],
+        tabIds: [101],
+    });
+    assert.deepEqual(fixture.events.slice(-1), [['restore', [101], 'old-a']]);
+});
+
+test('apply reports empty, malformed, and multiple single-tab move results precisely', async t => {
+    const cases = [
+        {name: 'empty', returned: [], reason: 'empty-result', returnedTabIds: []},
+        {name: 'malformed', returned: [{}], reason: 'malformed-result', returnedTabIds: []},
+        {name: 'multiple', returned: [{id: 1}, {id: 101}], reason: 'multiple-results', returnedTabIds: [1, 101]},
+    ];
+
+    for (const item of cases) {
+        await t.test(item.name, async () => {
+            const draft = draftFixture();
+            const fixture = operationFixture(draft, {
+                async moveTabs() {
+                    return item.returned;
+                },
+            });
+
+            const result = await applyDraft(draft, fixture.operations);
+
+            assert.equal(result.success, false);
+            assert.equal(result.failure.stage, 'move-tabs');
+            assert.equal(result.failure.sourceTabId, 1);
+            assert.equal(result.failure.reason, item.reason);
+            assert.deepEqual(result.failure.returnedTabIds, item.returnedTabIds);
+            assert.deepEqual(result.retainedGroups, [
+                {draftGroupId: 'draft-a', groupId: 'created-1', remainingTabIds: []},
+            ]);
+        });
+    }
+});
+
+test('apply reports group IDs discovered after a late add rejection as retained', async () => {
+    const draft = draftFixture();
+    const error = Object.assign(new Error('menu update failed'), {
+        createdGroupIds: ['late-created'],
+        groupCreationUncertain: false,
+    });
+    const fixture = operationFixture(draft, {
+        async addGroup() {
+            throw error;
+        },
+    });
+
+    const result = await applyDraft(draft, fixture.operations);
+
+    assert.equal(result.success, false);
+    assert.deepEqual(result.failure.retainedGroupIds, ['late-created']);
+    assert.equal(result.failure.groupCreationUncertain, false);
+    assert.deepEqual(result.retainedGroups, [{
+        draftGroupId: 'draft-a',
+        groupId: 'late-created',
+        remainingTabIds: [],
     }]);
-    assert.equal(fixture.events.some(event => event[0] === 'remove' && event[1] === 'created-1'), false);
+});
+
+test('tracked add operation discovers groups persisted before add rejects', async () => {
+    const groups = [{id: 'existing'}];
+    const addGroup = createTrackedAddGroupOperation({
+        getGroups: async () => groups.map(group => ({...group})),
+        addGroup: async () => {
+            groups.push({id: 'late-created'});
+            throw new Error('menu update failed');
+        },
+    });
+
+    await assert.rejects(
+        addGroup(null, [], 'New group'),
+        error => {
+            assert.equal(error.message, 'Group creation failed after it may have been persisted.');
+            assert.deepEqual(error.createdGroupIds, ['late-created']);
+            assert.equal(error.groupCreationUncertain, false);
+            return true;
+        },
+    );
 });
 
 test('preflight failure performs no group or tab mutations', async () => {

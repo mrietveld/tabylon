@@ -12,6 +12,44 @@ function errorMessage(error) {
     return error instanceof Error ? error.message : String(error);
 }
 
+function groupIds(groups) {
+    if (!Array.isArray(groups)) {
+        throw new TypeError('getGroups must return an array');
+    }
+    return groups.map(group => group?.id).filter(id => typeof id === 'string' && id);
+}
+
+export function createTrackedAddGroupOperation({getGroups, addGroup} = {}) {
+    if (typeof getGroups !== 'function') {
+        throw new TypeError('getGroups must be a function');
+    }
+    if (typeof addGroup !== 'function') {
+        throw new TypeError('addGroup must be a function');
+    }
+
+    return async (...args) => {
+        const beforeIds = new Set(groupIds(await getGroups()));
+
+        try {
+            return await addGroup(...args);
+        } catch (_error) {
+            let createdGroupIds = [];
+            let groupCreationUncertain = true;
+            try {
+                createdGroupIds = groupIds(await getGroups()).filter(id => !beforeIds.has(id));
+                groupCreationUncertain = false;
+            } catch (_detectionError) {
+                // A failed post-check cannot prove whether Groups.add persisted a group.
+            }
+
+            throw Object.assign(
+                new Error('Group creation failed after it may have been persisted.'),
+                {createdGroupIds, groupCreationUncertain},
+            );
+        }
+    };
+}
+
 export function preflightDraft(draft, liveTabs, getTabGroup) {
     validateDraft(draft);
     if (!Array.isArray(liveTabs)) {
@@ -60,114 +98,141 @@ export function preflightDraft(draft, liveTabs, getTabGroup) {
     return result;
 }
 
-function groupTabsByOrigin(record, tabIds) {
-    const tabsByOrigin = new Map;
-    for (const tabId of tabIds) {
-        const origin = record.originalGroupIds.get(tabId);
-        const tabs = tabsByOrigin.get(origin) ?? [];
-        tabs.push(tabId);
-        tabsByOrigin.set(origin, tabs);
+function moveResultError(sourceTabId, result) {
+    const returnedTabIds = Array.isArray(result)
+        ? result.map(tab => tab?.id).filter(id => Number.isSafeInteger(id) && id >= 0)
+        : [];
+    let reason = 'malformed-result';
+    if (Array.isArray(result) && result.length === 0) {
+        reason = 'empty-result';
+    } else if (Array.isArray(result) && result.length > 1) {
+        reason = 'multiple-results';
     }
-    return tabsByOrigin;
+
+    return Object.assign(
+        new Error(`Moving tab ${sourceTabId} did not return exactly one live tab.`),
+        {reason, returnedTabIds, sourceTabId},
+    );
 }
 
-async function compensate(records, {getTabs, getTabGroup, restoreTabs, removeGroup}) {
+function requireMovedTab(sourceTabId, result) {
+    if (!Array.isArray(result) || result.length !== 1 ||
+        !Number.isSafeInteger(result[0]?.id) || result[0].id < 0) {
+        throw moveResultError(sourceTabId, result);
+    }
+    return result[0];
+}
+
+function summarizeCreatedGroup({draftGroupId, groupId, sourceTabIds, moves}) {
+    return {
+        draftGroupId,
+        groupId,
+        sourceTabIds: [...sourceTabIds],
+        tabIds: moves.map(move => move.actualTabId),
+    };
+}
+
+async function retainedGroup(record, getTabs, getTabGroup, failures) {
+    try {
+        const remainingTabIds = [];
+        for (const tab of await getTabs()) {
+            if (normalizedGroupId(getTabGroup(tab.id)) === record.groupId) {
+                remainingTabIds.push(tab.id);
+            }
+        }
+        return {
+            draftGroupId: record.draftGroupId,
+            groupId: record.groupId,
+            remainingTabIds,
+        };
+    } catch (error) {
+        failures.push({
+            stage: 'verify-tabs',
+            draftGroupId: record.draftGroupId,
+            groupId: record.groupId,
+            tabIds: [],
+            message: errorMessage(error),
+        });
+        return {
+            draftGroupId: record.draftGroupId,
+            groupId: record.groupId,
+            remainingTabIds: null,
+        };
+    }
+}
+
+async function compensate(records, {getTabs, getTabGroup, restoreTabs}) {
     const failures = [];
+    const retainedGroups = [];
 
     for (const record of records.toReversed()) {
-        const tabsInCreatedGroup = [];
-        let canVerify = true;
-
-        for (const tabId of record.tabIds) {
+        for (const move of record.moves.toReversed()) {
+            let currentGroupId;
             try {
-                const currentGroupId = normalizedGroupId(getTabGroup(tabId));
-                const originalGroupId = record.originalGroupIds.get(tabId);
-                if (currentGroupId === record.groupId) {
-                    tabsInCreatedGroup.push(tabId);
-                } else if (currentGroupId !== originalGroupId) {
-                    failures.push({
-                        stage: 'verify-tabs',
-                        draftGroupId: record.draftGroupId,
-                        groupId: record.groupId,
-                        tabIds: [tabId],
-                        message: 'Tab membership changed again during rollback.',
-                    });
-                }
+                currentGroupId = normalizedGroupId(getTabGroup(move.actualTabId));
             } catch (error) {
-                canVerify = false;
                 failures.push({
                     stage: 'verify-tabs',
                     draftGroupId: record.draftGroupId,
                     groupId: record.groupId,
-                    tabIds: [tabId],
+                    tabIds: [move.actualTabId],
                     message: errorMessage(error),
                 });
+                continue;
             }
-        }
 
-        for (const [originalGroupId, tabIds] of groupTabsByOrigin(record, tabsInCreatedGroup)) {
+            if (currentGroupId === move.originalGroupId) {
+                continue;
+            }
+            if (currentGroupId !== record.groupId) {
+                failures.push({
+                    stage: 'verify-tabs',
+                    draftGroupId: record.draftGroupId,
+                    groupId: record.groupId,
+                    tabIds: [move.actualTabId],
+                    message: 'Tab membership changed again during rollback.',
+                });
+                continue;
+            }
+
             try {
-                await restoreTabs(tabIds, originalGroupId);
+                await restoreTabs([move.actualTabId], move.originalGroupId);
             } catch (error) {
                 failures.push({
                     stage: 'restore-tabs',
                     draftGroupId: record.draftGroupId,
                     groupId: record.groupId,
-                    originalGroupId,
-                    tabIds: [...tabIds],
+                    originalGroupId: move.originalGroupId,
+                    tabIds: [move.actualTabId],
                     message: errorMessage(error),
                 });
             }
         }
 
-        const remainingTabIds = [];
-        if (canVerify) {
-            try {
-                for (const tab of await getTabs()) {
-                    const tabId = tab.id;
-                    if (normalizedGroupId(getTabGroup(tabId)) === record.groupId) {
-                        remainingTabIds.push(tabId);
-                    }
-                }
-            } catch (error) {
-                canVerify = false;
-                failures.push({
-                    stage: 'verify-tabs',
-                    draftGroupId: record.draftGroupId,
-                    groupId: record.groupId,
-                    tabIds: [],
-                    message: errorMessage(error),
-                });
-            }
-        }
-
-        if (!canVerify || remainingTabIds.length) {
-            failures.push({
-                stage: 'remove-group',
-                draftGroupId: record.draftGroupId,
-                groupId: record.groupId,
-                remainingTabIds,
-                message: canVerify
-                    ? 'Created group still contains tabs after rollback; removal was skipped.'
-                    : 'Created group contents could not be verified after rollback; removal was skipped.',
-            });
-            continue;
-        }
-
-        try {
-            await removeGroup(record.groupId);
-        } catch (error) {
-            failures.push({
-                stage: 'remove-group',
-                draftGroupId: record.draftGroupId,
-                groupId: record.groupId,
-                remainingTabIds: [],
-                message: errorMessage(error),
-            });
-        }
+        retainedGroups.push(await retainedGroup(record, getTabs, getTabGroup, failures));
     }
 
-    return failures;
+    return {failures, retainedGroups};
+}
+
+function createRecord(draftGroup, groupId, originalGroupIds) {
+    return {
+        draftGroupId: draftGroup.id,
+        groupId,
+        sourceTabIds: [...draftGroup.tabIds],
+        moves: [],
+        originalGroupIds,
+    };
+}
+
+function addFailureDetails(error) {
+    const retainedGroupIds = Array.isArray(error?.createdGroupIds)
+        ? error.createdGroupIds.filter(id => typeof id === 'string' && id)
+        : [];
+    return {
+        retainedGroupIds,
+        groupCreationUncertain: error?.groupCreationUncertain ?? true,
+    };
 }
 
 export async function applyDraft(draft, {
@@ -176,9 +241,8 @@ export async function applyDraft(draft, {
     addGroup,
     moveTabs,
     restoreTabs,
-    removeGroup,
 } = {}) {
-    for (const [name, operation] of Object.entries({getTabs, getTabGroup, addGroup, moveTabs, removeGroup})) {
+    for (const [name, operation] of Object.entries({getTabs, getTabGroup, addGroup, moveTabs})) {
         if (typeof operation !== 'function') {
             throw new TypeError(`${name} must be a function`);
         }
@@ -206,6 +270,7 @@ export async function applyDraft(draft, {
             },
             rolledBack: false,
             rollbackFailures: [],
+            retainedGroups: [],
         };
     }
 
@@ -215,62 +280,76 @@ export async function applyDraft(draft, {
     ]));
     const records = [];
     let activeGroup = null;
+    let activeSourceTabId = null;
     let stage = 'add-group';
 
     try {
         for (const draftGroup of draft.groups) {
             activeGroup = draftGroup;
+            activeSourceTabId = null;
             stage = 'add-group';
             const createdGroup = await addGroup(null, [], draftGroup.name);
             if (!createdGroup?.id) {
                 throw new Error('Creating the STG group did not return a group ID.');
             }
 
-            const record = {
-                draftGroupId: draftGroup.id,
-                groupId: createdGroup.id,
-                tabIds: [...draftGroup.tabIds],
-                originalGroupIds,
-            };
+            const record = createRecord(draftGroup, createdGroup.id, originalGroupIds);
             records.push(record);
 
             stage = 'move-tabs';
-            await moveTabs(record.tabIds, record.groupId);
+            for (const sourceTabId of draftGroup.tabIds) {
+                activeSourceTabId = sourceTabId;
+                const movedTab = requireMovedTab(
+                    sourceTabId,
+                    await moveTabs([sourceTabId], record.groupId),
+                );
+                record.moves.push({
+                    sourceTabId,
+                    actualTabId: movedTab.id,
+                    originalGroupId: originalGroupIds.get(sourceTabId),
+                });
+            }
         }
 
         return {
             success: true,
             preflight,
-            createdGroups: records.map(({draftGroupId, groupId, tabIds}) => ({
-                draftGroupId,
-                groupId,
-                tabIds: [...tabIds],
-            })),
+            createdGroups: records.map(summarizeCreatedGroup),
             failure: null,
             rolledBack: false,
             rollbackFailures: [],
+            retainedGroups: [],
         };
     } catch (error) {
-        const activeRecord = records.at(-1);
+        if (stage === 'add-group') {
+            const {retainedGroupIds} = addFailureDetails(error);
+            for (const groupId of retainedGroupIds) {
+                records.push(createRecord(activeGroup, groupId, originalGroupIds));
+            }
+        }
+
+        const activeRecord = records.findLast(record => record.draftGroupId === activeGroup?.id);
         const failure = {
             stage,
             draftGroupId: activeGroup?.id ?? null,
-            ...(activeRecord?.draftGroupId === activeGroup?.id ? {groupId: activeRecord.groupId} : {}),
+            ...(activeRecord ? {groupId: activeRecord.groupId} : {}),
+            ...(stage === 'move-tabs' ? {
+                sourceTabId: activeSourceTabId,
+                reason: error?.reason ?? 'operation-rejected',
+                returnedTabIds: error?.returnedTabIds ?? [],
+            } : addFailureDetails(error)),
             message: errorMessage(error),
         };
-        const rollbackFailures = await compensate(records, {getTabs, getTabGroup, restoreTabs, removeGroup});
+        const rollback = await compensate(records, {getTabs, getTabGroup, restoreTabs});
 
         return {
             success: false,
             preflight,
-            createdGroups: records.map(({draftGroupId, groupId, tabIds}) => ({
-                draftGroupId,
-                groupId,
-                tabIds: [...tabIds],
-            })),
+            createdGroups: records.map(summarizeCreatedGroup),
             failure,
-            rolledBack: rollbackFailures.length === 0,
-            rollbackFailures,
+            rolledBack: false,
+            rollbackFailures: rollback.failures,
+            retainedGroups: rollback.retainedGroups,
         };
     }
 }

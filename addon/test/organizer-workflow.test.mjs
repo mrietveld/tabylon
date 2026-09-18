@@ -2,6 +2,7 @@ import assert from 'node:assert/strict';
 import test from 'node:test';
 
 import {createOrganizerWorkflow} from '../src/js/organizer/index.js';
+import {DRAFT_STATE_STORAGE_KEY} from '../src/js/organizer/draft-store.js';
 
 function createSessionStorage() {
     const data = new Map();
@@ -219,6 +220,7 @@ test('apply uses the persisted draft, records completion, and clears the active 
         moveTabs: async (tabIds, groupId) => {
             events.push(['move', [...tabIds], groupId]);
             tabIds.forEach(tabId => membership.set(tabId, groupId));
+            return tabIds.map(id => ({id}));
         },
         restoreTabs: async () => assert.fail('rollback should not run'),
         removeGroup: async () => assert.fail('rollback should not run'),
@@ -241,12 +243,122 @@ test('apply uses the persisted draft, records completion, and clears the active 
     assert.deepEqual(events, [
         ['run', 'apply-grouping-plan'],
         ['add', 'Persisted name'],
-        ['move', [1, 2, 3, 4, 5], 'created-1'],
+        ['move', [1], 'created-1'],
+        ['move', [2], 'created-1'],
+        ['move', [3], 'created-1'],
+        ['move', [4], 'created-1'],
+        ['move', [5], 'created-1'],
     ]);
     assert.equal(stored.phase, 'apply');
     assert.equal(stored.status, 'complete');
     assert.equal(stored.draft, null);
     assert.deepEqual(stored.applyResult, result);
+});
+
+test('apply persists safe failure state when coordinator boundaries reject', async t => {
+    const cases = [
+        {
+            name: 'live tab query',
+            dependencies() {
+                let rejectQuery = false;
+                return {
+                    overrides: {
+                        getTabs: async () => {
+                            if (rejectQuery) throw new Error('secret live query details');
+                            return tabs;
+                        },
+                    },
+                    afterStart() {
+                        rejectQuery = true;
+                    },
+                };
+            },
+        },
+        {
+            name: 'preflight membership lookup',
+            dependencies() {
+                let rejectMembership = false;
+                return {
+                    overrides: {
+                        getGroupId(tabId) {
+                            if (rejectMembership) throw new Error(`secret membership for ${tabId}`);
+                            return null;
+                        },
+                    },
+                    afterStart() {
+                        rejectMembership = true;
+                    },
+                };
+            },
+        },
+        {
+            name: 'persisted draft validation',
+            dependencies(storageArea) {
+                return {
+                    overrides: {},
+                    async afterStart() {
+                        const {[DRAFT_STATE_STORAGE_KEY]: state} = await storageArea.get(DRAFT_STATE_STORAGE_KEY);
+                        state.draft.groups[0].name = '';
+                        await storageArea.set({[DRAFT_STATE_STORAGE_KEY]: state});
+                    },
+                };
+            },
+        },
+        {
+            name: 'operation wrapper',
+            dependencies() {
+                return {
+                    overrides: {
+                        runOperation: async () => {
+                            throw new Error('secret operation wrapper details');
+                        },
+                    },
+                    afterStart() {},
+                };
+            },
+        },
+    ];
+
+    for (const item of cases) {
+        await t.test(item.name, async () => {
+            const storageArea = createSessionStorage();
+            const setup = item.dependencies(storageArea);
+            const workflow = createOrganizerWorkflow(workflowDependencies({
+                storageArea,
+                addGroup: async () => ({id: 'created-1'}),
+                moveTabs: async ([id]) => [{id}],
+                removeGroup: async () => assert.fail('rollback deletion is forbidden'),
+                ...setup.overrides,
+            }));
+            await workflow.start();
+            await setup.afterStart();
+
+            const result = await workflow.apply();
+            const stored = await workflow.getState();
+
+            assert.deepEqual(result, {
+                success: false,
+                preflight: null,
+                createdGroups: [],
+                failure: {
+                    stage: 'workflow',
+                    message: 'The organizer plan could not be applied.',
+                },
+                rolledBack: false,
+                rollbackFailures: [],
+                retainedGroups: [],
+            });
+            assert.equal(stored.phase, 'apply');
+            assert.equal(stored.status, 'error');
+            assert.notEqual(stored.draft, null);
+            assert.deepEqual(stored.error, {
+                code: 'apply-error',
+                message: 'The organizer plan could not be applied.',
+                status: null,
+            });
+            assert.doesNotMatch(JSON.stringify({result, error: stored.error}), /secret/i);
+        });
+    }
 });
 
 test('apply persists an error result and keeps the active draft when preflight fails', async () => {
