@@ -46,63 +46,6 @@ When a plan is generated, STG sends the titles and URLs of tabs in the chosen sc
 
 Selecting **Apply groups** first checks that the planned tabs have not changed window, URL, or group since the plan was generated. STG then creates the approved groups and moves the assigned tabs. If the plan is stale, generate a fresh one. If an apply operation cannot complete, inspect the recovery details and your groups before trying again.
 
-### This extension has these plugins
-
-* [Create new group](https://addons.mozilla.org/firefox/addon/stg-plugin-create-new-group/)
-* [Create new tab](https://addons.mozilla.org/firefox/addon/stg-plugin-create-new-tab/)
-* [Create new tab in temporary container](https://addons.mozilla.org/firefox/addon/stg-plugin-create-temp-tab/)
-* [Delete current group](https://addons.mozilla.org/firefox/addon/stg-plugin-del-current-group/)
-* [Group notes](https://addons.mozilla.org/firefox/addon/stg-plugin-group-notes/)
-* [Load custom group](https://addons.mozilla.org/firefox/addon/stg-plugin-load-custom-group/)
-* [Open Manage groups](https://addons.mozilla.org/firefox/addon/stg-plugin-manage-groups/)
-
-Allow support message actions from Gesturify addon.
-Allow import groups from addons "Panorama View" and "Sync Tab Groups".
-
-### Work with [Gesturefy](https://addons.mozilla.org/firefox/addon/gesturefy/) addon
-
-[How to configure the work with the plugin Gesturefy](https://user-images.githubusercontent.com/7843031/44263498-dffb1b00-a227-11e8-95c7-1b9474199ef0.png)
-
-You have to copy and paste into Gesturefy addon
-
-`Add-on ID` : `simple-tab-groups@drive4ik`
-
-`Parse message` -> `On`
-
-Supported actions:
-
-* `{"action": "add-new-group"}`
-* `{"action": "rename-group"}`
-* `{"action": "load-next-group"}`
-* `{"action": "load-prev-group"}`
-* `{"action": "load-next-unloaded-group"}`
-* `{"action": "load-prev-unloaded-group"}`
-* `{"action": "load-next-non-empty-group"}`
-* `{"action": "load-prev-non-empty-group"}`
-* `{"action": "load-history-next-group"}`
-* `{"action": "load-history-prev-group"}`
-* `{"action": "load-first-group"}`
-* `{"action": "load-last-group"}`
-* `{"action": "load-custom-group"}`
-* `{"action": "delete-current-group"}`
-* `{"action": "open-manage-groups"}`
-* `{"action": "move-selected-tabs-to-custom-group"}`
-* `{"action": "discard-group"}`
-* `{"action": "discard-other-groups"}`
-* `{"action": "reload-all-tabs-in-current-group"}`
-* `{"action": "create-temp-tab"}`
-* `{"action": "create-backup"}`
-
-This extension may conflict with other programs similar in functionality.
-Conflicted addons:
-
-* Tab Open/Close Control
-* OneTab
-* Tiled Tab Groups
-* Totally not Panorama (Tab Groups with tab hiding)
-* Panorama Tab Groups
-* Panorama View (etc.)
-
 Open popup shortcut: `F8`. [You can change this hotkey](https://support.mozilla.org/kb/manage-extension-shortcuts-firefox)
 
 Current list of functionality / development notes:

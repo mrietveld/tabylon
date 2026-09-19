@@ -11,8 +11,8 @@ const forbiddenTokens = [
     'tab-organizer@example.local',
 ];
 const forbiddenPatterns = [
-    ['cross-extension runtime sendMessage', /\bbrowser\.runtime\.sendMessage\s*\(\s*(['"`])[^'"`\r\n]*\1\s*,/],
-    ['cross-extension runtime connect', /\bbrowser\.runtime\.connect\s*\(\s*(['"`])[^'"`\r\n]*\1\s*(?:,|\))/],
+    ['cross-extension runtime sendMessage', /\bbrowser\.runtime\.sendMessage\s*\(\s*(?!\{)[^,)\s][^,)]*,/],
+    ['cross-extension runtime connect', /\bbrowser\.runtime\.connect\s*\(\s*(?!\{)[^,)\s][^,)]*(?:,|\))/],
 ];
 const scanRoots = [
     'addon/src', 'addon/webpack.config.mjs', 'addon/scripts/build-zip.js',

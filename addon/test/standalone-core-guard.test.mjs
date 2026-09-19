@@ -44,10 +44,24 @@ test('rejects cross-extension runtime sends and connections', t => {
     assert.match(result.stderr, /cross-extension runtime connect/);
 });
 
+test('rejects dynamic cross-extension runtime transport arguments', t => {
+    const {script} = createFixture(t, [
+        "const exId = 'other-extension@example.test';",
+        "const extensionId = 'another-extension@example.test';",
+        "browser.runtime.sendMessage(exId, {action: 'organize'});",
+        "browser.runtime.connect(extensionId, {name: 'organize'});",
+    ].join('\n'));
+    const result = runGuard(script);
+
+    assert.notEqual(result.status, 0);
+    assert.match(result.stderr, /cross-extension runtime sendMessage/);
+    assert.match(result.stderr, /cross-extension runtime connect/);
+});
+
 test('allows internal Organizer messages and runtime sends', t => {
     const {script} = createFixture(t, [
         "const action = 'Organizer.start';",
-        'browser.runtime.sendMessage({action});',
+        'browser.runtime.sendMessage({action, tabIds: [1, 2]});',
         "browser.runtime.connect({name: 'Organizer'});",
     ].join('\n'));
     const result = runGuard(script);
