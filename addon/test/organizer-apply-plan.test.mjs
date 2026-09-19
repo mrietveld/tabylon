@@ -370,6 +370,38 @@ test('a rejected move restores a uniquely recreated tab even before destination 
     assert.deepEqual(fixture.events.slice(-1), [['restore', [101], 'old-a']]);
 });
 
+test('a rejected same-ID move with a changed window is recorded and restored', async () => {
+    const draft = draftFixture({
+        groups: [{id: 'draft-a', name: 'First', reason: 'First reason', tabIds: [1]}],
+        unassignedTabIds: [2, 3, 4, 5],
+    });
+    const fixture = operationFixture(draft);
+    let tabQuery = 0;
+    fixture.operations.getTabs = async () => ++tabQuery === 1
+        ? liveTabsFor(draft)
+        : liveTabsFor(draft).map(tab => tab.id === 1 ? {...tab, windowId: 99} : tab);
+    fixture.operations.moveTabs = async ([sourceTabId], groupId) => {
+        fixture.events.push(['move', [sourceTabId], groupId]);
+        throw new Error('move rejected after browser window move');
+    };
+
+    const result = await applyDraft(draft, fixture.operations);
+
+    assert.deepEqual(result.failure.reconciliation, {
+        status: 'reconciled',
+        actualTabId: 1,
+        candidateTabIds: [1],
+        observedGroupId: 'old-a',
+        reason: 'window-changed',
+    });
+    assert.deepEqual(result.createdGroups[0].tabIds, [1]);
+    assert.deepEqual(fixture.events, [
+        ['add', 'First', 'created-1'],
+        ['move', [1], 'created-1'],
+        ['restore', [1], 'old-a'],
+    ]);
+});
+
 test('reconciliation does not adopt an unrelated new tab with only the same URL', async () => {
     const draft = draftFixture({
         groups: [{id: 'draft-a', name: 'First', reason: 'First reason', tabIds: [1]}],

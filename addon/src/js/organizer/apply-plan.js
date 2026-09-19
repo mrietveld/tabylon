@@ -129,7 +129,7 @@ function moveReconciliation(status, actualTabId = null, candidateTabIds = [], ob
         actualTabId,
         candidateTabIds,
         ...(status === 'reconciled' ? {observedGroupId: normalizedGroupId(observedGroupId)} : {}),
-        ...(status === 'uncertain' ? {reason} : {}),
+        ...(reason ? {reason} : {}),
     };
 }
 
@@ -177,6 +177,10 @@ async function reconcileRejectedMove({
         const observedGroupId = membership(sourceTabId);
         if (membershipLookupFailed) {
             return moveReconciliation('uncertain', null, [], undefined, 'membership-unavailable');
+        }
+        const capturedWindowId = snapshotTab?.fingerprint?.windowId ?? snapshotTab?.windowId;
+        if (sourceTab.windowId !== capturedWindowId) {
+            return moveReconciliation('reconciled', sourceTabId, [sourceTabId], observedGroupId, 'window-changed');
         }
         if (observedGroupId === originalGroupId) {
             return moveReconciliation('not-moved');
@@ -248,7 +252,7 @@ async function compensate(records, {getTabs, getTabGroup, restoreTabs}) {
                 continue;
             }
 
-            if (currentGroupId === move.originalGroupId) {
+            if (currentGroupId === move.originalGroupId && !move.requiresRestore) {
                 continue;
             }
             const expectedCurrentGroupId = Object.hasOwn(move, 'observedGroupId')
@@ -393,6 +397,7 @@ export async function applyDraft(draft, {
                             actualTabId: activeReconciliation.actualTabId,
                             originalGroupId: originalGroupIds.get(sourceTabId),
                             observedGroupId: activeReconciliation.observedGroupId,
+                            requiresRestore: activeReconciliation.reason === 'window-changed',
                         });
                     }
                     throw error;
