@@ -6,6 +6,14 @@ import {
 } from '/js/organizer/draft.js';
 import optionsMixin from '/js/mixins/options.mixin.js';
 import {parseOrganizerQuery} from './query.js';
+import {
+    createdGroupDetails,
+    preflightChangeDetails,
+    removeStaleAssignedTabs,
+    retainedGroupDetails,
+    rollbackFailureDetails,
+    staleAssignedTabIds,
+} from './recovery.js';
 
 const SCOPE_OPTIONS = Object.freeze([
     {
@@ -52,6 +60,7 @@ export default {
             draggedTabId: null,
             pageError: false,
             editError: '',
+            completedGroups: [],
         };
     },
     computed: {
@@ -112,12 +121,16 @@ export default {
         applyResult() {
             return this.state?.applyResult ?? null;
         },
-        retainedGroupIds() {
-            const ids = [
-                ...(this.applyResult?.retainedGroups ?? []).map(group => group.groupId),
-                ...(this.applyResult?.failure?.retainedGroupIds ?? []),
-            ].filter(id => typeof id === 'string' && id);
-            return [...new Set(ids)];
+        createdGroups() {
+            return this.completedGroups.length
+                ? this.completedGroups
+                : createdGroupDetails(this.applyResult);
+        },
+        retainedGroups() {
+            return retainedGroupDetails(this.applyResult);
+        },
+        rollbackFailures() {
+            return rollbackFailureDetails(this.applyResult);
         },
         rollbackUncertain() {
             return this.applyResult?.failure?.groupCreationUncertain === true ||
@@ -125,16 +138,13 @@ export default {
                 (this.applyResult?.retainedGroups ?? []).some(group => group.remainingTabIds === null);
         },
         changedTabCount() {
-            const preflight = this.applyResult?.preflight;
-            if (!preflight || preflight.ok) {
-                return 0;
-            }
-            return new Set([
-                ...preflight.missingTabIds,
-                ...preflight.urlChangedTabIds,
-                ...preflight.windowChangedTabIds,
-                ...preflight.groupChangedTabIds,
-            ]).size;
+            return staleAssignedTabIds(this.applyResult?.preflight).length;
+        },
+        staleTabIds() {
+            return staleAssignedTabIds(this.applyResult?.preflight);
+        },
+        preflightChanges() {
+            return preflightChangeDetails(this.applyResult?.preflight);
         },
         errorMessage() {
             if (this.pageError) {
@@ -142,7 +152,7 @@ export default {
             }
             if (this.isApplyError) {
                 if (this.applyResult?.failure?.stage === 'preflight') {
-                    return 'Some tabs changed after this plan was generated. Generate a fresh plan before trying again.';
+                    return 'Some tabs changed after this plan was generated. Remove them from this draft or generate a fresh plan.';
                 }
                 return 'The plan could not be applied completely. Review the recovery details below before continuing.';
             }
@@ -299,11 +309,23 @@ export default {
                 if (typeof result?.success !== 'boolean') {
                     throw new TypeError('Organizer returned an invalid apply result');
                 }
+                this.completedGroups = result.success ? createdGroupDetails(result) : [];
                 this.setState(await this.sendMessageModule('Organizer.getState'));
             } catch (_error) {
                 this.pageError = true;
             } finally {
                 this.busyAction = null;
+            }
+        },
+        async removeStaleTabs() {
+            if (!this.draft || this.applyResult?.failure?.stage !== 'preflight') {
+                return;
+            }
+            try {
+                this.draft = removeStaleAssignedTabs(this.draft, this.applyResult.preflight);
+                await this.persistDraft();
+            } catch (_error) {
+                this.editError = 'The changed tabs could not be removed from this draft.';
             }
         },
         skippedReason(reason) {
@@ -471,7 +493,13 @@ export default {
             <div class="success-mark" aria-hidden="true">✓</div>
             <p class="step-label">Complete</p>
             <h2 class="title is-3">Your tabs are organized</h2>
-            <p v-text="`${applyResult?.createdGroups?.length ?? 0} group${applyResult?.createdGroups?.length === 1 ? '' : 's'} created successfully.`"></p>
+            <p v-text="`${createdGroups.length} group${createdGroups.length === 1 ? '' : 's'} created successfully.`"></p>
+            <ul class="safe-list success-groups mt-4">
+                <li v-for="group in createdGroups" :key="group.groupId">
+                    <strong v-text="group.name"></strong>
+                    <span v-text="`${group.tabCount} tab${group.tabCount === 1 ? '' : 's'}`"></span>
+                </li>
+            </ul>
             <button class="button is-info mt-5" type="button" @click="cancel">Organize more tabs</button>
         </section>
 
@@ -481,11 +509,43 @@ export default {
             <p v-text="errorMessage"></p>
 
             <div v-if="isApplyError" class="recovery-details mt-5">
-                <p v-if="changedTabCount" v-text="`${changedTabCount} tab${changedTabCount === 1 ? '' : 's'} changed since the plan was created.`"></p>
-                <div v-if="retainedGroupIds.length" class="notification is-warning is-light">
-                    <p class="has-text-weight-semibold mb-2">Groups that may still exist</p>
+                <p v-if="changedTabCount"
+                   v-text="`${changedTabCount} tab${changedTabCount === 1 ? '' : 's'} changed since the plan was created: ${staleTabIds.join(', ')}.`"></p>
+                <ul v-if="preflightChanges.length" class="safe-list">
+                    <li v-for="change in preflightChanges" :key="change.label"
+                        v-text="`${change.label}: ${change.tabIds.join(', ')}`"></li>
+                </ul>
+                <p v-if="applyResult?.failure?.stage && applyResult.failure.stage !== 'preflight'"
+                   v-text="`Apply failed during ${applyResult.failure.stage}${applyResult.failure.sourceTabId == null ? '' : ` for tab ${applyResult.failure.sourceTabId}`}.`"></p>
+                <p v-if="applyResult?.failure?.groupId" v-text="`Affected group: ${applyResult.failure.groupId}`"></p>
+                <p v-if="applyResult?.failure?.message" v-text="applyResult.failure.message"></p>
+                <p v-if="applyResult?.failure?.returnedTabIds?.length"
+                   v-text="`Move returned tab IDs: ${applyResult.failure.returnedTabIds.join(', ')}`"></p>
+                <p v-if="applyResult?.failure?.reconciliation"
+                   v-text="`Rejected move reconciliation: ${applyResult.failure.reconciliation.status}${applyResult.failure.reconciliation.actualTabId == null ? '' : ` as tab ${applyResult.failure.reconciliation.actualTabId}`}.`"></p>
+                <p v-if="applyResult?.failure?.reconciliation?.reason"
+                   v-text="`Reconciliation detail: ${applyResult.failure.reconciliation.reason}.`"></p>
+                <p v-if="applyResult?.failure?.reconciliation?.candidateTabIds?.length"
+                   v-text="`Reconciliation candidate tab IDs: ${applyResult.failure.reconciliation.candidateTabIds.join(', ')}`"></p>
+                <div v-if="retainedGroups.length" class="notification is-warning is-light">
+                    <p class="has-text-weight-semibold mb-2">Groups retained for safe recovery</p>
                     <ul class="safe-list">
-                        <li v-for="groupId in retainedGroupIds" :key="groupId" v-text="groupId"></li>
+                        <li v-for="group in retainedGroups" :key="group.groupId">
+                            <strong v-text="group.groupId"></strong>
+                            <span v-if="group.remainingTabIds !== null"
+                                  v-text="`${group.remainingTabCount} remaining tab${group.remainingTabCount === 1 ? '' : 's'}${group.remainingTabIds.length ? `: ${group.remainingTabIds.join(', ')}` : ''}`"></span>
+                            <span v-else>Remaining tabs could not be verified.</span>
+                        </li>
+                    </ul>
+                </div>
+                <div v-if="rollbackFailures.length" class="notification is-danger is-light">
+                    <p class="has-text-weight-semibold mb-2">Rollback failures</p>
+                    <ul class="safe-list">
+                        <li v-for="(failure, index) in rollbackFailures" :key="`${failure.stage}-${failure.groupId}-${index}`">
+                            <span v-text="`${failure.stage}${failure.groupId ? ` in ${failure.groupId}` : ''}`"></span>
+                            <span v-text="failure.tabIds.length ? ` — affected tab IDs: ${failure.tabIds.join(', ')}` : ' — affected tab IDs unavailable'"></span>
+                            <span v-if="failure.message" v-text="` — ${failure.message}`"></span>
+                        </li>
                     </ul>
                 </div>
                 <p v-if="rollbackUncertain" class="notification is-warning is-light">
@@ -494,6 +554,10 @@ export default {
             </div>
 
             <div class="actions-row mt-5">
+                <button v-if="isApplyError && applyResult?.failure?.stage === 'preflight'"
+                        class="button is-info" type="button" :disabled="isSaving" @click="removeStaleTabs">
+                    Remove changed tabs and review
+                </button>
                 <button v-if="!pageError" class="button is-info" type="button" @click="regenerate">Try a fresh plan</button>
                 <button class="button is-light" type="button" @click="cancel">Cancel and clear</button>
             </div>

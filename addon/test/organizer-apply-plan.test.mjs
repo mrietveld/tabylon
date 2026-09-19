@@ -131,8 +131,8 @@ test('apply creates and moves groups in draft order', async () => {
     assert.equal(result.success, true);
     assert.equal(result.failure, null);
     assert.deepEqual(result.createdGroups, [
-        {draftGroupId: 'draft-a', groupId: 'created-1', sourceTabIds: [1, 2], tabIds: [1, 2]},
-        {draftGroupId: 'draft-b', groupId: 'created-2', sourceTabIds: [3, 4], tabIds: [3, 4]},
+        {draftGroupId: 'draft-a', groupId: 'created-1', name: 'First', sourceTabIds: [1, 2], tabIds: [1, 2]},
+        {draftGroupId: 'draft-b', groupId: 'created-2', name: 'Second', sourceTabIds: [3, 4], tabIds: [3, 4]},
     ]);
     assert.deepEqual(result.rollbackFailures, []);
     assert.deepEqual(events, [
@@ -281,7 +281,7 @@ test('apply records recreated tab IDs and compensates with those actual IDs', as
         ? liveTabsFor(draft)
         : [
             ...liveTabsFor(draft).filter(tab => tab.id !== 1),
-            {id: 101, windowId: 10, url: 'https://example.test/1'},
+            {id: 101, windowId: 10, title: 'One', url: 'https://example.test/1'},
         ];
 
     const result = await applyDraft(draft, fixture.operations);
@@ -290,10 +290,164 @@ test('apply records recreated tab IDs and compensates with those actual IDs', as
     assert.deepEqual(result.createdGroups[0], {
         draftGroupId: 'draft-a',
         groupId: 'created-1',
+        name: 'First',
         sourceTabIds: [1],
         tabIds: [101],
     });
     assert.deepEqual(fixture.events.slice(-1), [['restore', [101], 'old-a']]);
+});
+
+test('a rejected move that recreated its tab is reconciled and restored', async () => {
+    const draft = draftFixture({
+        groups: [{id: 'draft-a', name: 'First', reason: 'First reason', tabIds: [1]}],
+        unassignedTabIds: [2, 3, 4, 5],
+    });
+    const fixture = operationFixture(draft);
+    let tabQuery = 0;
+    fixture.operations.getTabs = async () => ++tabQuery === 1
+        ? liveTabsFor(draft)
+        : [
+            ...liveTabsFor(draft).filter(tab => tab.id !== 1),
+            {id: 101, windowId: 10, title: 'One', url: 'https://example.test/1'},
+        ];
+    fixture.operations.moveTabs = async ([sourceTabId], groupId) => {
+        fixture.events.push(['move', [sourceTabId], groupId]);
+        fixture.memberships.delete(sourceTabId);
+        fixture.memberships.set(101, groupId);
+        throw new Error('move rejected after recreation');
+    };
+
+    const result = await applyDraft(draft, fixture.operations);
+
+    assert.equal(result.success, false);
+    assert.deepEqual(result.failure.reconciliation, {
+        status: 'reconciled',
+        actualTabId: 101,
+        candidateTabIds: [101],
+        observedGroupId: 'created-1',
+    });
+    assert.deepEqual(result.createdGroups, [{
+        draftGroupId: 'draft-a',
+        groupId: 'created-1',
+        name: 'First',
+        sourceTabIds: [1],
+        tabIds: [101],
+    }]);
+    assert.deepEqual(fixture.events, [
+        ['add', 'First', 'created-1'],
+        ['move', [1], 'created-1'],
+        ['restore', [101], 'old-a'],
+    ]);
+});
+
+test('a rejected move restores a uniquely recreated tab even before destination membership is saved', async () => {
+    const draft = draftFixture({
+        groups: [{id: 'draft-a', name: 'First', reason: 'First reason', tabIds: [1]}],
+        unassignedTabIds: [2, 3, 4, 5],
+    });
+    const fixture = operationFixture(draft);
+    let tabQuery = 0;
+    fixture.operations.getTabs = async () => ++tabQuery === 1
+        ? liveTabsFor(draft)
+        : [
+            ...liveTabsFor(draft).filter(tab => tab.id !== 1),
+            {id: 101, windowId: 10, title: 'One', url: 'https://example.test/1'},
+        ];
+    fixture.operations.moveTabs = async () => {
+        fixture.memberships.delete(1);
+        fixture.memberships.set(101, null);
+        throw new Error('move rejected before membership update');
+    };
+
+    const result = await applyDraft(draft, fixture.operations);
+
+    assert.deepEqual(result.failure.reconciliation, {
+        status: 'reconciled',
+        actualTabId: 101,
+        candidateTabIds: [101],
+        observedGroupId: null,
+    });
+    assert.deepEqual(fixture.events.slice(-1), [['restore', [101], 'old-a']]);
+});
+
+test('reconciliation does not adopt an unrelated new tab with only the same URL', async () => {
+    const draft = draftFixture({
+        groups: [{id: 'draft-a', name: 'First', reason: 'First reason', tabIds: [1]}],
+        unassignedTabIds: [2, 3, 4, 5],
+    });
+    const fixture = operationFixture(draft);
+    let tabQuery = 0;
+    fixture.operations.getTabs = async () => ++tabQuery === 1
+        ? liveTabsFor(draft)
+        : [
+            ...liveTabsFor(draft).filter(tab => tab.id !== 1),
+            {id: 101, windowId: 10, title: 'Unrelated page', url: 'https://example.test/1'},
+        ];
+    fixture.operations.moveTabs = async () => {
+        fixture.memberships.delete(1);
+        fixture.memberships.set(101, null);
+        throw new Error('move rejected while another tab opened');
+    };
+
+    const result = await applyDraft(draft, fixture.operations);
+
+    assert.deepEqual(result.failure.reconciliation, {
+        status: 'uncertain',
+        actualTabId: null,
+        candidateTabIds: [],
+        reason: 'replacement-not-found',
+    });
+    assert.equal(fixture.events.some(event => event[0] === 'restore'), false);
+});
+
+test('a rejected move reports whether reconciliation proves no move or remains uncertain', async t => {
+    await t.test('source tab remains in its original group', async () => {
+        const draft = draftFixture({
+            groups: [{id: 'draft-a', name: 'First', reason: 'First reason', tabIds: [1]}],
+            unassignedTabIds: [2, 3, 4, 5],
+        });
+        const fixture = operationFixture(draft, {
+            async moveTabs() {
+                throw new Error('move rejected without mutation');
+            },
+        });
+
+        const result = await applyDraft(draft, fixture.operations);
+
+        assert.deepEqual(result.failure.reconciliation, {
+            status: 'not-moved',
+            actualTabId: null,
+            candidateTabIds: [],
+        });
+        assert.deepEqual(result.createdGroups[0].tabIds, []);
+        assert.equal(fixture.events.some(event => event[0] === 'restore'), false);
+    });
+
+    await t.test('source disappears without a unique replacement', async () => {
+        const draft = draftFixture({
+            groups: [{id: 'draft-a', name: 'First', reason: 'First reason', tabIds: [1]}],
+            unassignedTabIds: [2, 3, 4, 5],
+        });
+        const fixture = operationFixture(draft);
+        let tabQuery = 0;
+        fixture.operations.getTabs = async () => ++tabQuery === 1
+            ? liveTabsFor(draft)
+            : liveTabsFor(draft).filter(tab => tab.id !== 1);
+        fixture.operations.moveTabs = async () => {
+            fixture.memberships.delete(1);
+            throw new Error('move rejected after source disappeared');
+        };
+
+        const result = await applyDraft(draft, fixture.operations);
+
+        assert.deepEqual(result.failure.reconciliation, {
+            status: 'uncertain',
+            actualTabId: null,
+            candidateTabIds: [],
+            reason: 'replacement-not-found',
+        });
+        assert.deepEqual(result.createdGroups[0].tabIds, []);
+    });
 });
 
 test('a later rejected move restores earlier recreated tabs in reverse order without removing the group', async () => {
@@ -327,6 +481,7 @@ test('a later rejected move restores earlier recreated tabs in reverse order wit
     assert.deepEqual(result.createdGroups, [{
         draftGroupId: 'draft-a',
         groupId: 'created-1',
+        name: 'First',
         sourceTabIds: [1, 2, 3],
         tabIds: [101, 102],
     }]);

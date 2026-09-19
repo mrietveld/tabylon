@@ -32,6 +32,16 @@ function jsonResponse(body, {ok = true, status = 200} = {}) {
     };
 }
 
+function deferred() {
+    let resolve;
+    let reject;
+    const promise = new Promise((resolvePromise, rejectPromise) => {
+        resolve = resolvePromise;
+        reject = rejectPromise;
+    });
+    return {promise, resolve, reject};
+}
+
 const tabs = Array.from({length: 5}, (_, index) => ({
     id: index + 1,
     windowId: 7,
@@ -209,7 +219,189 @@ test('refresh reuses workflow params and clear returns to an empty choose state'
     });
 });
 
-test('apply uses the persisted draft, records completion, and clears the active draft', async () => {
+test('an older generation completion cannot overwrite a newer start', async () => {
+    const requests = [];
+    let requestNumber = 0;
+    const workflow = createOrganizerWorkflow(workflowDependencies({
+        createRequestId: () => `request-${++requestNumber}`,
+        fetchImpl: async (_url, init) => {
+            const pending = deferred();
+            requests.push({requestId: JSON.parse(init.body).requestId, pending});
+            return pending.promise;
+        },
+    }));
+
+    const olderStart = workflow.start({scope: 'all'});
+    while (requests.length < 1) await new Promise(resolve => setImmediate(resolve));
+    const newerStart = workflow.start({scope: 'ungrouped-current-window'});
+    while (requests.length < 2) await new Promise(resolve => setImmediate(resolve));
+
+    requests[1].pending.resolve(jsonResponse(planFor('request-2', 'plan-2')));
+    const newerState = await newerStart;
+    requests[0].pending.resolve(jsonResponse(planFor('request-1', 'plan-1')));
+    const olderResult = await olderStart;
+
+    assert.equal(newerState.snapshot.requestId, 'request-2');
+    assert.equal(olderResult.snapshot.requestId, 'request-2');
+    assert.equal((await workflow.getState()).snapshot.requestId, 'request-2');
+});
+
+test('a newer start wins even when its options load finishes first', async () => {
+    const optionRequests = [];
+    let requestNumber = 0;
+    const workflow = createOrganizerWorkflow(workflowDependencies({
+        getOptions: () => {
+            const pending = deferred();
+            optionRequests.push(pending);
+            return pending.promise;
+        },
+        createRequestId: () => `request-${++requestNumber}`,
+        fetchImpl: async (_url, init) => {
+            const {requestId} = JSON.parse(init.body);
+            return jsonResponse(planFor(requestId, `plan-${requestId}`));
+        },
+    }));
+
+    const olderStart = workflow.start({scope: 'all'});
+    while (optionRequests.length < 1) await new Promise(resolve => setImmediate(resolve));
+    const newerStart = workflow.start({scope: 'ungrouped-current-window'});
+    while (optionRequests.length < 2) await new Promise(resolve => setImmediate(resolve));
+
+    optionRequests[1].resolve({
+        organizerServiceUrl: 'http://127.0.0.1:5050',
+        organizerMinimumGroupSize: 5,
+        organizerDefaultScope: 'ungrouped-current-window',
+    });
+    const newerState = await newerStart;
+    optionRequests[0].resolve({
+        organizerServiceUrl: 'http://127.0.0.1:5050',
+        organizerMinimumGroupSize: 5,
+        organizerDefaultScope: 'ungrouped-current-window',
+    });
+    const olderResult = await olderStart;
+
+    assert.equal(newerState.snapshot.requestId, 'request-1');
+    assert.equal(olderResult.snapshot.requestId, 'request-1');
+    assert.equal((await workflow.getState()).snapshot.requestId, 'request-1');
+});
+
+test('concurrent apply calls execute a persisted draft only once', async () => {
+    const firstMoveStarted = deferred();
+    const releaseFirstMove = deferred();
+    let addCalls = 0;
+    let moveCalls = 0;
+    const membership = new Map(tabs.map(tab => [tab.id, null]));
+    const workflow = createOrganizerWorkflow(workflowDependencies({
+        getGroupId: tabId => membership.get(tabId),
+        addGroup: async () => ({id: `created-${++addCalls}`}),
+        moveTabs: async ([tabId], groupId) => {
+            moveCalls += 1;
+            if (moveCalls > 1 && !membership.has(1)) {
+                assert.fail('a duplicate apply reached tab mutation');
+            }
+            if (moveCalls === 1) {
+                firstMoveStarted.resolve();
+                await releaseFirstMove.promise;
+            }
+            membership.set(tabId, groupId);
+            return [{id: tabId}];
+        },
+    }));
+    await workflow.start();
+
+    const firstApply = workflow.apply();
+    await firstMoveStarted.promise;
+    const duplicateResult = await workflow.apply();
+
+    assert.deepEqual(duplicateResult, {
+        success: false,
+        preflight: null,
+        createdGroups: [],
+        failure: {
+            stage: 'concurrency',
+            code: 'apply-in-progress',
+            message: 'This organizer draft is already being applied.',
+        },
+        rolledBack: false,
+        rollbackFailures: [],
+        retainedGroups: [],
+    });
+    assert.equal(addCalls, 1);
+
+    releaseFirstMove.resolve();
+    const firstResult = await firstApply;
+    assert.equal(firstResult.success, true);
+    assert.equal(addCalls, 1);
+});
+
+test('a failed apply completion write releases its persisted operation for safe recovery', async () => {
+    const storage = createSessionStorage();
+    let writes = 0;
+    const storageArea = {
+        get: key => storage.get(key),
+        remove: key => storage.remove(key),
+        async set(values) {
+            writes += 1;
+            if (writes === 5) {
+                throw new Error('session write interrupted');
+            }
+            return storage.set(values);
+        },
+    };
+    const membership = new Map(tabs.map(tab => [tab.id, null]));
+    const workflow = createOrganizerWorkflow(workflowDependencies({
+        storageArea,
+        getGroupId: tabId => membership.get(tabId),
+        addGroup: async () => ({id: 'created-1'}),
+        moveTabs: async ([tabId], groupId) => {
+            membership.set(tabId, groupId);
+            return [{id: tabId}];
+        },
+    }));
+    await workflow.start();
+
+    await assert.rejects(workflow.apply(), /session write interrupted/);
+    const recovered = await workflow.getState();
+
+    assert.equal(recovered.phase, 'apply');
+    assert.equal(recovered.status, 'error');
+    assert.equal(recovered.error.code, 'apply-interrupted');
+    assert.notEqual(recovered.draft, null);
+});
+
+test('an orphaned persisted apply requires recovery instead of applying the draft again', async () => {
+    const storageArea = createSessionStorage();
+    const firstWorkflow = createOrganizerWorkflow(workflowDependencies({storageArea}));
+    const ready = await firstWorkflow.start();
+    await storageArea.set({
+        [DRAFT_STATE_STORAGE_KEY]: {
+            ...ready,
+            phase: 'apply',
+            status: 'pending',
+            operation: {kind: 'apply', token: 'orphaned-apply'},
+        },
+    });
+    const restartedWorkflow = createOrganizerWorkflow(workflowDependencies({
+        storageArea,
+        addGroup: async () => assert.fail('an interrupted apply must not run again automatically'),
+        moveTabs: async () => assert.fail('an interrupted apply must not run again automatically'),
+    }));
+
+    const result = await restartedWorkflow.apply();
+    const recovered = await restartedWorkflow.getState();
+
+    assert.equal(result.success, false);
+    assert.deepEqual(result.failure, {
+        stage: 'concurrency',
+        code: 'apply-recovery-required',
+        message: 'A previous organizer apply was interrupted. Review the current tab groups before retrying.',
+    });
+    assert.equal(recovered.status, 'error');
+    assert.deepEqual(recovered.applyResult, result);
+    assert.notEqual(recovered.draft, null);
+});
+
+test('successful apply returns exact details but persists only a redacted success summary', async () => {
     const events = [];
     const membership = new Map(tabs.map(tab => [tab.id, null]));
     const dependencies = workflowDependencies({
@@ -252,8 +444,20 @@ test('apply uses the persisted draft, records completion, and clears the active 
     ]);
     assert.equal(stored.phase, 'apply');
     assert.equal(stored.status, 'complete');
-    assert.equal(stored.draft, null);
-    assert.deepEqual(stored.applyResult, result);
+    assert.equal(result.createdGroups[0].name, 'Persisted name');
+    assert.deepEqual(stored, {
+        phase: 'apply',
+        status: 'complete',
+        applyResult: {
+            success: true,
+            createdGroups: [{groupId: 'created-1', tabCount: 5}],
+        },
+    });
+    assert.equal(Object.hasOwn(stored, 'snapshot'), false);
+    assert.equal(Object.hasOwn(stored, 'plan'), false);
+    assert.equal(Object.hasOwn(stored, 'draft'), false);
+    assert.equal(Object.hasOwn(stored, 'params'), false);
+    assert.doesNotMatch(JSON.stringify(stored), /Tab 1|example\.test|Persisted name|Shared task|One useful group/);
 });
 
 test('apply persists safe failure state when coordinator boundaries reject', async t => {
@@ -397,7 +601,7 @@ test('apply persists uncertain group creation when add and its follow-up snapsho
     assert.doesNotMatch(JSON.stringify(result), /secret/i);
 });
 
-test('apply persists an error result and keeps the active draft when preflight fails', async () => {
+test('preflight failure keeps the draft and saving stale-tab removals returns to review', async () => {
     let tabQuery = 0;
     const workflow = createOrganizerWorkflow(workflowDependencies({
         getTabs: async () => ++tabQuery === 1 ? tabs : tabs.slice(1),
@@ -416,4 +620,20 @@ test('apply persists an error result and keeps the active draft when preflight f
     assert.equal(stored.status, 'error');
     assert.deepEqual(stored.draft, generated.draft);
     assert.deepEqual(stored.applyResult, result);
+
+    const recoveredDraft = {
+        ...stored.draft,
+        groups: stored.draft.groups.map(group => ({
+            ...group,
+            tabIds: group.tabIds.filter(tabId => tabId !== 1),
+        })),
+        unassignedTabIds: [...stored.draft.unassignedTabIds, 1],
+    };
+    const recovered = await workflow.saveDraft(recoveredDraft);
+
+    assert.equal(recovered.phase, 'review');
+    assert.equal(recovered.status, 'ready');
+    assert.equal(recovered.error, null);
+    assert.equal(recovered.applyResult, null);
+    assert.deepEqual(recovered.draft.groups[0].tabIds, [2, 3, 4, 5]);
 });

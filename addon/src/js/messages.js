@@ -2,6 +2,7 @@
 import * as Constants from './constants.js';
 import JSON from './json.js';
 import {nativeErrorToObject, objectToNativeError, PageStack} from './logger.js';
+import {redactRpcMessageForLogging} from './rpc-privacy.js';
 
 const CSPorts = new Set;
 const pending = new Map;
@@ -135,7 +136,7 @@ export function createListenerOnConnectedBackground(onMessageListener) {
                     popPending(postId);
                 }
             } catch (error) {
-                self.logger?.logError(['message:', message], error);
+                self.logger?.logError(['message:', redactRpcMessageForLogging(message)], error);
 
                 if (CSPorts.has(CSPort)) {
                     port.postMessage({

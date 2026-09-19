@@ -123,10 +123,77 @@ function requireMovedTab(sourceTabId, result) {
     return result[0];
 }
 
-function summarizeCreatedGroup({draftGroupId, groupId, sourceTabIds, moves}) {
+function moveReconciliation(status, actualTabId = null, candidateTabIds = [], observedGroupId, reason) {
+    return {
+        status,
+        actualTabId,
+        candidateTabIds,
+        ...(status === 'reconciled' ? {observedGroupId: normalizedGroupId(observedGroupId)} : {}),
+        ...(status === 'uncertain' ? {reason} : {}),
+    };
+}
+
+async function reconcileRejectedMove({
+    sourceTabId,
+    originalGroupId,
+    snapshotTab,
+    knownLiveTabIds,
+    getTabs,
+    getTabGroup,
+}) {
+    let liveTabs;
+    try {
+        liveTabs = await getTabs();
+        if (!Array.isArray(liveTabs)) {
+            return moveReconciliation('uncertain', null, [], undefined, 'invalid-live-tabs');
+        }
+    } catch (_error) {
+        return moveReconciliation('uncertain', null, [], undefined, 'live-tabs-unavailable');
+    }
+
+    let membershipLookupFailed = false;
+    const membership = tabId => {
+        try {
+            return normalizedGroupId(getTabGroup(tabId));
+        } catch (_error) {
+            membershipLookupFailed = true;
+            return undefined;
+        }
+    };
+    const sourceTab = liveTabs.find(tab => tab?.id === sourceTabId);
+    const replacementTabs = liveTabs
+        .filter(tab => Number.isSafeInteger(tab?.id) && tab.id >= 0)
+        .filter(tab => !knownLiveTabIds.has(tab.id) &&
+            tab.url === snapshotTab?.url && tab.title === snapshotTab?.title);
+    const candidateTabIds = replacementTabs.map(tab => tab.id);
+
+    if (!sourceTab && replacementTabs.length === 1) {
+        const observedGroupId = membership(replacementTabs[0].id);
+        return membershipLookupFailed
+            ? moveReconciliation('uncertain', null, candidateTabIds, undefined, 'membership-unavailable')
+            : moveReconciliation('reconciled', replacementTabs[0].id, candidateTabIds, observedGroupId);
+    }
+    if (sourceTab && replacementTabs.length === 0) {
+        const observedGroupId = membership(sourceTabId);
+        if (membershipLookupFailed) {
+            return moveReconciliation('uncertain', null, [], undefined, 'membership-unavailable');
+        }
+        if (observedGroupId === originalGroupId) {
+            return moveReconciliation('not-moved');
+        }
+        return moveReconciliation('reconciled', sourceTabId, [sourceTabId], observedGroupId);
+    }
+    const reason = replacementTabs.length > 1 || (sourceTab && replacementTabs.length)
+        ? 'replacement-ambiguous'
+        : 'replacement-not-found';
+    return moveReconciliation('uncertain', null, candidateTabIds, undefined, reason);
+}
+
+function summarizeCreatedGroup({draftGroupId, groupId, name, sourceTabIds, moves}) {
     return {
         draftGroupId,
         groupId,
+        name,
         sourceTabIds: [...sourceTabIds],
         tabIds: moves.map(move => move.actualTabId),
     };
@@ -184,7 +251,10 @@ async function compensate(records, {getTabs, getTabGroup, restoreTabs}) {
             if (currentGroupId === move.originalGroupId) {
                 continue;
             }
-            if (currentGroupId !== record.groupId) {
+            const expectedCurrentGroupId = Object.hasOwn(move, 'observedGroupId')
+                ? move.observedGroupId
+                : record.groupId;
+            if (currentGroupId !== expectedCurrentGroupId) {
                 failures.push({
                     stage: 'verify-tabs',
                     draftGroupId: record.draftGroupId,
@@ -219,6 +289,7 @@ function createRecord(draftGroup, groupId, originalGroupIds) {
     return {
         draftGroupId: draftGroup.id,
         groupId,
+        name: draftGroup.name,
         sourceTabIds: [...draftGroup.tabIds],
         moves: [],
         originalGroupIds,
@@ -258,7 +329,8 @@ export async function applyDraft(draft, {
         throw new TypeError('restoreTabs must be a function');
     }
 
-    const preflight = preflightDraft(draft, await getTabs(), getTabGroup);
+    const initialLiveTabs = await getTabs();
+    const preflight = preflightDraft(draft, initialLiveTabs, getTabGroup);
     if (!preflight.ok) {
         return {
             success: false,
@@ -278,9 +350,12 @@ export async function applyDraft(draft, {
         tab.tabId,
         normalizedGroupId(tab.fingerprint.groupId),
     ]));
+    const snapshotById = new Map(draft.snapshot.tabs.map(tab => [tab.tabId, tab]));
+    const knownLiveTabIds = new Set(initialLiveTabs.map(tab => tab?.id));
     const records = [];
     let activeGroup = null;
     let activeSourceTabId = null;
+    let activeReconciliation = null;
     let stage = 'add-group';
 
     try {
@@ -299,15 +374,37 @@ export async function applyDraft(draft, {
             stage = 'move-tabs';
             for (const sourceTabId of draftGroup.tabIds) {
                 activeSourceTabId = sourceTabId;
-                const movedTab = requireMovedTab(
-                    sourceTabId,
-                    await moveTabs([sourceTabId], record.groupId),
-                );
+                activeReconciliation = null;
+                let moveResult;
+                try {
+                    moveResult = await moveTabs([sourceTabId], record.groupId);
+                } catch (error) {
+                    activeReconciliation = await reconcileRejectedMove({
+                        sourceTabId,
+                        originalGroupId: originalGroupIds.get(sourceTabId),
+                        snapshotTab: snapshotById.get(sourceTabId),
+                        knownLiveTabIds,
+                        getTabs,
+                        getTabGroup,
+                    });
+                    if (activeReconciliation.status === 'reconciled') {
+                        record.moves.push({
+                            sourceTabId,
+                            actualTabId: activeReconciliation.actualTabId,
+                            originalGroupId: originalGroupIds.get(sourceTabId),
+                            observedGroupId: activeReconciliation.observedGroupId,
+                        });
+                    }
+                    throw error;
+                }
+                const movedTab = requireMovedTab(sourceTabId, moveResult);
                 record.moves.push({
                     sourceTabId,
                     actualTabId: movedTab.id,
                     originalGroupId: originalGroupIds.get(sourceTabId),
                 });
+                knownLiveTabIds.delete(sourceTabId);
+                knownLiveTabIds.add(movedTab.id);
             }
         }
 
@@ -337,6 +434,7 @@ export async function applyDraft(draft, {
                 sourceTabId: activeSourceTabId,
                 reason: error?.reason ?? 'operation-rejected',
                 returnedTabIds: error?.returnedTabIds ?? [],
+                ...(activeReconciliation ? {reconciliation: activeReconciliation} : {}),
             } : addFailureDetails(error)),
             message: errorMessage(error),
         };
