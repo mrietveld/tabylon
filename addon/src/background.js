@@ -95,6 +95,7 @@ const Organizer = createOrganizerWorkflow({
         return Tabs.move(tabIds, groupId);
     },
     runOperation: (name, operation) => Operations.run(name, operation),
+    reportGenerationFailure: diagnostic => logger.error('Organizer generation failed', diagnostic),
 });
 
 function mapGroupsForPage(groups) {

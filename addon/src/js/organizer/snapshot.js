@@ -1,4 +1,12 @@
-import {createGroupingRequest, ORGANIZER_SCOPES} from './contracts.js';
+import {createGroupingRequest, MAX_TABS, ORGANIZER_SCOPES} from './contracts.js';
+
+export class OrganizerSnapshotError extends Error {
+    constructor(code) {
+        super(code);
+        this.name = 'OrganizerSnapshotError';
+        this.code = code;
+    }
+}
 
 function fail(message) {
     throw new TypeError(message);
@@ -123,6 +131,9 @@ export async function collectSnapshot({
         isCanNotBeHidden,
     });
     const normalizedTabs = selected.tabs.map(tab => normalizeOrganizerTab(tab, getGroupId(tabId(tab)) ?? null));
+    if (normalizedTabs.length > MAX_TABS) {
+        throw new OrganizerSnapshotError('too-many-eligible-tabs');
+    }
     const request = createGroupingRequest(normalizedTabs, {minimumGroupSize, scope});
 
     return {

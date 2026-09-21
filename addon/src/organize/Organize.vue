@@ -146,6 +146,20 @@ export default {
         preflightChanges() {
             return preflightChangeDetails(this.applyResult?.preflight);
         },
+        generationDiagnostic() {
+            if (this.isApplyError) {
+                return null;
+            }
+            const error = this.state?.error;
+            if (!error?.code) {
+                return null;
+            }
+            return {
+                code: error.code,
+                status: error.status,
+                stage: error.stage,
+            };
+        },
         errorMessage() {
             if (this.pageError) {
                 return 'The organizer page could not contact the extension background service.';
@@ -507,6 +521,8 @@ export default {
             <p class="step-label has-text-danger">Action needed</p>
             <h2 class="title is-4">{{ isApplyError ? 'The plan was not fully applied' : 'Smart Organizer hit a problem' }}</h2>
             <p v-text="errorMessage"></p>
+            <p v-if="generationDiagnostic" class="has-text-grey is-size-7"
+               v-text="`Diagnostic code: ${generationDiagnostic.code}${generationDiagnostic.status == null ? '' : ` · HTTP status: ${generationDiagnostic.status}`}${generationDiagnostic.stage ? ` · Stage: ${generationDiagnostic.stage}` : ''}`"></p>
 
             <div v-if="isApplyError" class="recovery-details mt-5">
                 <p v-if="changedTabCount"

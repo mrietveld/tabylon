@@ -109,10 +109,16 @@ test('start composes configured defaults into a persisted review draft', async (
     assert.deepEqual(await workflow.getState(), state);
 });
 
-test('start records only structured safe error details when generation fails', async () => {
+test('start records and reports a redacted plan diagnostic when generation fails', async () => {
+    const reported = [];
+    const secret = 'private-secret https://private.example/hidden';
     const workflow = createOrganizerWorkflow(workflowDependencies({
         fetchImpl: async () => {
-            throw new Error('Tab 1 https://example.test/1 failed via private.internal');
+            throw new Error(`Tab 1 ${secret} failed`);
+        },
+        reportGenerationFailure: diagnostic => {
+            reported.push(diagnostic);
+            throw new Error(`reporting ${secret}`);
         },
     }));
 
@@ -124,11 +130,137 @@ test('start records only structured safe error details when generation fails', a
         code: 'network-error',
         message: 'The organizer service could not be reached.',
         status: null,
+        stage: 'plan',
     });
-    assert.doesNotMatch(JSON.stringify(state.error), /Tab 1|example\.test|private\.internal/);
+    assert.deepEqual(reported, [state.error]);
+    assert.equal(state.snapshot, null);
+    assert.deepEqual(state.params, {
+        scope: 'ungrouped-current-window',
+        minimumGroupSize: 5,
+        selectedTabIds: [],
+    });
+    assert.doesNotMatch(JSON.stringify({reported, persisted: await workflow.getState()}), /private-secret|private\.example/);
     assert.equal(state.plan, null);
     assert.equal(state.draft, null);
     assert.equal(state.applyResult, null);
+});
+
+test('start reports a smaller-scope diagnostic for more than 500 eligible tabs', async () => {
+    const tooManyTabs = Array.from({length: 501}, (_, index) => ({
+        id: index + 1,
+        windowId: 7,
+        title: `Private tab ${index + 1}`,
+        url: `https://private.example/${index + 1}`,
+        active: index === 0,
+        pinned: false,
+        audible: false,
+        discarded: false,
+    }));
+    const workflow = createOrganizerWorkflow(workflowDependencies({
+        getTabs: async () => tooManyTabs,
+    }));
+
+    const state = await workflow.start({scope: 'all'});
+
+    assert.deepEqual(state.error, {
+        code: 'too-many-eligible-tabs',
+        message: 'The organizer can organize at most 500 eligible tabs at once. Choose a smaller scope and try again.',
+        status: null,
+        stage: 'snapshot',
+    });
+});
+
+test('start identifies settings and tab acquisition failures by stage', async () => {
+    const settingsWorkflow = createOrganizerWorkflow(workflowDependencies({
+        getOptions: async () => {
+            throw new Error('private-secret settings failure');
+        },
+    }));
+    const tabsWorkflow = createOrganizerWorkflow(workflowDependencies({
+        getTabs: async () => {
+            throw new Error('https://private.example/tab failure');
+        },
+    }));
+
+    assert.deepEqual((await settingsWorkflow.start()).error, {
+        code: 'settings-load-failed',
+        message: 'The organizer settings could not be loaded.',
+        status: null,
+        stage: 'settings',
+    });
+    assert.deepEqual((await tabsWorkflow.start()).error, {
+        code: 'tab-read-failed',
+        message: 'The organizer could not read the tabs to organize.',
+        status: null,
+        stage: 'tabs',
+    });
+});
+
+test('start gives generic snapshot and draft failures distinct safe diagnostics', async () => {
+    const secret = 'private-secret https://private.example/hidden';
+    const snapshotWorkflow = createOrganizerWorkflow(workflowDependencies({
+        isCanNotBeHidden: () => {
+            throw new Error(secret);
+        },
+    }));
+    const draftWorkflow = createOrganizerWorkflow(workflowDependencies({
+        fetchImpl: async () => ({
+            ok: true,
+            status: 200,
+            async json() {
+                const plan = planFor('request-1');
+                let planIdReads = 0;
+                Object.defineProperty(plan, 'planId', {
+                    enumerable: true,
+                    get() {
+                        planIdReads += 1;
+                        if (planIdReads > 1) {
+                            throw new Error(secret);
+                        }
+                        return 'plan-1';
+                    },
+                });
+                return plan;
+            },
+        }),
+    }));
+
+    assert.deepEqual((await snapshotWorkflow.start()).error, {
+        code: 'snapshot-preparation-failed',
+        message: 'The organizer could not prepare the selected tabs.',
+        status: null,
+        stage: 'snapshot',
+    });
+    assert.deepEqual((await draftWorkflow.start()).error, {
+        code: 'draft-creation-failed',
+        message: 'The organizer could not create an editable draft.',
+        status: null,
+        stage: 'draft',
+    });
+});
+
+test('a rejected generation reporter cannot change the safe failure result', async () => {
+    const reported = [];
+    const workflow = createOrganizerWorkflow(workflowDependencies({
+        fetchImpl: async () => {
+            throw new Error('private-secret https://private.example/hidden');
+        },
+        reportGenerationFailure: async diagnostic => {
+            reported.push(diagnostic);
+            throw new Error('reporter failed');
+        },
+    }));
+
+    const state = await workflow.start();
+
+    assert.deepEqual(reported, [state.error]);
+    assert.deepEqual(state.error, {
+        code: 'network-error',
+        message: 'The organizer service could not be reached.',
+        status: null,
+        stage: 'plan',
+    });
+    assert.equal(state.snapshot, null);
 });
 
 test('saveDraft persists editable names and assignments but restores service-owned fields', async () => {
@@ -399,6 +531,38 @@ test('an orphaned persisted apply requires recovery instead of applying the draf
     assert.equal(recovered.status, 'error');
     assert.deepEqual(recovered.applyResult, result);
     assert.notEqual(recovered.draft, null);
+});
+
+test('interrupted generation recovery clears a legacy private snapshot', async () => {
+    const storageArea = createSessionStorage();
+    const secretTitle = 'Private recovery title';
+    const secretUrl = 'https://private.example/recovery';
+    await storageArea.set({
+        [DRAFT_STATE_STORAGE_KEY]: {
+            phase: 'generate',
+            status: 'pending',
+            params: {
+                scope: 'all',
+                minimumGroupSize: 5,
+                selectedTabIds: [],
+            },
+            snapshot: {
+                tabs: [{tabId: 1, title: secretTitle, url: secretUrl}],
+                request: {tabs: [{tabId: 1, title: secretTitle, url: secretUrl}]},
+            },
+            plan: {planId: 'private-plan'},
+            draft: {summary: secretTitle},
+            operation: {kind: 'generate', token: 'orphaned-generation'},
+        },
+    });
+    const workflow = createOrganizerWorkflow(workflowDependencies({storageArea}));
+
+    const recovered = await workflow.getState();
+
+    assert.equal(recovered.snapshot, null);
+    assert.equal(recovered.plan, null);
+    assert.equal(recovered.draft, null);
+    assert.doesNotMatch(JSON.stringify(recovered), /Private recovery title|private\.example\/recovery|private-plan/);
 });
 
 test('successful apply returns exact details but persists only a redacted success summary', async () => {

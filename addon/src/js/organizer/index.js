@@ -2,7 +2,7 @@ import {OrganizerClientError, generateGroupingPlan} from './client.js';
 import {applyDraft} from './apply-plan.js';
 import {createDraft, validateDraft} from './draft.js';
 import {clearDraftState, getDraftState, setDraftState} from './draft-store.js';
-import {collectSnapshot} from './snapshot.js';
+import {collectSnapshot, OrganizerSnapshotError} from './snapshot.js';
 
 export const ORGANIZER_DEFAULTS = Object.freeze({
     serviceUrl: 'http://127.0.0.1:5050',
@@ -23,16 +23,43 @@ function emptyState() {
     };
 }
 
-function safeError(error) {
+function safeGenerationDiagnostic(error, stage) {
     if (error instanceof OrganizerClientError) {
-        return error.toJSON();
+        return {...error.toJSON(), stage};
     }
 
-    return {
-        code: 'workflow-error',
-        message: 'The organizer workflow could not be completed.',
-        status: null,
+    if (stage === 'snapshot' && error instanceof OrganizerSnapshotError && error.code === 'too-many-eligible-tabs') {
+        return {
+            code: 'too-many-eligible-tabs',
+            message: 'The organizer can organize at most 500 eligible tabs at once. Choose a smaller scope and try again.',
+            status: null,
+            stage,
+        };
+    }
+
+    const diagnosticsByStage = {
+        settings: {
+            code: 'settings-load-failed',
+            message: 'The organizer settings could not be loaded.',
+        },
+        tabs: {
+            code: 'tab-read-failed',
+            message: 'The organizer could not read the tabs to organize.',
+        },
+        snapshot: {
+            code: 'snapshot-preparation-failed',
+            message: 'The organizer could not prepare the selected tabs.',
+        },
+        plan: {
+            code: 'plan-generation-failed',
+            message: 'The organizer could not generate a grouping plan.',
+        },
+        draft: {
+            code: 'draft-creation-failed',
+            message: 'The organizer could not create an editable draft.',
+        },
     };
+    return {...diagnosticsByStage[stage], status: null, stage};
 }
 
 function safeApplyFailure() {
@@ -128,6 +155,7 @@ export function createOrganizerWorkflow({
     moveTabs,
     restoreTabs,
     runOperation = (_name, operation) => operation(),
+    reportGenerationFailure = () => undefined,
 } = {}) {
     let operationSequence = 0;
     let serialization = Promise.resolve();
@@ -179,13 +207,15 @@ export function createOrganizerWorkflow({
             ...rest,
             phase: 'generate',
             status: 'error',
+            snapshot: null,
             plan: null,
             draft: null,
-            error: {
-                code: 'generation-interrupted',
-                message: 'The organizer generation was interrupted. Try generating the plan again.',
-                status: null,
-            },
+                error: {
+                    code: 'generation-interrupted',
+                    message: 'The organizer generation was interrupted. Try generating the plan again.',
+                    status: null,
+                    stage: 'generation',
+                },
             applyResult: null,
         });
     }
@@ -201,6 +231,7 @@ export function createOrganizerWorkflow({
     async function start(requestedParams = {}) {
         let params = null;
         let snapshot = null;
+        let generationStage = 'settings';
         const token = createOperationToken('generate');
         activeOperationTokens.add(token);
 
@@ -243,19 +274,24 @@ export function createOrganizerWorkflow({
                 return getState();
             }
 
+            generationStage = 'tabs';
             const currentWindow = await getCurrentWindow();
+            const tabs = await getTabs();
+            generationStage = 'snapshot';
             snapshot = await collectSnapshot({
                 ...params,
                 currentWindowId: currentWindow?.id ?? null,
                 currentGroupId: currentWindow?.groupId ?? null,
             }, {
-                getTabs,
+                getTabs: async () => tabs,
                 getGroupId,
                 isCanNotBeHidden,
                 createRequestId,
                 now,
             });
+            generationStage = 'plan';
             const plan = await generateGroupingPlan(serviceUrl, snapshot, {fetchImpl});
+            generationStage = 'draft';
             const draft = createDraft(snapshot, plan);
 
             return serialize(async () => {
@@ -275,6 +311,12 @@ export function createOrganizerWorkflow({
                 });
             });
         } catch (error) {
+            const diagnostic = safeGenerationDiagnostic(error, generationStage);
+            try {
+                Promise.resolve(reportGenerationFailure(diagnostic)).catch(() => undefined);
+            } catch (_reportError) {
+                // Reporting must not alter organizer behavior.
+            }
             return serialize(async () => {
                 const state = await loadState();
                 if (state.operation?.token !== token) {
@@ -284,10 +326,10 @@ export function createOrganizerWorkflow({
                     phase: 'generate',
                     status: 'error',
                     params,
-                    snapshot,
+                    snapshot: null,
                     plan: null,
                     draft: null,
-                    error: safeError(error),
+                    error: diagnostic,
                     applyResult: null,
                 });
             });

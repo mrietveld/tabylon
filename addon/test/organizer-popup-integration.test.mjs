@@ -47,3 +47,12 @@ test('options exposes persistent organizer settings with privacy copy', async ()
     }
     assert.match(locale.organizerPrivacy.message, /tab titles and URLs.*configured service/i);
 });
+
+test('organizer error UI renders only structured generation diagnostics', async () => {
+    const organize = await source('../src/organize/Organize.vue');
+
+    assert.match(organize, /generationDiagnostic\(\)\s*\{/);
+    assert.match(organize, /code: error\.code,[\s\S]*status: error\.status,[\s\S]*stage: error\.stage,/);
+    assert.match(organize, /v-if="generationDiagnostic"[\s\S]*generationDiagnostic\.code[\s\S]*generationDiagnostic\.status[\s\S]*generationDiagnostic\.stage/);
+    assert.doesNotMatch(organize, /error\.(?:cause|stack)/);
+});
