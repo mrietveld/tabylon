@@ -62,12 +62,22 @@ test('createGroupingRequest rejects unsupported scopes, invalid minimums, and ov
         /minimum/i,
     );
     assert.throws(
-        () => createGroupingRequest([{...tabs[0], title: 'x'.repeat(513)}], {
+        () => createGroupingRequest([{...tabs[0], title: 'x'.repeat(1025)}], {
             minimumGroupSize: 2,
             scope: 'selected',
         }),
         /title/i,
     );
+});
+
+test('createGroupingRequest accepts a 1024-character tab title', () => {
+    const title = 'x'.repeat(1024);
+    const request = createGroupingRequest([{...tabs[0], title}], {
+        minimumGroupSize: 2,
+        scope: 'selected',
+    });
+
+    assert.equal(request.tabs[0].title, title);
 });
 
 test('validateGroupingPlan accepts a complete plan tied to its snapshot', () => {

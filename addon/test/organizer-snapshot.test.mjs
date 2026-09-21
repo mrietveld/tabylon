@@ -151,6 +151,30 @@ test('collectSnapshot captures a validated service request while retaining the f
     });
 });
 
+test('collectSnapshot truncates over-limit Firefox titles in the snapshot and request', async () => {
+    const title = 'x'.repeat(1025);
+    const snapshot = await collectSnapshot({
+        scope: 'all',
+        minimumGroupSize: 2,
+    }, {
+        getTabs: async () => [{
+            id: 42,
+            windowId: 10,
+            title,
+            url: 'https://example.test/long-title',
+        }],
+        getGroupId: () => null,
+        isCanNotBeHidden: () => false,
+        createRequestId: () => 'request-long-title',
+        now: () => '2026-09-18T12:00:00.000Z',
+    });
+
+    assert.equal(snapshot.tabs[0].title, 'x'.repeat(1024));
+    assert.equal(snapshot.request.tabs[0].title, 'x'.repeat(1024));
+    assert.equal(snapshot.tabs[0].tabId, 42);
+    assert.equal(snapshot.tabs[0].url, 'https://example.test/long-title');
+});
+
 test('collectSnapshot rejects collection without the STG movability predicate', async () => {
     await assert.rejects(
         collectSnapshot({

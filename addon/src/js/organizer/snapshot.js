@@ -1,4 +1,9 @@
-import {createGroupingRequest, MAX_TABS, ORGANIZER_SCOPES} from './contracts.js';
+import {
+    createGroupingRequest,
+    MAX_TAB_TITLE_LENGTH,
+    MAX_TABS,
+    ORGANIZER_SCOPES,
+} from './contracts.js';
 
 export class OrganizerSnapshotError extends Error {
     constructor(code) {
@@ -92,7 +97,7 @@ export function normalizeOrganizerTab(tab, groupId = null) {
     return {
         tabId: tabId(tab),
         windowId: tab.windowId,
-        title: tab.title,
+        title: typeof tab.title === 'string' ? tab.title.slice(0, MAX_TAB_TITLE_LENGTH) : tab.title,
         url: tab.url,
         active: tab.active === true,
         audible: tab.audible === true,
