@@ -605,9 +605,9 @@ export default [{
             }
 
             if (data.autoBackupByDayIndex) {
-                data.autoBackupFilePath += `auto-stg-backup-day-of-month-{day-2-digit}@drive4ik`;
+                data.autoBackupFilePath += `auto-stg-backup-day-of-month-{day-2-digit}@mriet`;
             } else {
-                data.autoBackupFilePath += `STG-backup {date-full} {time-short}@drive4ik`;
+                data.autoBackupFilePath += `STG-backup {date-full} {time-short}@mriet`;
             }
         }
     },

@@ -1,8 +1,8 @@
 {
-    "name": "simple-tab-groups",
+    "name": "simple-tab-grouper",
     "version": "1.0.0",
     "description": "Create, modify and quickly change tab groups",
-    "author": "Drive4ik <drive4ik+stg@protonmail.com>",
+    "author": "Mriet <marcolof@gmail.com>",
     "type": "module",
     "scripts": {
         "build": "webpack --mode production",

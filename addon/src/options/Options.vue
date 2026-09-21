@@ -1368,11 +1368,11 @@ export default {
                     </span>
                 </div>
                 <div class="column is-four-fifths">
-                    <span>Vitalii Bavykin</span>
-                    <span>(Drive4ik)</span>
+                    <span>Marco Rietveld</span>
+                    <span>(Mriet)</span>
                     <br>
                     <span v-text="lang('email')"></span>:
-                    <a href="mailto:drive4ik+stg@protonmail.com" target="_blank">drive4ik+stg@protonmail.com</a>
+                    <a href="mailto:marcolof@gmail.com" target="_blank">marcolof@gmail.com</a>
                 </div>
 
                 <div class="column is-one-fifth">

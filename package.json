@@ -2,7 +2,7 @@
     "name": "stg-root",
     "version": "1.0.0",
     "description": "stg root packages",
-    "author": "Drive4ik <drive4ik+stg@protonmail.com>",
+    "author": "Mriet <marcolof@gmail.com>",
     "type": "module",
     "dependencies": {
         "eslint": "^9.39.2",

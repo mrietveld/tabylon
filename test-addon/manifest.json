@@ -3,7 +3,7 @@
 
     "browser_specific_settings": {
         "gecko": {
-            "id": "stg-behavior-tests@drive4ik",
+            "id": "stg-behavior-tests@mriet",
             "strict_min_version": "140.0"
         }
     },
