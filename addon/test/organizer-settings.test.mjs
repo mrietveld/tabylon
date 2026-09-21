@@ -21,7 +21,7 @@ test('createOrganizerPageUrl supplies selected scope only for safe tab IDs', () 
 test('organizer option normalizers accept only usable values', () => {
     assert.equal(normalizeOrganizerMinimumGroupSize(2.5), 3);
     assert.equal(normalizeOrganizerMinimumGroupSize(1), 2);
-    assert.equal(normalizeOrganizerMinimumGroupSize(501), 500);
+    assert.equal(normalizeOrganizerMinimumGroupSize(2025), 2024);
     assert.equal(normalizeOrganizerMinimumGroupSize('invalid'), undefined);
 
     assert.equal(normalizeOrganizerServiceUrl(' https://organizer.example.test/api '), 'https://organizer.example.test/api');

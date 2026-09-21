@@ -23,17 +23,130 @@ function emptyState() {
     };
 }
 
+function stringifyValue(value, fallback) {
+    try {
+        return String(value);
+    } catch (_error) {
+        return fallback;
+    }
+}
+
+function stringProperty(value, property, fallback) {
+    try {
+        const propertyValue = value[property];
+        return propertyValue == null ? fallback : stringifyValue(propertyValue, fallback);
+    } catch (_error) {
+        return fallback;
+    }
+}
+
+function stackProperty(value) {
+    try {
+        const stack = value.stack;
+        return typeof stack === 'string' ? stack : null;
+    } catch (_error) {
+        return null;
+    }
+}
+
+function causeProperty(value) {
+    try {
+        return value.cause;
+    } catch (_error) {
+        return undefined;
+    }
+}
+
+function isInstanceOf(value, constructor) {
+    try {
+        return value instanceof constructor;
+    } catch (_error) {
+        return false;
+    }
+}
+
+function technicalCause(cause) {
+    if (cause == null) {
+        return null;
+    }
+    if (!isInstanceOf(cause, Error)) {
+        return {
+            name: 'NonError',
+            message: stringifyValue(cause, 'Unable to stringify error cause.'),
+            stack: null,
+        };
+    }
+    return {
+        name: stringProperty(cause, 'name', 'Error'),
+        message: stringProperty(cause, 'message', ''),
+        stack: stackProperty(cause),
+    };
+}
+
+function technicalException(error) {
+    if (!isInstanceOf(error, Error)) {
+        return {
+            name: 'NonError',
+            message: stringifyValue(error, 'Unable to stringify thrown value.'),
+            stack: null,
+            cause: null,
+        };
+    }
+    return {
+        name: stringProperty(error, 'name', 'Error'),
+        message: stringProperty(error, 'message', ''),
+        stack: stackProperty(error),
+        cause: technicalCause(causeProperty(error)),
+    };
+}
+
+function clientDiagnostic(error) {
+    try {
+        const toJSON = error.toJSON;
+        if (typeof toJSON !== 'function') {
+            return null;
+        }
+        const diagnostic = toJSON.call(error);
+        const code = diagnostic?.code;
+        const message = diagnostic?.message;
+        const status = diagnostic?.status;
+        if (!diagnostic || typeof diagnostic !== 'object' ||
+            typeof code !== 'string' || typeof message !== 'string' ||
+            (status !== null && !Number.isFinite(status))) {
+            return null;
+        }
+        return {code, message, status};
+    } catch (_error) {
+        return null;
+    }
+}
+
+function snapshotErrorCode(error) {
+    try {
+        const code = error.code;
+        return typeof code === 'string' ? code : null;
+    } catch (_error) {
+        return null;
+    }
+}
+
 function safeGenerationDiagnostic(error, stage) {
-    if (error instanceof OrganizerClientError) {
-        return {...error.toJSON(), stage};
+    const technical = technicalException(error);
+    if (isInstanceOf(error, OrganizerClientError)) {
+        const diagnostic = clientDiagnostic(error);
+        if (diagnostic) {
+            return {...diagnostic, stage, technicalException: technical};
+        }
     }
 
-    if (stage === 'snapshot' && error instanceof OrganizerSnapshotError && error.code === 'too-many-eligible-tabs') {
+    if (stage === 'snapshot' && isInstanceOf(error, OrganizerSnapshotError) &&
+        snapshotErrorCode(error) === 'too-many-eligible-tabs') {
         return {
             code: 'too-many-eligible-tabs',
             message: 'The organizer can organize at most 500 eligible tabs at once. Choose a smaller scope and try again.',
             status: null,
             stage,
+            technicalException: technical,
         };
     }
 
@@ -59,7 +172,7 @@ function safeGenerationDiagnostic(error, stage) {
             message: 'The organizer could not create an editable draft.',
         },
     };
-    return {...diagnosticsByStage[stage], status: null, stage};
+    return {...diagnosticsByStage[stage], status: null, stage, technicalException: technical};
 }
 
 function safeApplyFailure() {

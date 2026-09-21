@@ -158,7 +158,25 @@ export default {
                 code: error.code,
                 status: error.status,
                 stage: error.stage,
+                technicalException: error.technicalException,
             };
+        },
+        generationTechnicalException() {
+            const exception = this.generationDiagnostic?.technicalException;
+            if (!exception) {
+                return '';
+            }
+            const details = [`Exception: ${exception.name}: ${exception.message}`];
+            if (exception.stack) {
+                details.push(`Stack:\n${exception.stack}`);
+            }
+            if (exception.cause) {
+                details.push(`Immediate cause: ${exception.cause.name}: ${exception.cause.message}`);
+                if (exception.cause.stack) {
+                    details.push(`Cause stack:\n${exception.cause.stack}`);
+                }
+            }
+            return details.join('\n\n');
         },
         errorMessage() {
             if (this.pageError) {
@@ -523,6 +541,8 @@ export default {
             <p v-text="errorMessage"></p>
             <p v-if="generationDiagnostic" class="has-text-grey is-size-7"
                v-text="`Diagnostic code: ${generationDiagnostic.code}${generationDiagnostic.status == null ? '' : ` · HTTP status: ${generationDiagnostic.status}`}${generationDiagnostic.stage ? ` · Stage: ${generationDiagnostic.stage}` : ''}`"></p>
+            <pre v-if="generationTechnicalException" class="has-text-grey is-size-7 mt-3"
+                 v-text="generationTechnicalException"></pre>
 
             <div v-if="isApplyError" class="recovery-details mt-5">
                 <p v-if="changedTabCount"

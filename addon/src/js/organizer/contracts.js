@@ -5,7 +5,7 @@ export const ORGANIZER_SCOPES = Object.freeze([
     'all',
 ]);
 
-export const MAX_TABS = 500;
+export const MAX_TABS = 2024;
 export const MAX_GROUPS = 100;
 export const MAX_GROUP_NAME_LENGTH = 120;
 export const MAX_TAB_TITLE_LENGTH = 512;

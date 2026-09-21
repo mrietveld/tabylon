@@ -2,8 +2,10 @@ import assert from 'node:assert/strict';
 import test from 'node:test';
 
 import {createTrackedAddGroupOperation} from '../src/js/organizer/apply-plan.js';
+import {OrganizerClientError} from '../src/js/organizer/client.js';
 import {createOrganizerWorkflow} from '../src/js/organizer/index.js';
 import {DRAFT_STATE_STORAGE_KEY} from '../src/js/organizer/draft-store.js';
+import {OrganizerSnapshotError} from '../src/js/organizer/snapshot.js';
 
 function createSessionStorage() {
     const data = new Map();
@@ -109,7 +111,7 @@ test('start composes configured defaults into a persisted review draft', async (
     assert.deepEqual(await workflow.getState(), state);
 });
 
-test('start records and reports a redacted plan diagnostic when generation fails', async () => {
+test('start records and reports a plan diagnostic with technical details when generation fails', async () => {
     const reported = [];
     const secret = 'private-secret https://private.example/hidden';
     const workflow = createOrganizerWorkflow(workflowDependencies({
@@ -126,7 +128,8 @@ test('start records and reports a redacted plan diagnostic when generation fails
 
     assert.equal(state.phase, 'generate');
     assert.equal(state.status, 'error');
-    assert.deepEqual(state.error, {
+    const {technicalException, ...diagnostic} = state.error;
+    assert.deepEqual(diagnostic, {
         code: 'network-error',
         message: 'The organizer service could not be reached.',
         status: null,
@@ -139,14 +142,320 @@ test('start records and reports a redacted plan diagnostic when generation fails
         minimumGroupSize: 5,
         selectedTabIds: [],
     });
-    assert.doesNotMatch(JSON.stringify({reported, persisted: await workflow.getState()}), /private-secret|private\.example/);
+    assert.match(JSON.stringify(technicalException), /private-secret|private\.example/);
+    assert.deepEqual(await workflow.getState(), state);
     assert.equal(state.plan, null);
     assert.equal(state.draft, null);
     assert.equal(state.applyResult, null);
 });
 
-test('start reports a smaller-scope diagnostic for more than 500 eligible tabs', async () => {
-    const tooManyTabs = Array.from({length: 501}, (_, index) => ({
+test('start persists exact technical details for a direct snapshot TypeError', async () => {
+    const technicalError = new TypeError('Snapshot predicate failed for <private-tab>');
+    technicalError.stack = 'TypeError: Snapshot predicate failed for <private-tab>\n    at snapshot-filter.js:12:34';
+    const workflow = createOrganizerWorkflow(workflowDependencies({
+        isCanNotBeHidden: () => {
+            throw technicalError;
+        },
+    }));
+
+    const state = await workflow.start();
+
+    assert.deepEqual(state.error, {
+        code: 'snapshot-preparation-failed',
+        message: 'The organizer could not prepare the selected tabs.',
+        status: null,
+        stage: 'snapshot',
+        technicalException: {
+            name: 'TypeError',
+            message: 'Snapshot predicate failed for <private-tab>',
+            stack: 'TypeError: Snapshot predicate failed for <private-tab>\n    at snapshot-filter.js:12:34',
+            cause: null,
+        },
+    });
+    assert.deepEqual(await workflow.getState(), state);
+});
+
+test('start persists and reports an OrganizerClientError with its immediate cause', async () => {
+    const reported = [];
+    const networkCause = new TypeError('fetch failed for https://private.example');
+    networkCause.stack = 'TypeError: fetch failed for https://private.example\n    at fetch-client.js:56:78';
+    const workflow = createOrganizerWorkflow(workflowDependencies({
+        fetchImpl: async () => {
+            throw networkCause;
+        },
+        reportGenerationFailure: diagnostic => reported.push(diagnostic),
+    }));
+
+    const state = await workflow.start();
+
+    assert.equal(state.error.technicalException.name, 'OrganizerClientError');
+    assert.equal(state.error.technicalException.message, 'The organizer service could not be reached.');
+    assert.match(state.error.technicalException.stack, /^OrganizerClientError: The organizer service could not be reached\./);
+    assert.deepEqual(state.error.technicalException.cause, {
+        name: 'TypeError',
+        message: 'fetch failed for https://private.example',
+        stack: 'TypeError: fetch failed for https://private.example\n    at fetch-client.js:56:78',
+    });
+    assert.deepEqual(reported, [state.error]);
+    assert.deepEqual(await workflow.getState(), state);
+});
+
+test('start makes a non-Error throw persistable and reportable', async () => {
+    const reported = [];
+    const workflow = createOrganizerWorkflow(workflowDependencies({
+        getOptions: async () => {
+            throw '<settings unavailable>';
+        },
+        reportGenerationFailure: diagnostic => reported.push(diagnostic),
+    }));
+
+    const state = await workflow.start();
+
+    assert.deepEqual(state.error.technicalException, {
+        name: 'NonError',
+        message: '<settings unavailable>',
+        stack: null,
+        cause: null,
+    });
+    assert.deepEqual(reported, [state.error]);
+    assert.deepEqual(await workflow.getState(), state);
+});
+
+test('start safely serializes Error properties whose getters throw', async t => {
+    const stableStack = 'Error: technical failure\n    at generation.js:10:20';
+    const cases = [
+        ['name', {
+            name: 'Error',
+            message: 'technical failure',
+            stack: stableStack,
+            cause: null,
+        }],
+        ['message', {
+            name: 'Error',
+            message: '',
+            stack: stableStack,
+            cause: null,
+        }],
+        ['stack', {
+            name: 'Error',
+            message: 'technical failure',
+            stack: null,
+            cause: null,
+        }],
+        ['cause', {
+            name: 'Error',
+            message: 'technical failure',
+            stack: stableStack,
+            cause: null,
+        }],
+    ];
+
+    for (const [property, expected] of cases) {
+        await t.test(property, async () => {
+            const technicalError = new Error('technical failure');
+            technicalError.stack = stableStack;
+            Object.defineProperty(technicalError, property, {
+                configurable: true,
+                get() {
+                    throw new Error(`reading ${property} failed`);
+                },
+            });
+            const workflow = createOrganizerWorkflow(workflowDependencies({
+                isCanNotBeHidden: () => {
+                    throw technicalError;
+                },
+            }));
+
+            const state = await workflow.start();
+
+            assert.deepEqual(state.error.technicalException, expected);
+            assert.deepEqual(await workflow.getState(), state);
+        });
+    }
+});
+
+test('start reads technical stack metadata only once', async () => {
+    const technicalError = new Error('technical failure');
+    let stackReads = 0;
+    Object.defineProperty(technicalError, 'stack', {
+        get() {
+            stackReads += 1;
+            if (stackReads > 1) {
+                throw new Error('stack was read twice');
+            }
+            return 'Error: technical failure\n    at generation.js:10:20';
+        },
+    });
+    const workflow = createOrganizerWorkflow(workflowDependencies({
+        isCanNotBeHidden: () => {
+            throw technicalError;
+        },
+    }));
+
+    const state = await workflow.start();
+
+    assert.equal(stackReads, 1);
+    assert.equal(state.error.technicalException.stack, 'Error: technical failure\n    at generation.js:10:20');
+    assert.deepEqual(await workflow.getState(), state);
+});
+
+test('start converts non-cloneable Error and cause metadata to strings or null', async () => {
+    const cause = new Error('cause');
+    cause.name = {toString: () => 'ObjectCause'};
+    cause.message = 42;
+    cause.stack = () => 'not a stack string';
+    const technicalError = new Error('outer');
+    technicalError.name = Symbol('OuterProblem');
+    technicalError.message = {toString: () => 'Object message'};
+    technicalError.stack = {frames: ['not cloneable']};
+    technicalError.cause = cause;
+    const workflow = createOrganizerWorkflow(workflowDependencies({
+        isCanNotBeHidden: () => {
+            throw technicalError;
+        },
+    }));
+
+    const state = await workflow.start();
+
+    assert.deepEqual(state.error.technicalException, {
+        name: 'Symbol(OuterProblem)',
+        message: 'Object message',
+        stack: null,
+        cause: {
+            name: 'ObjectCause',
+            message: '42',
+            stack: null,
+        },
+    });
+    assert.deepEqual(await workflow.getState(), state);
+});
+
+test('start safely serializes a hostile Proxy thrown by fetch as an immediate cause', async () => {
+    const hostileCause = new Proxy({
+        toString: () => 'hostile transport failure',
+    }, {
+        getPrototypeOf() {
+            throw new Error('prototype access denied');
+        },
+    });
+    const workflow = createOrganizerWorkflow(workflowDependencies({
+        fetchImpl: async () => {
+            throw hostileCause;
+        },
+    }));
+
+    const state = await workflow.start();
+
+    const {technicalException, ...diagnostic} = state.error;
+    assert.deepEqual(diagnostic, {
+        code: 'network-error',
+        message: 'The organizer service could not be reached.',
+        status: null,
+        stage: 'plan',
+    });
+    assert.equal(technicalException.name, 'OrganizerClientError');
+    assert.equal(technicalException.message, 'The organizer service could not be reached.');
+    assert.deepEqual(technicalException.cause, {
+        name: 'NonError',
+        message: 'hostile transport failure',
+        stack: null,
+    });
+    assert.deepEqual(await workflow.getState(), state);
+});
+
+test('start safely classifies a directly thrown hostile Proxy', async () => {
+    const hostileError = new Proxy({
+        toString: () => 'hostile settings failure',
+    }, {
+        getPrototypeOf() {
+            throw new Error('prototype access denied');
+        },
+    });
+    const workflow = createOrganizerWorkflow(workflowDependencies({
+        getOptions: async () => {
+            throw hostileError;
+        },
+    }));
+
+    const state = await workflow.start();
+
+    assert.deepEqual(state.error, {
+        code: 'settings-load-failed',
+        message: 'The organizer settings could not be loaded.',
+        status: null,
+        stage: 'settings',
+        technicalException: {
+            name: 'NonError',
+            message: 'hostile settings failure',
+            stack: null,
+            cause: null,
+        },
+    });
+    assert.deepEqual(await workflow.getState(), state);
+});
+
+test('start falls back to the stage diagnostic when proxied client serialization throws', async () => {
+    const clientError = new OrganizerClientError('http-error', {status: 503});
+    const hostileClientError = new Proxy(clientError, {
+        get(target, property, receiver) {
+            if (property === 'toJSON') {
+                throw new Error('toJSON access denied');
+            }
+            return Reflect.get(target, property, receiver);
+        },
+    });
+    const workflow = createOrganizerWorkflow(workflowDependencies({
+        getOptions: async () => {
+            throw hostileClientError;
+        },
+    }));
+
+    const state = await workflow.start();
+
+    const {technicalException, ...diagnostic} = state.error;
+    assert.deepEqual(diagnostic, {
+        code: 'settings-load-failed',
+        message: 'The organizer settings could not be loaded.',
+        status: null,
+        stage: 'settings',
+    });
+    assert.equal(technicalException.name, 'OrganizerClientError');
+    assert.equal(technicalException.message, 'The organizer service returned an HTTP error.');
+    assert.deepEqual(await workflow.getState(), state);
+});
+
+test('start falls back to the stage diagnostic when a proxied snapshot code getter throws', async () => {
+    const snapshotError = new OrganizerSnapshotError('too-many-eligible-tabs');
+    const hostileSnapshotError = new Proxy(snapshotError, {
+        get(target, property, receiver) {
+            if (property === 'code') {
+                throw new Error('code access denied');
+            }
+            return Reflect.get(target, property, receiver);
+        },
+    });
+    const workflow = createOrganizerWorkflow(workflowDependencies({
+        isCanNotBeHidden: () => {
+            throw hostileSnapshotError;
+        },
+    }));
+
+    const state = await workflow.start();
+
+    const {technicalException, ...diagnostic} = state.error;
+    assert.deepEqual(diagnostic, {
+        code: 'snapshot-preparation-failed',
+        message: 'The organizer could not prepare the selected tabs.',
+        status: null,
+        stage: 'snapshot',
+    });
+    assert.equal(technicalException.name, 'OrganizerSnapshotError');
+    assert.equal(technicalException.message, 'too-many-eligible-tabs');
+    assert.deepEqual(await workflow.getState(), state);
+});
+
+test('start reports a smaller-scope diagnostic for more than 2024 eligible tabs', async () => {
+    const tooManyTabs = Array.from({length: 2025}, (_, index) => ({
         id: index + 1,
         windowId: 7,
         title: `Private tab ${index + 1}`,
@@ -162,12 +471,14 @@ test('start reports a smaller-scope diagnostic for more than 500 eligible tabs',
 
     const state = await workflow.start({scope: 'all'});
 
-    assert.deepEqual(state.error, {
+    const {technicalException, ...diagnostic} = state.error;
+    assert.deepEqual(diagnostic, {
         code: 'too-many-eligible-tabs',
         message: 'The organizer can organize at most 500 eligible tabs at once. Choose a smaller scope and try again.',
         status: null,
         stage: 'snapshot',
     });
+    assert.equal(technicalException.name, 'OrganizerSnapshotError');
 });
 
 test('start identifies settings and tab acquisition failures by stage', async () => {
@@ -182,18 +493,22 @@ test('start identifies settings and tab acquisition failures by stage', async ()
         },
     }));
 
-    assert.deepEqual((await settingsWorkflow.start()).error, {
+    const {technicalException: settingsException, ...settingsDiagnostic} = (await settingsWorkflow.start()).error;
+    const {technicalException: tabsException, ...tabsDiagnostic} = (await tabsWorkflow.start()).error;
+    assert.deepEqual(settingsDiagnostic, {
         code: 'settings-load-failed',
         message: 'The organizer settings could not be loaded.',
         status: null,
         stage: 'settings',
     });
-    assert.deepEqual((await tabsWorkflow.start()).error, {
+    assert.deepEqual(tabsDiagnostic, {
         code: 'tab-read-failed',
         message: 'The organizer could not read the tabs to organize.',
         status: null,
         stage: 'tabs',
     });
+    assert.equal(settingsException.message, 'private-secret settings failure');
+    assert.equal(tabsException.message, 'https://private.example/tab failure');
 });
 
 test('start gives generic snapshot and draft failures distinct safe diagnostics', async () => {
@@ -225,18 +540,22 @@ test('start gives generic snapshot and draft failures distinct safe diagnostics'
         }),
     }));
 
-    assert.deepEqual((await snapshotWorkflow.start()).error, {
+    const {technicalException: snapshotException, ...snapshotDiagnostic} = (await snapshotWorkflow.start()).error;
+    const {technicalException: draftException, ...draftDiagnostic} = (await draftWorkflow.start()).error;
+    assert.deepEqual(snapshotDiagnostic, {
         code: 'snapshot-preparation-failed',
         message: 'The organizer could not prepare the selected tabs.',
         status: null,
         stage: 'snapshot',
     });
-    assert.deepEqual((await draftWorkflow.start()).error, {
+    assert.deepEqual(draftDiagnostic, {
         code: 'draft-creation-failed',
         message: 'The organizer could not create an editable draft.',
         status: null,
         stage: 'draft',
     });
+    assert.equal(snapshotException.message, secret);
+    assert.equal(draftException.message, secret);
 });
 
 test('a rejected generation reporter cannot change the safe failure result', async () => {
@@ -254,12 +573,14 @@ test('a rejected generation reporter cannot change the safe failure result', asy
     const state = await workflow.start();
 
     assert.deepEqual(reported, [state.error]);
-    assert.deepEqual(state.error, {
+    const {technicalException, ...diagnostic} = state.error;
+    assert.deepEqual(diagnostic, {
         code: 'network-error',
         message: 'The organizer service could not be reached.',
         status: null,
         stage: 'plan',
     });
+    assert.equal(technicalException.cause.message, 'private-secret https://private.example/hidden');
     assert.equal(state.snapshot, null);
 });
 
