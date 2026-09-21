@@ -1,0 +1,11 @@
+# Logs..
+logs/
+
+# Setup
+/.env.local
+
+# Data
+*.sql3
+
+# Code
+__pycache__/

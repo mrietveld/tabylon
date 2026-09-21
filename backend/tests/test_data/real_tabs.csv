@@ -1,0 +1,890 @@
+tabId,windowId,title,url,active,pinned,audible,discarded
+7,3,'dev:client_coding:building_the_desktop_app [Zotero Documentation]','https://www.zotero.org/support/dev/client_coding/building_the_desktop_app',False,False,False,True
+8,3,'Gene finding in novel genomes | BMC Bioinformatics | Springer Nature Link','https://link.springer.com/article/10.1186/1471-2105-5-59',False,False,False,True
+9,3,'Comprehensive analysis of computational approaches in plant transcription factors binding regions discovery: Heliyon','https://www.cell.com/heliyon/fulltext/S2405-8440(24)15171-7#supplementary-material',False,False,False,True
+10,3,'WOODSTOCC: Extracting Latent Parallelism from a DNA Sequence Aligner on a GPU - WOODSTOCC: Extracting Latent Parallelism from a DNA Sequence Alig.pdf','https://openscholarship.wustl.edu/cgi/viewcontent.cgi?article=1506&context=cse_research',False,False,False,True
+11,3,'Three founding ancestral genomes involved in the origin of sugarcane | Annals of Botany | Oxford Academic','https://academic.oup.com/aob/article/127/6/827/6151194?login=false',False,False,False,True
+12,3,'The genomic footprints of wild Saccharum species trace domestication, diversification, and modern breeding of sugarcane: Cell','https://www.cell.com/cell/fulltext/S0092-8674(25)01085-2?_returnURL=https%3A%2F%2Flinkinghub.elsevier.com%2Fretrieve%2Fpii%2FS0092867425010852%3Fshowall%3Dtrue',False,False,False,True
+13,3,'7.4: Polyploidy - Biology LibreTexts','https://bio.libretexts.org/Bookshelves/Introductory_and_General_Biology/Biology_(Kimball)/07:_Cell_Division/7.04:_Polyploidy',False,False,False,True
+14,3,'Accelerating Multiple Sequence Alignment Via Maximal Exact Match Identification | IEEE Conference Publication | IEEE Xplore','https://ieeexplore.ieee.org/document/11273654',False,False,False,True
+15,3,'Generative AI for Everyone - DeepLearning.AI','https://www.deeplearning.ai/courses/generative-ai-for-everyone/',False,False,False,True
+16,3,'Letters from Andrew Ng | The Batch','https://www.deeplearning.ai/the-batch/tag/letters/',False,False,False,True
+17,3,'Coursera | Online Courses From Top Universities. Join for Free','https://www.coursera.org/search?query=deep%20learning',False,False,False,True
+18,3,'Coursera Plus | Unlimited Access to 10,000+ Online Courses','https://www.coursera.org/courseraplus',False,False,False,True
+19,3,'Ensembl 2026 | Nucleic Acids Research | Oxford Academic','https://academic.oup.com/nar/advance-article/doi/10.1093/nar/gkaf1239/8343504?login=false',False,False,False,True
+20,3,'🌱 Data Governance for Crop Re... • Open WebUI','https://keychat.keygene.com/c/3995f0b5-e3e0-4108-8f1d-f580d8898388',False,False,False,True
+21,3,'Primer: Hidden Markov models in phasing and imputation | Broad Institute','https://www.broadinstitute.org/talks/primer-hidden-markov-models-phasing-and-imputation',False,False,False,True
+22,3,'Pearls in Graph Theory: A Comprehensive Introduction: Hartsfield, Nora, Ringel, Gerhard: 9780123285539: Amazon.com: Books','https://www.amazon.com/dp/0123285534?tag=uuid10-20',False,False,False,True
+23,3,'A New Bridge Links the Strange Math of Infinity to Computer Science | Quanta Magazine','https://www.quantamagazine.org/a-new-bridge-links-the-strange-math-of-infinity-to-computer-science-20251121/',False,False,False,True
+24,3,'A Linear-Time Alternative To t-SNE for Dimensionality Reduction and Fast Visualisation | by Roman Ferrando | Dec, 2025 | Towards AI','https://pub.towardsai.net/a-linear-time-alternative-to-t-sne-for-dimensionality-reduction-and-fast-visualisation-5cd1a7219d6f',False,False,False,True
+25,3,'The story of Erdős problem #1026 | What\'s new','https://terrytao.wordpress.com/2025/12/08/the-story-of-erdos-problem-126/',False,False,False,True
+26,3,'Sci-Hub. Ontology change: classification and survey / The Knowledge Engineering Review, 2008','https://sci-hub.ru/10.1017/S0269888908001367',False,False,False,True
+27,3,'auspice / tobrfv / rdrp','http://127.0.0.1:4000/tobrfv/rdrp',False,False,False,True
+28,3,'BEAUti & The BEAST and other programs | BEAST Documentation','https://beast.community/programs',False,False,False,True
+29,3,'Installing BEAST on Mac OS X | BEAST Documentation','https://beast.community/install_on_mac#',False,False,False,True
+30,3,'Sci-Hub. Comparison of high-throughput sequencing data compression tools / Nature Methods, 2016','https://sci-hub.ru/10.1038/nmeth.4037',False,False,False,True
+31,3,'Engineering rank queries on bit vectors and strings | Semantic Scholar','https://www.semanticscholar.org/paper/Engineering-rank-queries-on-bit-vectors-and-strings-Gottlieb-Reinert/07ee93c57c745f79e8a59c14264c6c674656d44c?utm_source=alert_email&utm_content=LibraryFolder&utm_campaign=AlertEmails_DAILY&utm_term=LibraryFolder&email_index=2-0-2&utm_medium=67686857',False,False,False,True
+32,3,'[PDF] Locality-sensitive hashing for the edit distance | Semantic Scholar','https://www.semanticscholar.org/paper/Locality-sensitive-hashing-for-the-edit-distance-Mar%C3%A7ais-Deblasio/c11f55c77669010332c371d3d6554a471951e4c8#citing-papers',False,False,False,True
+33,3,'[PDF] Locality-sensitive bucketing functions for the edit distance | Semantic Scholar','https://www.semanticscholar.org/paper/Locality-sensitive-bucketing-functions-for-the-edit-Chen-Shao/61095143f33405b1d79e6f4367f1a706a6d324ce#citing-papers',False,False,False,True
+34,3,'[PDF] Fast Comparative Analysis of Merge Trees Using Locality Sensitive Hashing | Semantic Scholar','https://www.semanticscholar.org/reader/c6bc97a1f45fcba76d81aed1f7f68583a5900d68',False,False,False,True
+35,3,'[PDF] Similarity estimation techniques from rounding algorithms | Semantic Scholar','https://www.semanticscholar.org/paper/Similarity-estimation-techniques-from-rounding-Charikar/42bb0ac384fb87933be67f63b98d90a45d2fe6e9',False,False,False,True
+36,3,'[PDF] A Review for Weighted MinHash Algorithms | Semantic Scholar','https://www.semanticscholar.org/reader/79fdbb6fb5e6ea72ad70a5c810cf8881846c20d4',False,False,False,True
+37,3,'[PDF] Spectral Jaccard Similarity: A New Approach to Estimating Pairwise Sequence Alignments | Semantic Scholar','https://www.semanticscholar.org/paper/Spectral-Jaccard-Similarity%3A-A-New-Approach-to-Baharav-Kamath/637ecbf0e4df12cd543458ea87fb6c8195b9d1b0',False,False,False,True
+38,3,'Decoding stress specific transcriptional regulation by causality aware Graph-Transformer deep learning | Semantic Scholar','https://www.semanticscholar.org/paper/Decoding-stress-specific-transcriptional-regulation-Bhati-Sharma/0bca1ff863a617c0bca45b06cc71a434a37c73b7',False,False,False,True
+39,3,'Intelligent Management of Fracturing Knowledge in Oil and Gas Fields: A Novel Transformation Approach from Document Governance to Natural Language Q&A | Semantic Scholar','https://www.semanticscholar.org/paper/Intelligent-Management-of-Fracturing-Knowledge-in-A-Li-Pu/3fbc164004d4879eea28339ffed22810c9fca2fd',False,False,False,True
+40,3,'[PDF] Towards Big data Governance in Cybersecurity | Semantic Scholar','https://www.semanticscholar.org/paper/Towards-Big-data-Governance-in-Cybersecurity-Yang-Li/846ab9f798e210ca4ebaf2738a05b5a9b1517480',False,False,False,True
+41,3,'[PDF] Metadata Management for Textual Documents in Data Lakes | Semantic Scholar','https://www.semanticscholar.org/paper/Metadata-Management-for-Textual-Documents-in-Data-Sawadogo-Kibata/a9e49f6c3327efab74bdacd56a793b4126594322?sort=pub-date',False,False,False,True
+42,3,'Textual Data Analysis from Data Lakes | Semantic Scholar','https://www.semanticscholar.org/paper/Textual-Data-Analysis-from-Data-Lakes-Sawadogo/01296e9646653a373d6f491d3c64af1e3a81465d',False,False,False,True
+43,3,'[PDF] Operationalizing and automating Data Governance | Semantic Scholar','https://www.semanticscholar.org/paper/Operationalizing-and-automating-Data-Governance-Nadal-Jovanovic/1f44ae833019849b71887883b737b4b00e86adf9',False,False,False,True
+44,3,'[PDF] Poor data stewardship will hinder global genetic diversity surveillance | Semantic Scholar','https://www.semanticscholar.org/paper/Poor-data-stewardship-will-hinder-global-genetic-Toczydlowski-Liggins/6d32c03aa8cdde972d2cf3eec6d3a24d6d0aa598',False,False,False,True
+45,3,'[PDF] Evolving Persistent Archives and Digital Library Systems: Integrating iRods, Cheshire3 and Multivalent | Semantic Scholar','https://www.semanticscholar.org/paper/Evolving-Persistent-Archives-and-Digital-Library-Moore-Rajasekar/7eebe31fcc6a050e7e8e37580b19cda2f5af375d',False,False,False,True
+46,3,'[PDF] Technical Research Priorities for Big Data | Semantic Scholar','https://www.semanticscholar.org/paper/Technical-Research-Priorities-for-Big-Data-Curry-Zillner/385a0ca831c4f5274ea42abe60895691ed04a5e8',False,False,False,True
+47,3,'Research Data Management Lifecycle Checklist | Semantic Scholar','https://www.semanticscholar.org/search?q=Research%20Data%20Management%20Lifecycle%20Checklist&sort=relevance',False,False,False,True
+48,3,'From data lifecycle to research activity model: research data management in data-intensive social sciences and humanities research | Semantic Scholar','https://www.semanticscholar.org/paper/From-data-lifecycle-to-research-activity-model%3A-in-Sendra-Late/62bda234e6f1e4c2402526f31d894e4b4a94ee14',False,False,False,True
+49,3,'Research Data Management Practices Across the Research Data Lifecycle and Their Potential for Collaboration in an International Higher Education Alliance | Semantic Scholar','https://www.semanticscholar.org/paper/Research-Data-Management-Practices-Across-the-Data-Kralj-Landwehr/c56a7ef4acbb8df08ceca7c3a4e7651146ac00c5',False,False,False,True
+50,3,'The establishment of dynamic microexpression training tool | Semantic Scholar','https://www.semanticscholar.org/paper/The-establishment-of-dynamic-microexpression-tool-Zhang-Cai/adb13cff623b385e56365d42ee3b3b3779fdb463?utm_source=alert_email&utm_content=LibraryFolder&utm_campaign=AlertEmails_DAILY&utm_term=LibraryFolder&email_index=0-0-0&utm_medium=70676538',False,False,False,True
+51,3,'[PDF] Recent Progresses in Characterising Information Inequalities | Semantic Scholar','https://www.semanticscholar.org/paper/Recent-Progresses-in-Characterising-Information-Chan/d14e417bd534bd48c6b5abe60e48ce53e4206a49',False,False,False,True
+52,3,'[PDF] Framework to Automatically Determine the Quality of Open Data Catalogs | Semantic Scholar','https://www.semanticscholar.org/paper/Framework-to-Automatically-Determine-the-Quality-of-Martinez-Gil/7f208ee29f413fa7f5e0ee90af6f5b23991cac9c',False,False,False,True
+53,3,'Data Mesh: Guiding Principles and Patterns, and Data Catalog Architectural Concept | Semantic Scholar','https://www.semanticscholar.org/paper/Data-Mesh%3A-Guiding-Principles-and-Patterns%2C-and-Karkoskov%C3%A1/40c736da8effd47ee8f4a4860ef84b3cccf2c840',False,False,False,True
+54,3,'Michael Stonebraker data swamp | Semantic Scholar','https://www.semanticscholar.org/search?q=Michael%20Stonebraker%20data%20swamp&sort=pub-date&page=8',False,False,False,True
+55,3,'[PDF] ZipServ: Fast and Memory-Efficient LLM Inference with Hardware-Aware Lossless Compression | Semantic Scholar','https://www.semanticscholar.org/paper/ZipServ%3A-Fast-and-Memory-Efficient-LLM-Inference-Yu-Pan/6af4018d0df0b81a3e58e8f58d5e2aa9ac80985e?utm_source=alert_email&utm_content=LibraryFolder&utm_campaign=AlertEmails_DAILY&utm_term=LibraryFolder&email_index=0-0-0&utm_medium=71556057',False,False,False,True
+56,3,'[PDF] Dataset search in biodiversity research: Do metadata in data repositories reflect scholarly information needs? | Semantic Scholar','https://www.semanticscholar.org/paper/Dataset-search-in-biodiversity-research%3A-Do-in-data-L%C3%B6ffler-Wesp/2b0b5d49326c79774eaf93bb55c868b9a78730e3',False,False,False,True
+57,3,'Optimization in Information Retrieval: A Systematic Review of Techniques for Performance and Scalability | Semantic Scholar','https://www.semanticscholar.org/paper/Optimization-in-Information-Retrieval%3A-A-Systematic-Bocces-Baldassin/aed9f6972da6de4715e904592ba8814589659f74?utm_source=alert_email&utm_content=LibraryFolder&utm_campaign=AlertEmails_DAILY&utm_term=LibraryFolder&email_index=6-0-16&utm_medium=71158938',False,False,False,True
+58,3,'Managing Google\'s data lake | Semantic Scholar','https://www.semanticscholar.org/search?q=Managing%20Google%27s%20data%20lake&sort=relevance',False,False,False,True
+59,3,'a. DH: Governance Doc Library Papers | Semantic Scholar','https://www.semanticscholar.org/me/library/folder/13903349?page=1&q=dataset&sort=date_added_to_library',False,False,False,True
+60,3,'[PDF] Understanding Data Valuation: Valuing Google’s Data Assets | Semantic Scholar','https://www.semanticscholar.org/paper/Understanding-Data-Valuation%3A-Valuing-Google%E2%80%99s-Data-Birch-Marquis/77146998327e3c4208e222340afe596296be1abf',False,False,False,True
+61,3,'[PDF] Data Catalogs in the Enterprise: Applications and Integration | Semantic Scholar','https://www.semanticscholar.org/paper/Data-Catalogs-in-the-Enterprise%3A-Applications-and-Jahnke-Otto/fe812676c4fa4ff18c329b07d9273bad015079ac#citing-papers',False,False,False,True
+62,3,'Bridging the Semantic Gap in Metadata Management using Large Language Models | Semantic Scholar','https://www.semanticscholar.org/paper/Bridging-the-Semantic-Gap-in-Metadata-Management-Pyatetsky-Suleykin/478346740e87316bae2fea722bed9deee9e66a1b',False,False,False,True
+63,3,'[PDF] Digital Transformation in the Public Administrations: A Guided Tour for Computer Scientists | Semantic Scholar','https://www.semanticscholar.org/paper/Digital-Transformation-in-the-Public-A-Guided-Tour-Ciancarini-Giancarlo/8b80633c8ac783dc59eed85b4404c764f508548c',False,False,False,True
+64,3,'[PDF] Toward Urban Data Governance: Status-Quo, Challenges, and Success Factors | Semantic Scholar','https://www.semanticscholar.org/paper/Toward-Urban-Data-Governance%3A-Status-Quo%2C-and-Bozkurt-Rossmann/3e95e1677a630eb0aacfc83f615c08cc6d2142f9',False,False,False,True
+65,3,'Research Data Management Practices Across the Research Data Lifecycle and Their Potential for Collaboration in an International Higher Education Alliance - 693154ac2e881.pdf','https://datascience.codata.org/articles/1969/files/693154ac2e881.pdf',False,False,False,True
+66,3,'GitHub - HPMLL/ZipServ_ASPLOS26','https://github.com/HPMLL/ZipServ_ASPLOS26',False,False,False,True
+67,3,'Bridging the Semantic Gap in Metadata Management using Large Language Models | IEEE Conference Publication | IEEE Xplore','https://ieeexplore.ieee.org/document/11302314',False,False,False,True
+68,3,'Data Catalogs in the Enterprise: Applications and Integration | Datenbank-Spektrum | Springer Nature Link','https://link.springer.com/article/10.1007/s13222-023-00445-2',False,False,False,True
+69,3,'Data catalog tools: A systematic multivocal literature review - ScienceDirect','https://www.sciencedirect.com/science/article/pii/S0164121225002535?via%3Dihub',False,False,False,True
+70,3,'Dataset search in biodiversity research: Do metadata in data repositories reflect scholarly information needs? | PLOS One','https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0246099',False,False,False,True
+71,3,'Recent Progresses in Characterising Information Inequalities','https://www.mdpi.com/1099-4300/13/2/379',False,False,False,True
+72,3,'Research Data Management Practices Across the Research Data Lifecycle and Their Potential for Collaboration in an International Higher Education Alliance | Data Science Journal','https://datascience.codata.org/articles/10.5334/dsj-2025-036',False,False,False,True
+73,3,'Evolving Persistent Archives and Digital Library Systems: Integrating iRods, Cheshire3 and Multivalent | International Journal of Digital Curation','https://ijdc.net/index.php/ijdc/article/view/8.2.47',False,False,False,True
+74,3,'Evolving Persistent Archives and Digital Library Systems: Integrating iRods, Cheshire3 and Multivalent - aball,+Journal+manager,+moore-et-al.pdf','file:///Users/mrietveld/Downloads/aball,+Journal+manager,+moore-et-al.pdf',False,False,False,True
+75,3,'Poor data stewardship will hinder global genetic diversity surveillance | PNAS','https://www.pnas.org/doi/full/10.1073/pnas.2107934118',False,False,False,True
+76,3,'1905.04037v1.pdf','https://export.arxiv.org/pdf/1905.04037v1',False,False,False,True
+77,3,'Decoding stress specific transcriptional regulation by causality aware Graph-Transformer deep learning | bioRxiv','https://www.biorxiv.org/content/10.1101/2025.03.11.642297v1',False,False,False,True
+78,3,'Bayesian statistics and information theory overlap - Claude','https://claude.ai/chat/fe65e81b-8970-42e6-b00a-7799cbab0f11',False,False,False,True
+79,3,'Compressing strings with FSST','https://spiraldb.com/post/compressing-strings-with-fsst',False,False,False,True
+80,3,'multivariable information theory at DuckDuckGo','https://duckduckgo.com/?t=ffab&q=multivariable+information+theory&ia=web',False,False,False,True
+81,3,'Multivariate information theory uncovers synergistic subsystems of the human cerebral cortex | Communications Biology','https://www.nature.com/articles/s42003-023-04843-w',False,False,False,True
+82,3,'doi: 10.1007/978-3-030-68176-0_5 ++ - 978-3-030-68176-0_5.pdf','https://link.springer.com/content/pdf/10.1007/978-3-030-68176-0_5.pdf',False,False,False,True
+83,3,'macOS - Ollama','https://docs.ollama.com/macos',False,False,False,True
+84,3,'Comparing Different LLM Models For Data Extraction | by Lucas McGregor | Medium','https://lucas-mcgregor.medium.com/comparing-different-llm-models-for-data-extraction-f067d56bed54',False,False,False,True
+85,3,'Data Catalogs: A complete history','https://www.datagalaxy.com/en/blog/evolution-of-the-data-catalog/',False,False,False,True
+86,3,'The Evolution of Data Catalogs: Navigating the Complexities of Data Management','https://www.siffletdata.com/blog/the-evolution-of-data-catalogs-navigating-the-complexities-of-data-management',False,False,False,True
+87,3,'A Brief History of Data Management - Dataversity','https://www.dataversity.net/articles/brief-history-data-management/',False,False,False,True
+88,3,'Unable to add condition for matchAnyTags condition policy rule expression · Issue #8701 · open-metadata/OpenMetadata','https://github.com/open-metadata/OpenMetadata/issues/8701',False,False,False,True
+89,3,'1. Quick example — ProPhyle 0.3.3.2 documentation','https://prophyle.github.io/example.html',False,False,False,True
+90,3,'TeskaLabs/cysimdjson: Very fast Python JSON parsing library','https://github.com/TeskaLabs/cysimdjson',False,False,False,True
+91,3,'ijl/orjson: Fast, correct Python JSON library supporting dataclasses, datetimes, and numpy','https://github.com/ijl/orjson?tab=readme-ov-file#serialize',False,False,False,True
+92,3,'ijl/orjson: Fast, correct Python JSON library supporting dataclasses, datetimes, and numpy','https://github.com/ijl/orjson?tab=readme-ov-file#performance',False,False,False,True
+93,3,'JASPAR 2026: expansion of transcription factor binding profiles and integration of deep learning models | Nucleic Acids Research | Oxford Academic','https://academic.oup.com/nar/advance-article/doi/10.1093/nar/gkaf1209/8343514?login=false',False,False,False,True
+94,3,'Main app with no commands no longer shows callback docstring in v0.4.0 · Issue #328 · fastapi/typer','https://github.com/fastapi/typer/issues/328',False,False,False,True
+95,3,'How to Perform Auto-Tagging and Lineage Tracking with Open Metadata','https://www.usdsi.org/data-science-insights/how-to-perform-auto-tagging-and-lineage-tracking-with-open-metadata',False,False,False,True
+96,3,'Nextstrain Mutations Track Settings','https://hgw0.soe.ucsc.edu/cgi-bin/hgTrackUi?hgsid=3374349187_EiJ5U3xGZHyH5GiGbVdHE1ghCWF7&db=wuhCor1&c=NC_045512v2&g=nextstrainSamples&token=0.UdiOt2LaXMNaXJfByqm76nyJaVIx2rjHQjeIb6HCLe54SWWfuSzx-ilIT1l7e3KlcrnYLqWemS1A2Wc_yJOIhV38dTpr0LJD4rMwTq-bVYGco0I_5U1MJyByIhSdJZoxVSaa02oF9Wug55NzGgIzkf7K7D5hmK8PH9_5E00r66oj8zB9gc6Mm2nzJE8DXJf6J3To18DzXLKhkbSFXL22Jr4AwRkdoU3TjdjzpDg5ku3Gja2jq7R0c4eisJZga5rhF9lAbxBk9xnjuhAwWOwaRIHuICUkgv9BDmeWJ6M98mdrdR8Trgr1HcGKk6ItfaZ-7_1pEX1IWjQ0nqM4FulYN-pId3-NwNM7cjjOKcfPqu751-qFw9K5AePHp_usn8Rodl-lkUiIDnqxTzY-nLVlZcToHlb_FOAqAtoEvSR-Yi2qTajxFzCirDu8DUueCJ4MbHj4CUNJoUsquwyeCg6q8NV8qb4LnFrPNprHnXyshX8SsOusfBGzrLrbVtfBTd73WStxekQ43blAFSFRXwHud9HD2-vmM6JS0tMt_4MlvsPoEDUU89CNoc266xAQ3n-eV9ROnr0QqFq6xkQ6sp6Vr2XibdmcP_RrGCrYKZ3sM0HkRydfwu4qFIESMGfwmwR2CfdsUhFgLKKKqTN1Je5Fwygd4P2JWE03-J82kj3vYfNzqeB70QMD-MvpWsAcOzTFw4z7iAQvsL4ElKIlbl8MQA2H6pfMtIcfzKcFWYSINrVkAjXa83qUvJOpZX8kV3AQGlqnGUdf7IAU0jXl5XKeLq4YOwfNVJF9UyoN_cPLq1MHoh1GaqPYlDMU9qtwtYqI2FAlbvxsSzqD2s5edhp2_7jtUc8nw_hIj7CbIAx2wPj6ed268H3LtPpiQENSacjIywQDN7JYV4SUzwnIQuP52P_qcQU5ab6WOp_-HYOHI9Y.aA5MnMI4QPfMOsDp8RbnUQ.072018c296fe433dd2ecf04ec4e4abe3866c0aa03eca7c803bb1c654123cebc6',False,False,False,True
+97,3,'Typer — my attempt at reference documentation','https://gist.github.com/harkabeeparolus/a6e18b1f4f4f938f450090c5e7523f68',False,False,False,True
+98,3,'Configure JWT with Keycloak | Platformatic Open Source Software','https://docs.platformatic.dev/docs/1.53.4/guides/jwt-keycloak',False,False,False,True
+99,3,'Automatically classifying journal articles - Zotero Forums','https://forums.zotero.org/discussion/22106/automatically-classifying-journal-articles',False,False,False,True
+100,3,'GitHub - aalokaily/OST','https://github.com/aalokaily/OST',False,False,False,True
+101,3,'Automatically categorize papers - Zotero Forums','https://forums.zotero.org/discussion/93699/automatically-categorize-papers',False,False,False,True
+102,3,'Daniel-Liu-c0deb0t (Daniel-Liu-c0deb0t) / Repositories','https://github.com/Daniel-Liu-c0deb0t?tab=repositories',False,False,False,True
+103,3,'vicLeva/bqf: Implementation of a Backpack Quotient Filter','https://github.com/vicLeva/bqf/?tab=readme-ov-file',False,False,False,True
+104,3,'Keycloak authorization client - Keycloak','https://www.keycloak.org/securing-apps/authz-client',False,False,False,True
+105,3,'fasteners · PyPI','https://pypi.org/project/fasteners/#description',False,False,False,True
+106,3,'Sterke Lekdijk | Gemeente Wijk bij Duurstede','https://www.wijkbijduurstede.nl/gemeente-wijk-bij-duurstede-samenwerking-met-anderen/sterke-lekdijk',False,False,False,True
+107,3,'Wijk bij Duurstede wil waterkwaliteit verbeteren - RTV Utrecht','https://www.rtvutrecht.nl/nieuws/1278716/wijk-bij-duurstede-wil-waterkwaliteit-verbeteren',False,False,False,True
+108,3,'algbio/themisto: Space-efficient pseudoalignment with a colored de Bruijn graph','https://github.com/algbio/themisto',False,False,False,True
+109,3,'GitHub - algbio/ggcat: Compacted and colored de Bruijn graph construction and querying','https://github.com/algbio/ggcat',False,False,False,True
+110,3,'tobamovirus - Search results - Europe PMC','https://europepmc.org/search?query=tobamovirus',False,False,False,True
+111,3,'GitHub Copilot · Your AI pair programmer','https://github.com/features/copilot',False,False,False,True
+112,3,'cwida/ALP: ALP: Adaptive Lossless Floating-Point Compression','https://github.com/cwida/ALP?tab=readme-ov-file',False,False,False,True
+113,3,'cwida/ALP: ALP: Adaptive Lossless Floating-Point Compression','https://github.com/cwida/ALP',False,False,False,True
+114,3,'kundajelab/bpnet: Toolkit to train base-resolution deep neural networks on functional genomics data and to interpret them','https://github.com/kundajelab/bpnet',False,False,False,True
+115,3,'GitHub - calico/borzoi: RNA-seq prediction with deep convolutional neural networks.','https://github.com/calico/borzoi',False,False,False,True
+116,3,'SCBB-LAB (SCBB-LAB) / Repositories','https://github.com/SCBB-LAB?tab=repositories',False,False,False,True
+117,3,'SCBB-LAB/Comparative-analysis-of-plant-TFBS-software: A repository for 32 software tools constructed for peak calling, Transcription Factor Binding Region (TFBR) identification, and Transcription Factor Binding Site (TFBS)/motif identification in plant transcription factors.','https://github.com/SCBB-LAB/Comparative-analysis-of-plant-TFBS-software',False,False,False,True
+118,3,'haddocking/haddock3: Official repo of the modular BioExcel version of HADDOCK','https://github.com/haddocking/haddock3',False,False,False,True
+119,3,'GitHub - zcr-bot/ESM-SECP','https://github.com/zcr-bot/ESM-SECP',False,False,False,True
+120,3,'Network Graph · ndrsn/zotero-classify-articles','https://github.com/ndrsn/zotero-classify-articles/network',False,False,False,True
+121,3,'Your First Plugin | Dev Docs for Zotero Plugin','https://windingwind.github.io/doc-for-zotero-plugin-dev/main/your-first-zotero-plugin.html',False,False,False,True
+122,3,'GitHub - vanheeringen-lab/gimmemotifs: Suite of motif tools, including a motif prediction pipeline for ChIP-seq experiments. See full GimmeMotifs documentation for detailed installation instructions and usage examples.','https://github.com/vanheeringen-lab/gimmemotifs',False,False,False,True
+123,3,'Home · mrietveld/demo Wiki','https://github.com/mrietveld/demo/wiki',False,False,False,True
+124,3,'docs.nextstrain.org/src/learn/interpret/interacting-with-nextstrain.md at master · nextstrain/docs.nextstrain.org','https://github.com/nextstrain/docs.nextstrain.org/blob/master/src/learn/interpret/interacting-with-nextstrain.md',False,False,False,True
+125,3,'spludo/build/run_dev_server.js at master · DracoBlue/spludo','https://github.com/DracoBlue/spludo/blob/master/build/run_dev_server.js',False,False,False,True
+126,3,'GitHub - overture-stack/stage','https://github.com/overture-stack/stage',False,False,False,True
+127,3,'TranslationalBioinformaticsUnit/TransformersInGenomicsPapers: A curated repository designed to serve as a comprehensive guide for researchers interested in the intersection of Transformer models and genomics. This repository compiles key academic papers that demonstrate the application of transformer-based models in genomics, providing users with a valuable resource to navigate this rapidly evolving field.','https://github.com/TranslationalBioinformaticsUnit/TransformersInGenomicsPapers',False,False,False,True
+128,3,'DavidZWZ/Awesome-Deep-Research: [Up-to-date] Awesome Agentic Deep Research Resources','https://github.com/DavidZWZ/Awesome-Deep-Research?tab=readme-ov-file',False,False,False,True
+129,3,'ncbi-genome-download/ncbi_genome_download/core.py at master · kblin/ncbi-genome-download','https://github.com/kblin/ncbi-genome-download/blob/master/ncbi_genome_download/core.py',False,False,False,True
+130,3,'TkTech/json_benchmark: Python JSON benchmarking and "correctness".','https://github.com/TkTech/json_benchmark?tab=readme-ov-file',False,False,False,True
+131,3,'ratschlab/metagraph: Scalable annotated de Bruijn graphs for DNA indexing, alignment, and assembly','https://github.com/ratschlab/metagraph',False,False,False,True
+132,3,'Welcome - GraphRAG','https://microsoft.github.io/graphrag/',False,False,False,True
+133,3,'mrietveld/zotero-classify-articles: Zotero plugin to tag journal articles with discipline classification of journal in which article is published','https://github.com/mrietveld/zotero-classify-articles#',False,False,False,True
+134,3,'foxsen/zotero-selfhost: Zotero platform organized for selfhosting','https://github.com/foxsen/zotero-selfhost',False,False,False,True
+135,3,'zotero-manual/zotero-manual.github.io: Work in progress for "Mastering Zotero"','https://github.com/zotero-manual/zotero-manual.github.io',False,False,False,True
+136,3,'bihealth/sodar-server: SODAR: System for Omics Data Access and Retrieval','https://github.com/bihealth/sodar-server',False,False,False,True
+137,3,'victorlin/nextstrain-custom-docker: Example of customizing Nextstrain\'s Docker image','https://github.com/victorlin/nextstrain-custom-docker',False,False,False,True
+138,3,'aalokaily/OST','https://github.com/aalokaily/OST',False,False,False,True
+139,3,'HAlign-4/multi-thread/multi.hpp at main · malabz/HAlign-4 · GitHub','https://github.com/malabz/HAlign-4/blob/main/multi-thread/multi.hpp',False,False,False,True
+140,3,'GitHub - jianweishuai/Dear-OMG: Dear-OMG, a unified, compact, flexible, and high-performance metadata storage solution.','https://github.com/jianweishuai/Dear-OMG',False,False,False,True
+141,3,'Charting the virosphere: computational synergies of AI and bioinformatics in viral discovery and evolution - sinno-et-al-2025-charting-the-virosphere-computational-synergies-of-ai-and-bioinformatics-in-viral-discovery-and.pdf','https://journals.asm.org/doi/pdf/10.1128/jvi.01554-25',False,False,False,True
+142,3,'Simple examples — GimmeMotifs 0.18.1+0.gd5b7f69.dirty documentation','https://gimmemotifs.readthedocs.io/en/master/examples.html#predict-de-novo-motifs',False,False,False,True
+143,3,'Why OpenMetadata is the Right Choice for you | by Suresh Srinivas | OpenMetadata','https://blog.open-metadata.org/why-openmetadata-is-the-right-choice-for-you-59e329163cac',False,False,False,True
+144,3,'Domains & Data Products | Official Documentation','https://docs.open-metadata.org/latest/how-to-guides/data-governance/domains-&-data-products',False,False,False,True
+145,3,'Data Asset Versioning | OpenMetadata Version Control Guide - OpenMetadata Documentation','https://docs.open-metadata.org/v1.11.x/how-to-guides/guide-for-data-users/versions',False,False,False,True
+146,3,'Building Blocks of Authorization - Rules, Policies, and Roles','https://docs.open-metadata.org/latest/how-to-guides/admin-guide/roles-policies/authorization',False,False,False,True
+147,3,'Comprehensive analysis of computational approaches in plant transcription factors binding regions discovery: Heliyon','https://www.cell.com/heliyon/fulltext/S2405-8440(24)15171-7?_returnURL=https%3A%2F%2Flinkinghub.elsevier.com%2Fretrieve%2Fpii%2FS2405844024151717%3Fshowall%3Dtrue#supplementary-material',False,False,False,True
+148,3,'Dynamic partitioning of search patterns for approximate pattern matching using search schemes: iScience','https://www.cell.com/iscience/fulltext/S2589-0042(21)00655-6?_returnURL=https%3A%2F%2Flinkinghub.elsevier.com%2Fretrieve%2Fpii%2FS2589004221006556%3Fshowall%3Dtrue',False,False,False,True
+149,3,'The Human Transcription Factors: Cell','https://www.cell.com/cell/fulltext/S0092-8674(18)30106-5?_returnURL=https%3A%2F%2Flinkinghub.elsevier.com%2Fretrieve%2Fpii%2FS0092867418301065%3Fshowall%3Dtrue',False,False,False,True
+150,3,'Comprehensive analysis of computational approaches in plant transcription factors binding regions discovery: Heliyon','https://www.cell.com/heliyon/fulltext/S2405-8440(24)15171-7?_returnURL=https%3A%2F%2Flinkinghub.elsevier.com%2Fretrieve%2Fpii%2FS2405844024151717%3Fshowall%3Dtrue#',False,False,False,True
+151,3,'Comprehensive analysis of computational approaches in plant transcription factors binding regions discovery - PIIS2405844024151717.pdf','https://www.cell.com/heliyon/pdf/S2405-8440(24)15171-7.pdf',False,False,False,True
+152,3,'DeepSTF: predicting transcription factor binding sites by interpretable deep neural networks combining sequence and shape - PubMed','https://pubmed.ncbi.nlm.nih.gov/37328639/',False,False,False,True
+153,3,'The road towards data integration in human genomics: players, steps and interactions - PubMed','https://pubmed.ncbi.nlm.nih.gov/32496509/',False,False,False,True
+154,3,'Modeling and interoperability of heterogeneous genomic big data for integrative processing and querying - PubMed','https://pubmed.ncbi.nlm.nih.gov/27637471/',False,False,False,True
+155,3,'Identifying Genomic Data Sources from Biomedical Literature - PubMed','https://pubmed.ncbi.nlm.nih.gov/40417476/',False,False,False,True
+156,3,'Build a Local LLM-Powered Research Assistant in Minutes | by Charles Jeyaseelan | Medium','https://medium.com/@itzcharles03/build-a-local-llm-powered-research-assistant-in-minutes-76ac70b0b64f',False,False,False,True
+157,3,'A spectrum of free software tools for processing the VCF variant call format: vcflib, bio-vcf, cyvcf2, hts-nim and slivar | PLOS Computational Biology','https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1009123',False,False,False,True
+158,3,'"ClockTree.calc_rate_susceptibility: rate estimate is negative." - Google Search','https://www.google.com/search?client=firefox-b-d&q=%22ClockTree.calc_rate_susceptibility%3A+rate+estimate+is+negative.%22',False,False,False,True
+159,3,'Fixing the clock rate when refining an H3N2 phylogenetic tree? - Help and Getting Started - Nextstrain Discussion','https://discussion.nextstrain.org/t/fixing-the-clock-rate-when-refining-an-h3n2-phylogenetic-tree/1462',False,False,False,True
+160,3,'Code search results','https://github.com/search?q=repo%3Anextstrain%2Fseasonal-flu%20mapTiles&type=code',False,False,False,True
+161,3,'seasonal-flu/workflow/snakemake_rules/core.smk at 9a77301b4f9c58a8e948b0f7231134fcc3fe39b8 · nextstrain/seasonal-flu','https://github.com/nextstrain/seasonal-flu/blob/9a77301b4f9c58a8e948b0f7231134fcc3fe39b8/workflow/snakemake_rules/core.smk#L183-L213',False,False,False,True
+162,3,'Temporality issues : augur refine and Treetime? - Help and Getting Started - Nextstrain Discussion','https://discussion.nextstrain.org/t/temporality-issues-augur-refine-and-treetime/1085',False,False,False,True
+163,3,'Interruptible rules · Issue #2407 · snakemake/snakemake','https://github.com/snakemake/snakemake/issues/2407',False,False,False,True
+164,3,'python - Submitted Snakemake Rules Start to Run and Fail Immediately without throwing any Error but Snakemake Keeps Running - Stack Overflow','https://stackoverflow.com/questions/78160948/submitted-snakemake-rules-start-to-run-and-fail-immediately-without-throwing-any',False,False,False,True
+165,3,'Resume failed rules without wiping existing output files · Issue #2234 · snakemake/snakemake','https://github.com/snakemake/snakemake/issues/2234',False,False,False,True
+166,3,'allenai repositories','https://github.com/orgs/allenai/repositories?type=all',False,False,False,True
+167,3,'asta open source literature research agent framework at DuckDuckGo','https://duckduckgo.com/?t=ffab&q=asta+open+source+literature+research+agent+framework&ia=web',False,False,False,True
+168,3,'Ai2 cooks up open-source coding agents with tech equivalent of \'hot plate and frying pan\’ – GeekWire','https://www.geekwire.com/2026/ai2-cooks-up-open-source-coding-agents-with-tech-equivalent-of-a-hot-plate-and-a-frying-pan/',False,False,False,True
+169,3,'Open Coding Agents: Fast, accessible coding agents that adapt to any repo | Ai2','https://allenai.org/blog/open-coding-agents',False,False,False,True
+170,3,'allenai/SERA-32B-GA · Hugging Face','https://huggingface.co/allenai/SERA-32B-GA',False,False,False,True
+171,3,'allenai/SERA: Data generation and training repository for SERA: Soft-Verified Efficient Repository Agents.','https://github.com/allenai/SERA',False,False,False,True
+172,3,'Please list 5 open-source frameworks to build literature research agents,...','https://www.perplexity.ai/search/please-list-5-open-source-fram-yzx.z9MzQ.yhKLR5bNRNbw',False,False,False,True
+173,3,'tevang/paper-qa2: how to run Paper-QA2 without problems on Linux using Python 3.12','https://github.com/tevang/paper-qa2',False,False,False,True
+174,3,'🧬 Omics Data Metadata • Open WebUI','https://keychat.keygene.com/c/02d7e288-050e-447b-9c79-50054f665285',False,False,False,True
+175,3,'Please provide any links or papers that explain what the best practices are...','https://www.perplexity.ai/search/please-provide-any-links-or-pa-Jg2RfBlITrC6KI7_IozFjw',False,False,False,True
+176,3,'Please list the most popular frameworks that are being used with AI to create...','https://www.perplexity.ai/search/please-list-the-most-popular-f-9ygtMy36Q0uirQH2DNg9qg',False,False,False,True
+177,3,'Lists of open-source artificial intelligence software - Wikipedia','https://en.wikipedia.org/wiki/Lists_of_open-source_artificial_intelligence_software',False,False,False,True
+178,3,'Integrating the biodiversity genomics continuum: harmonising data from barcodes to reference genomes | Semantic Scholar','https://www.semanticscholar.org/paper/Integrating-the-biodiversity-genomics-continuum%3A-to-Heil-Alioto/6d36a503a97d597c754edeeaa20d723cdd596519?utm_source=alert_email&utm_content=LibraryFolder&utm_campaign=AlertEmails_DAILY&utm_term=LibraryFolder&email_index=1-0-1&utm_medium=73576543',False,False,False,True
+179,3,'Huis te koop: Heimanslaan 28 6705 AH Wageningen | Funda','https://www.funda.nl/detail/koop/wageningen/huis-heimanslaan-28/43255761/',False,False,False,True
+180,3,'2026-03-24_Planning Wageningen.pdf','file:///Users/mrietveld/Downloads/2026-03-24_Planning%20Wageningen.pdf',False,False,False,True
+181,3,'Inloggen - H&M NL','https://www2.hm.com/nl_nl/login',False,False,False,True
+182,3,'Financiering Heimanslaan.xlsx - Google Spreadsheets','https://docs.google.com/spreadsheets/d/1iNO1WI8lCEvE1PXxWUXukJdpCNoowfVH/edit?gid=2043781653#gid=2043781653',False,False,False,True
+183,3,'RNA recombination in ssRNA viruses - Claude','https://claude.ai/chat/382e389b-244f-46a3-b23d-0dfb0aa53642',False,False,False,True
+184,3,'Recombination in ssRNA viruses','https://chatgpt.com/c/69ca3626-2a48-832a-a94a-b47a0acc82d8',False,False,False,True
+185,3,'wageningen beste fietswinkel at DuckDuckGo','https://duckduckgo.com/?t=ffab&q=wageningen+beste+fietswinkel&ia=web',False,False,False,True
+186,3,'Beste fietsenmakers in Wageningen | Overzicht & reviews','https://vinddichtbij.nl/fietsenmaker/gelderland/wageningen/',False,False,False,True
+187,3,'python workflow engines at DuckDuckGo','https://duckduckgo.com/?t=ffab&q=python+workflow+engines&ia=web',False,False,False,True
+188,3,'flyteorg/flyte-sdk: Type-safe, distributed orchestration of agents, ML pipelines, and real-time inference — in pure Python with async/await.','https://github.com/flyteorg/flyte-sdk',False,False,False,True
+189,3,'luispedro/jug: Parallel programming with Python','https://github.com/luispedro/jug',False,False,False,True
+190,3,'PrefectHQ/prefect: Prefect is a workflow orchestration framework for building resilient data pipelines in Python.','https://github.com/PrefectHQ/prefect',False,False,False,True
+191,3,'Worked-Out Example 1 — Jug 2.5.0 documentation','https://jug.readthedocs.io/en/latest/text-example.html#processing-text',False,False,False,True
+192,3,'Marco (1,184 books) | Goodreads','https://www.goodreads.com/user/show/5848579-marco',False,False,False,True
+193,3,'Ghost Station by S.A. Barnes | Goodreads','https://www.goodreads.com/book/show/127280445-ghost-station',False,False,False,True
+194,3,'The Betrothed | Manzoni, Alessandro | download on Z-Library','https://z-library.sk/book/Bj4A1LWWv3/the-betrothed.html',False,False,False,True
+195,3,'How to update Xcode from command line - Stack Overflow','https://stackoverflow.com/questions/34617452/how-to-update-xcode-from-command-line',False,False,False,True
+196,3,'What\'s New in Firefox 151 — Firefox.com','https://www.firefox.com/en-GB/whatsnew/151/?oldversion=150.0.3&utm_medium=firefox-desktop&utm_source=update&utm_campaign=151',False,False,False,True
+197,3,'cpp_simd_detector/examples/main.cpp at main · DeltaPavonis/cpp_simd_detector · GitHub','https://github.com/DeltaPavonis/cpp_simd_detector/blob/main/examples/main.cpp',False,False,False,True
+198,3,'CMAKE_OSX_SYSROOT SDKROOT at DuckDuckGo','https://duckduckgo.com/?q=CMAKE_OSX_SYSROOT+SDKROOT&t=ffab&ia=web',False,False,False,True
+199,3,'cmake broken after xcode update at DuckDuckGo','https://duckduckgo.com/?t=ffab&q=cmake+broken+after+xcode+update&ia=web',False,False,False,True
+200,3,'CMake c++ build stopped working after Xcode version 16.2 - Stack Overflow','https://stackoverflow.com/questions/79373292/cmake-c-build-stopped-working-after-xcode-version-16-2',False,False,False,True
+201,3,'New MacOS and Xcode update incompatible with Cmake? - Usage - CMake Discourse','https://discourse.cmake.org/t/new-macos-and-xcode-update-incompatible-with-cmake/9876',False,False,False,True
+202,3,'Installing the command-line tools | Apple Developer Documentation','https://developer.apple.com/documentation/xcode/installing-the-command-line-tools',False,False,False,True
+203,3,'GitHub - Lightning-AI/litgpt: 20+ high-performance LLMs with recipes to pretrain, finetune and deploy at scale. · GitHub','https://github.com/Lightning-AI/litgpt',False,False,False,True
+204,3,'open source LLM performance GLM 5.1 at DuckDuckGo','https://duckduckgo.com/?t=ffab&q=open+source+LLM+performance+GLM+5.1&ia=web',False,False,False,True
+205,3,'GitHub - zai-org/GLM-5: GLM-5: From Vibe Coding to Agentic Engineering · GitHub','https://github.com/zai-org/GLM-5',False,False,False,True
+206,3,'GLM-5.1 Benchmarks 2026: Scores, Rankings & Performance | BenchLM.ai','https://benchlm.ai/models/glm-5-1',False,False,False,True
+207,3,'AI joins the 8-hour work day as GLM ships 5.1 open source LLM, beating Opus 4.6 and GPT-5.4 on SWE-Bench Pro | VentureBeat','https://venturebeat.com/technology/ai-joins-the-8-hour-work-day-as-glm-ships-5-1-open-source-llm-beating-opus-4',False,False,False,True
+208,3,'Qwen/Qwen2.5-7B-Instruct · Hugging Face','https://huggingface.co/Qwen/Qwen2.5-7B-Instruct',False,False,False,True
+209,3,'cmake set CMAKE_OSX_SYSROOT at DuckDuckGo','https://duckduckgo.com/?t=ffab&q=cmake+set+CMAKE_OSX_SYSROOT&ia=web',False,False,False,True
+210,3,'cmake sdkroot at DuckDuckGo','https://duckduckgo.com/?t=ffab&q=cmake+sdkroot&ia=web',False,False,False,True
+211,3,'[clang] Driver does not select a default -isysroot when targeting macOS · Issue #137352 · llvm/llvm-project','https://github.com/llvm/llvm-project/issues/137352',False,False,False,True
+212,3,'CMAKE_OSX_SYSROOT stuck on old version - Google Search','https://www.google.com/search?client=firefox-b-d&q=CMAKE_OSX_SYSROOT+stuck+on+old+version',False,False,False,True
+213,3,'Specifying CMAKE_OSX_SYSROOT breaks Xcode projects, but no other choice - Usage - CMake Discourse','https://discourse.cmake.org/t/specifying-cmake-osx-sysroot-breaks-xcode-projects-but-no-other-choice/2532',False,False,False,True
+214,3,'cmake add_library cannot create imported target "simde" because another target at DuckDuckGo','https://duckduckgo.com/?q=cmake+add_library+cannot+create+imported+target+%22simde%22+because+another+target&t=ffab&ia=web',False,False,False,True
+215,3,'How to use Pbcopy and Pbpaste commands from MacOS on Windows | by pachoyan | Medium','https://medium.com/@pachoyan/how-to-use-pbcopy-and-pbpaste-commands-from-macos-on-windows-dda513acfd64',False,False,False,True
+216,3,'cmake "another target with the same name already exists." - Google Search','https://www.google.com/search?client=firefox-b-d&q=cmake+%22another+target+with+the+same+name+already+exists.%22',False,False,False,True
+217,3,'[bug] `target with the same name already exists` error since `GLOBAL to conan targets` · Issue #6480 · conan-io/conan','https://github.com/conan-io/conan/issues/6480',False,False,False,True
+218,3,'How to deal with this error(target with the same name already exists) ? · Issue #24367 · microsoft/vcpkg','https://github.com/microsoft/vcpkg/issues/24367',False,False,False,True
+219,3,'cmake "add_library cannot create imported target" at DuckDuckGo','https://duckduckgo.com/?t=ffab&q=cmake+%22add_library+cannot+create+imported+target%22&ia=web',False,False,False,True
+220,3,'When I execute the cmake, it says add_library cannot create imported target "glog::glog" because another target with the same name already exists. · Issue #1049 · ceres-solver/ceres-solver','https://github.com/ceres-solver/ceres-solver/issues/1049',False,False,False,True
+221,3,'Linux 部署 colmap 遇到的编译bug记录_linux colmap编译报错-CSDN博客','https://blog.csdn.net/hhhyxnh/article/details/133833064?spm=1001.2014.3001.5502',False,False,False,True
+222,3,'arm neon __m128i at DuckDuckGo','https://duckduckgo.com/?t=ffab&q=arm+neon+__m128i&ia=web',False,False,False,True
+223,3,'error: inlining failed in call to always_inline ‘__m128i _mm_alignr_epi8(__m128i, __m128i, int)’: target specific option mismatch · Issue #65 · intel/ARM_NEON_2_x86_SSE','https://github.com/intel/ARM_NEON_2_x86_SSE/issues/65',False,False,False,True
+224,3,'cmake not target - Google Search','https://www.google.com/search?client=firefox-b-d&q=cmake+not+target',False,False,False,True
+225,3,'NOT TARGET meaning? - Usage - CMake Discourse','https://discourse.cmake.org/t/not-target-meaning/2085',False,False,False,True
+226,3,'cmake - Find directory where target is defined - Stack Overflow','https://stackoverflow.com/questions/44064511/find-directory-where-target-is-defined',False,False,False,True
+227,3,'CMAKE_VERBOSE_MAKEFILE — CMake 4.3.3 Documentation','https://cmake.org/cmake/help/latest/variable/CMAKE_VERBOSE_MAKEFILE.html',False,False,False,True
+228,3,'Verbose output for cmake command - Stack Overflow','https://stackoverflow.com/questions/57999508/verbose-output-for-cmake-command',False,False,False,True
+229,3,'In CMake how to create targets with identical names? - Stack Overflow','https://stackoverflow.com/questions/44691109/in-cmake-how-to-create-targets-with-identical-names',False,False,False,True
+230,3,'Releases · simd-everywhere/simde · GitHub','https://github.com/simd-everywhere/simde/releases',False,False,False,True
+231,3,'cmake fetchcontent version at DuckDuckGo','https://duckduckgo.com/?t=ffab&q=cmake+fetchcontent+version&ia=web',False,False,False,True
+232,3,'FetchContent — CMake 4.3.3 Documentation','https://cmake.org/cmake/help/latest/module/FetchContent.html',False,False,False,True
+233,3,'include — CMake 4.3.3 Documentation','https://cmake.org/cmake/help/latest/command/include.html',False,False,False,True
+235,3,'logging - Git Tag list, display commit sha1 hashes - Stack Overflow','https://stackoverflow.com/questions/8796522/git-tag-list-display-commit-sha1-hashes',False,False,False,True
+236,3,'ssh-copy-id Command: Copy SSH Keys to a Remote Server | Linuxize','https://linuxize.com/post/ssh-copy-id-command/',False,False,False,True
+237,3,'https://git.keygene.com/-/user_settings/ssh_keys','https://git.keygene.com/-/user_settings/ssh_keys',False,False,False,True
+238,3,'Crontab.guru - The cron schedule expression generator','https://crontab.guru/#5_10_*_*_1',False,False,False,True
+239,3,'unix where is lib deflate at DuckDuckGo','https://duckduckgo.com/?t=ffab&q=unix+where+is+lib+deflate&ia=web',False,False,False,True
+240,3,'libdeflate on ubuntu at DuckDuckGo','https://duckduckgo.com/?t=ffab&q=libdeflate+on+ubuntu&ia=web',False,False,False,True
+241,3,'libdeflate0_1.19-1build1_amd64.deb Ubuntu 24.04 LTS Download','https://ubuntu.pkgs.org/24.04/ubuntu-main-amd64/libdeflate0_1.19-1build1_amd64.deb.html',False,False,False,True
+242,3,'How To Install libdeflate-dev on Ubuntu 22.04 | Installati.one','https://installati.one/install-libdeflate-dev-ubuntu-22-04/',False,False,False,True
+243,3,'software installation - Determine destination location of apt-get install <package>? - Ask Ubuntu','https://askubuntu.com/questions/129022/determine-destination-location-of-apt-get-install-package',False,False,False,True
+244,3,'Keygene N.V. naar Veldwachterserf, Houten - Google Maps','https://www.google.nl/maps/dir/Keygene+N.V.,+Agro+Business+Park+90,+6708+PW+Wageningen/Veldwachterserf,+Houten/@52.0175773,5.2948358,11z/data=!4m14!4m13!1m5!1m1!1s0x47c7acaca022c661:0x6915076a039898a6!2m2!1d5.6461028!2d51.9763484!1m5!1m1!1s0x47c666fcb86525a9:0x64b14fae1bff5137!2m2!1d5.1719616!2d52.0256405!3e0?entry=ttu&g_ep=EgoyMDI2MDUyNy4wIKXMDSoASAFQAw%3D%3D',False,False,False,True
+245,3,'SIMD Instructions for NEON in C/C++ - Embedded / Linux Discussions - DigiKey TechForum - An Electronic Component and Engineering Solution Forum','https://forum.digikey.com/t/simd-instructions-for-neon-in-c-c/20181/3',False,False,False,True
+246,3,'What is the C equivalent of the C++ stdlib call...','https://www.perplexity.ai/search/bf2c6e4d-05bb-491a-b240-d4b1f1728af1',False,False,False,True
+247,3,'C++ to C Translation','https://chatgpt.com/c/6a1da41d-4534-83eb-938f-56cd87be9ed2',False,False,False,True
+248,3,'Interpreting the WaveSeekerNet model to reveal the evolution and biology of influenza A virus | Semantic Scholar','https://www.semanticscholar.org/paper/Interpreting-the-WaveSeekerNet-model-to-reveal-the-Nguyen-Rudar/d96fc038e13ceee3e21e6f9518ed8908e5636f2c?utm_source=alert_email&utm_content=LibraryFolder&utm_campaign=AlertEmails_DAILY&utm_term=LibraryFolder&email_index=36-0-61&utm_medium=77891239',False,False,False,True
+249,3,'Sign in to continue | Semantic Scholar','https://www.semanticscholar.org/me/recommendations?folderIds=14353250&utm_content=LibraryFolderButton&utm_source=alert_email&utm_campaign=AlertEmails_DAILY&utm_term=LibraryFolder&utm_medium=77891239',False,False,False,True
+250,3,'[PDF] Do Agents Need Semantic Metadata? A Comparative Study in Agentic Data Retrieval | Semantic Scholar','https://www.semanticscholar.org/paper/Do-Agents-Need-Semantic-Metadata-A-Comparative-in-Chen-Alrashed/4428e1191a1f8e0e79843af7aef3ee9117d56064?utm_source=alert_email&utm_content=LibraryFolder&utm_campaign=AlertEmails_DAILY&utm_term=LibraryFolder&email_index=39-0-66&utm_medium=77891239',False,False,False,True
+251,3,'Unveiling the epigenetic and stress-responsive function of histone H1 in plants | Semantic Scholar','https://www.semanticscholar.org/paper/Unveiling-the-epigenetic-and-stress-responsive-of-Bae-Zareen/53dfc6ff782b9d80bfa72aeba7dddb9ed88ef005?utm_source=alert_email&utm_content=LibraryFolder&utm_campaign=AlertEmails_DAILY&utm_term=LibraryFolder&email_index=40-0-68&utm_medium=77891239',False,False,False,True
+252,3,'Epigenetic regulation and antimicrobial resistance: functional roles of DNA methylation | Semantic Scholar','https://www.semanticscholar.org/paper/Epigenetic-regulation-and-antimicrobial-resistance%3A-Daaboul-Hayek/ef942734b87a8083482c7dd4b11c820988e38856?utm_source=alert_email&utm_content=LibraryFolder&utm_campaign=AlertEmails_DAILY&utm_term=LibraryFolder&email_index=40-3-71&utm_medium=77891239',False,False,False,True
+253,3,'Next-Generation Sequencing Dataset Downloader and In Silico Sequence Mining: Graphical-User-Interface-Based Tools for Accessible, Multiprobe Target Mining in Next-Generation Sequencing Data | Semantic Scholar','https://www.semanticscholar.org/paper/Next-Generation-Sequencing-Dataset-Downloader-and-Kim-Jung/ecb725b75a5c8f8bf9a92b597dd33da1f6f2e086?utm_source=alert_email&utm_content=LibraryFolder&utm_campaign=AlertEmails_DAILY&utm_term=LibraryFolder&email_index=41-1-73&utm_medium=77891239',False,False,False,True
+254,3,'Sign in to continue | Semantic Scholar','https://www.semanticscholar.org/me/recommendations?folderIds=13625595&utm_content=LibraryFolderButton&utm_source=alert_email&utm_campaign=AlertEmails_DAILY&utm_term=LibraryFolder&utm_medium=77891239',False,False,False,True
+255,3,'A lightweight codon-based DNA Transformer for Regulatory Region Identification in the Genome | bioRxiv','https://www.biorxiv.org/content/10.64898/2026.05.04.722647v1',False,False,False,True
+256,3,'htop settings show percentage instead of bar at DuckDuckGo','https://duckduckgo.com/?t=ffab&q=htop+settings+show+percentage+instead+of+bar&ia=web',False,False,False,True
+257,3,'htop(1) - Linux manual page','https://www.man7.org/linux/man-pages/man1/htop.1.html',False,False,False,True
+258,3,'debian - Display numbers in meters of htop - Unix & Linux Stack Exchange','https://unix.stackexchange.com/questions/127126/display-numbers-in-meters-of-htop',False,False,False,True
+259,3,'The impact of long-read sequencing on fungal genome assemblies: progress and disparity | Semantic Scholar','https://www.semanticscholar.org/paper/The-impact-of-long-read-sequencing-on-fungal-genome-Kroll-Zoclanclounon/9812bcef577feeefcd62765153d749fa7e40a039?utm_source=alert_email&utm_content=LibraryFolder&utm_campaign=AlertEmails_DAILY&utm_term=LibraryFolder&email_index=47-0-83&utm_medium=77891239',False,False,False,True
+260,3,'Developing dual awareness with Deliberate Calm | McKinsey','https://www.mckinsey.com/capabilities/people-and-organizational-performance/our-insights/developing-dual-awareness',False,False,False,True
+261,3,'Prediction of Stock Price Volatility Through Machine Learning Algorithms: A Special Reference to Green Sustainable Finance | Semantic Scholar','https://www.semanticscholar.org/paper/Prediction-of-Stock-Price-Volatility-Through-A-to-Bashir-M./5893e14cb30a923188501fe6d5de910934622577?utm_source=alert_email&utm_content=LibraryFolder&utm_campaign=AlertEmails_DAILY&utm_term=LibraryFolder&email_index=48-0-84&utm_medium=77891239',False,False,False,True
+262,3,'Systematic detection of Oxford Nanopore adapter and barcode contamination in GenBank | Semantic Scholar','https://www.semanticscholar.org/paper/Systematic-detection-of-Oxford-Nanopore-adapter-and-Martino-Kandathil/17206bdc6a33d0970bba349abad5c9475ffa4cd9?utm_source=alert_email&utm_content=LibraryFolder&utm_campaign=AlertEmails_DAILY&utm_term=LibraryFolder&email_index=49-2-87&utm_medium=77891239',False,False,False,True
+263,3,'Nicola Cotumaccio (0000-0002-1402-5298) - ORCID','https://orcid.org/0000-0002-1402-5298',False,False,False,True
+264,3,'b-move: faster lossless approximate pattern matching in a run-length compressed index | Algorithms for Molecular Biology | Springer Nature Link','https://link.springer.com/article/10.1186/s13015-025-00281-x',False,False,False,True
+265,3,'GitHub - biointec/b-move: Bidirectional move structure · GitHub','https://github.com/biointec/b-move',False,False,False,True
+266,3,'https://raw.githubusercontent.com/DeltaPavonis/cpp_simd_detector/refs/heads/main/include/simd_detector.h','https://raw.githubusercontent.com/DeltaPavonis/cpp_simd_detector/refs/heads/main/include/simd_detector.h',False,False,False,True
+267,3,'Declaring and initializing arrays in C - Stack Overflow','https://stackoverflow.com/questions/3137671/declaring-and-initializing-arrays-in-c',False,False,False,True
+268,3,'What is special about a "static inline" function in C?','https://www.perplexity.ai/search/a10ceb6c-2c08-40df-bd99-6674218fa113',False,False,False,True
+269,3,'Plans & Pricing | Claude by Anthropic','https://claude.com/pricing',False,False,False,True
+270,3,'felsenstein 2003 phylogenetic analysis at DuckDuckGo','https://duckduckgo.com/?t=ffab&q=felsenstein+2003+phylogenetic+analysis&ia=web',False,False,False,True
+271,3,'Felsenstein Phylogenetic Likelihood | Journal of Molecular Evolution | Springer Nature Link','https://link.springer.com/article/10.1007/s00239-020-09982-w',False,False,False,True
+272,3,'Improving local branching index for HDLSS data - Claude','https://claude.ai/chat/cfe7ac45-c3b8-48bc-8b41-c5446e4415ae',False,False,False,True
+273,3,'A survey of high dimension low sample size asymptotics - PMC','https://pmc.ncbi.nlm.nih.gov/articles/PMC6124695/',False,False,False,True
+274,3,'2004.11868v2.pdf','https://arxiv.org/pdf/2004.11868',False,False,False,True
+275,3,'Using B cell receptor lineage structures to predict affinity | PLOS Computational Biology','https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1008391',False,False,False,True
+276,3,'Using B cell receptor lineage structures to predict affinity - file','https://journals.plos.org/ploscompbiol/article/file?id=10.1371/journal.pcbi.1008391&type=printable',False,False,False,True
+277,3,'Cloning vector pSLJ8313, T-DNA region - Nucleotide - NCBI','https://www.ncbi.nlm.nih.gov/nuccore/Y18556.1',False,False,False,True
+278,3,'Viral MSA Tools 🧬 • Open WebUI','https://keychat.keygene.com/c/7187664f-6b96-43e5-ba93-e20d8ed17a77',False,False,False,True
+279,3,'LLM "curving" via prompting - Research - Hugging Face Forums','https://discuss.huggingface.co/t/llm-curving-via-prompting/177166',False,False,False,True
+280,3,'Runge-Kutta integration for phylogenetic fitness evolution - Claude','https://claude.ai/chat/bcf61cac-948f-4521-907f-6854eb6a7ae0',False,False,False,True
+281,3,'KeyChat','https://chat.keygene.com/',False,False,False,True
+282,3,'"Runge–Kutta–Fehlberg" scipy - Google Search','https://www.google.com/search?q=%22Runge%E2%80%93Kutta%E2%80%93Fehlberg%22+scipy&num=10&client=firefox-b-d&hs=SjDq&sca_esv=65f9ea52ca19315a&sxsrf=APpeQnt-8xn9PcQtLfURqlESFq_C8jCdNg:1783515933799&ei=HUtOaqGwMPKS9u8P1fezyA8&start=10&sa=N&sstk=AU9db-C-hDGBXIEwVYOMFdWUtEJZHWJNF3oZLrrtzCceqCvE-6z8kkKpfk5VypO5lNYY7B4-R9IKzxVoCZkouK4sGYsr2biHW03QBA&ved=2ahUKEwjhsr3NksOVAxVyif0HHdX7DPkQ8NMDegQIRBAW&biw=1870&bih=2014&dpr=1',False,False,False,False
+283,3,'RKF45 - Runge-Kutta-Fehlberg ODE Solver','https://people.math.sc.edu/burkardt/py_src/rkf45/rkf45.html',False,False,False,False
+1,3,'CLASSES','https://people.math.sc.edu/burkardt/classes/classes.html',False,False,False,False
+1070,3,'people.math.sc.edu/burkardt/py_src/rkf45/rkf45_test.py','https://people.math.sc.edu/burkardt/py_src/rkf45/rkf45_test.py',False,False,False,False
+1072,3,'EXAMPLES','https://people.math.sc.edu/burkardt/examples/examples.html',False,False,False,False
+1096,3,'Runge–Kutta–Fehlberg method — Grokipedia','https://grokipedia.com/page/Runge%E2%80%93Kutta%E2%80%93Fehlberg_method',False,False,False,False
+1103,3,'PII: 0168-9274(95)00108-5 - Butcher_1996_RK-history.pdf','https://people.cs.vt.edu/~asandu/Public/Qual2011/DiffEqn/Butcher_1996_RK-history.pdf',False,False,False,False
+1097,3,'optimization - Is there a relatively simple way to extract the Jacobian from a Runge-Kutta 4/5 integrator? - Computational Science Stack Exchange','https://scicomp.stackexchange.com/questions/14635/is-there-a-relatively-simple-way-to-extract-the-jacobian-from-a-runge-kutta-4-5',False,False,False,False
+1098,3,'Python : Speeding up my Runge-Kutta integration code challenge - Stack Overflow','https://stackoverflow.com/questions/40866387/python-speeding-up-my-runge-kutta-integration-code-challenge',False,False,False,False
+1099,3,'Runge–Kutta–Fehlberg RKF for One Equation - detailed information','https://www.hpcalc.org/details/9416',False,False,False,False
+1100,3,'Working Runge–Kutta–Fehlberg RKF for one equation','https://www.hpmuseum.org/forum/thread-19061.html?__cf_chl_f_tk=MvHq7AvHF28MvailPk5Jv0iemYt0eEqGT8OXMjVC_Ds-1783519716-1.0.1.1-lwJjOP8R5EAteWNZLo7LlLiVF_OR9AOSj2zvKfIXLJc',False,False,False,False
+285,3,'RK45 — SciPy v1.18.0 Manual','https://docs.scipy.org/doc/scipy/reference/generated/scipy.integrate.RK45.html',False,False,False,True
+286,3,'DOP853 — SciPy v1.18.0 Manual','https://docs.scipy.org/doc/scipy/reference/generated/scipy.integrate.DOP853.html#scipy.integrate.DOP853',False,False,False,False
+287,3,'KeyChat','https://chat.keygene.com/',False,False,False,False
+1091,3,'Fortran Codes','https://www.unige.ch/~hairer/software.html',False,False,False,False
+288,3,'KeyChat','https://chat.keygene.com/',False,False,False,False
+1105,3,'best textbook for ordinary differential equations - Google Search','https://www.google.com/search?q=best+textbook+for+ordinary+differential+equations&num=10&client=firefox-b-d&hs=XkDq&sca_esv=efce329dcb42da65&sxsrf=APpeQnuV9O-1rQEPjgy854MJoapXUCxGQQ%3A1783519951742&ei=z1pOasP5LPayi-gPwLOd0QU&biw=1870&bih=2014&ved=0ahUKEwiDnbHJocOVAxV22QIHHcBZJ1oQ4dUDCBA&uact=5&oq=best+textbook+for+ordinary+differential+equations&gs_lp=Egxnd3Mtd2l6LXNlcnAiMWJlc3QgdGV4dGJvb2sgZm9yIG9yZGluYXJ5IGRpZmZlcmVudGlhbCBlcXVhdGlvbnMyBBAAGB4yCxAAGIAEGIoFGIYDMgsQABiABBiKBRiGAzILEAAYgAQYigUYhgMyBRAAGO8FMggQABiABBiiBDIIEAAYgAQYogRIpyNQhBNYviFwBHgBkAEAmAF9oAGeBqoBBDExLjG4AQPIAQD4AQGYAhCgAtoGwgIKEAAYRxjWBBiwA8ICBhAAGAcYHpgDAIgGAZAGCJIHBDE1LjGgB_FPsgcEMTEuMbgHyQbCBwUwLjguOMgHJ4AIAQ&sclient=gws-wiz-serp',False,False,False,False
+1106,3,'Recommendations for books about ordinary differential equations : r/math','https://www.reddit.com/r/math/comments/6o064g/recommendations_for_books_about_ordinary/?solution=823c5812a232746a823c5812a232746a&js_challenge=1&token=7afd7253fec22262ff1c52b1703fe9eca3f9751b14dd33794e1d867b08cf4c73&jsc_orig_r=',False,False,False,False
+1111,3,'Amazon.com: Differential Equations, Dynamical Systems, and an Introduction to Chaos: 9780123820105: Hirsch, Morris W., Smale, Stephen, Devaney, Robert L.: Books','https://www.amazon.com/Differential-Equations-Dynamical-Systems-Introduction/dp/0123820103',False,False,False,False
+1107,3,'reference request - Book recommendation for ordinary differential equations - Mathematics Stack Exchange','https://math.stackexchange.com/questions/1029646/book-recommendation-for-ordinary-differential-equations',False,False,False,False
+1154,3,'continuedev/continue: open-source coding agent','https://github.com/continuedev/continue',False,False,False,False
+1155,3,'Superpowers 6 — Massively Parallel Procrastination','https://blog.fsck.com/2026/06/15/Superpowers-6/',False,False,False,False
+1156,3,'obra/superpowers: An agentic skills framework & software development methodology that works.','https://github.com/obra/superpowers',False,False,False,False
+1157,3,'EiSDD – 2.7 Testing – KeySite','http://keysite.keygene.local/index.php/eisdd/eisdd-testing/',False,False,False,False
+1159,3,'intent-based testing code ai at DuckDuckGo','https://duckduckgo.com/?q=intent-based+testing+code+ai&t=ffab&ia=web',False,False,False,False
+1160,3,'What ‘Intent-Based Testing’ Actually Means for How You Write Tests Day to Day','https://www.functionize.com/blog/intent-based-testing-how-you-write-tests',False,False,False,False
+1161,3,'the spectrum from vibe coding to agentic engineering SDLC google at DuckDuckGo','https://duckduckgo.com/?q=the+spectrum+from+vibe+coding+to+agentic+engineering+SDLC+google&t=ffab&ia=web',False,False,False,False
+1162,3,'The New SDLC: From Vibe Coding to Agentic Engineering |...','https://www.candede.com/articles/the-new-sdlc-agentic-engineering/',False,False,False,False
+1163,3,'Kaggle: Overview | LinkedIn','https://www.linkedin.com/company/kaggle/',False,False,False,False
+1164,3,'etomco.com/videos/google-s-new-ai-sdlc-from-vibe-coding-to-agentic-engineering-ccd0aa94','https://etomco.com/videos/google-s-new-ai-sdlc-from-vibe-coding-to-agentic-engineering-ccd0aa94',False,False,False,False
+1165,3,'google day 2 paper ai vibe coding at DuckDuckGo','https://duckduckgo.com/?q=google+day+2+paper+ai+vibe+coding&t=ffab&ia=web',False,False,False,False
+1261,3,'Breakthrough AI research — Google AI','https://ai.google/research/',False,False,False,False
+1262,3,'5-Day AI Agents: Intensive Vibe Coding Course With Google | Kaggle','https://www.kaggle.com/competitions/5-day-ai-agents-intensive-vibecoding-course-with-google/overview',False,False,False,False
+1170,3,'github assumption excavator doubt architecture at DuckDuckGo','https://duckduckgo.com/?q=github+assumption+excavator+doubt+architecture&t=ffab&ia=web',False,False,False,False
+1171,3,'fork-skills-for-humanity/docs/creativity/assumption-excavator.md at main · bdmorin/fork-skills-for-humanity','https://github.com/bdmorin/fork-skills-for-humanity/blob/main/docs/creativity/assumption-excavator.md',False,False,False,False
+1172,3,'Automating Doubt: A Structured AI‑Assisted Development Workflow | LavX News','https://news.lavx.hu/article/automating-doubt-a-structured-ai-assisted-development-workflow',False,False,False,False
+1264,3,'5-Day AI Agents papers at DuckDuckGo','https://duckduckgo.com/?t=ffab&q=5-Day+AI+Agents+papers&ia=web',False,False,False,False
+1279,3,'Google\'s Free 5-Day AI Agents Course (For Builders Who Code in Python)','https://graymatter.jamesgray.ai/p/google-5-day-ai-agents-course',False,False,False,False
+1280,3,'ai-accelerator-C8/Day_6/session_2/papers/agents at main · eng-accelerator/ai-accelerator-C8','https://github.com/eng-accelerator/ai-accelerator-C8/tree/main/Day_6/session_2/papers/agents',False,False,False,False
+1281,3,'Google and Kaggle’s GenAI Intensive Vibe Coding course 2026','https://blog.google/innovation-and-ai/technology/developers-tools/kaggle-genai-intensive-course-vibe-coding-june-2026/',False,False,False,False
+1282,3,'5-Day AI Agents: Intensive Vibe Coding Course With Google | Kaggle','https://www.kaggle.com/competitions/5-day-ai-agents-intensive-vibecoding-course-with-google/overview',False,False,False,False
+1283,3,'google whitepaper Agent Skills course at DuckDuckGo','https://duckduckgo.com/?t=ffab&q=google+whitepaper+Agent+Skills+course&ia=web',False,False,False,False
+1286,3,'5-Day AI Agents: Intensive Vibe Coding Course With Google | Kaggle','https://www.kaggle.com/learn-guide/5-day-agents-vibecoding',False,False,False,False
+1293,3,'Vibe Coding Agent Security and Evaluation | Kaggle','https://www.kaggle.com/whitepaper-vibe-coding-agent-security-and-evaluation',False,False,False,False
+1294,3,'Spec-Driven Production Grade Development in the Age of Vibe Coding | Kaggle','https://www.kaggle.com/whitepaper-spec-driven-production-grade-development-in-the-age-of-vibe-coding',False,False,False,False
+1306,3,'puppy pooping cartoon at DuckDuckGo','https://duckduckgo.com/?q=puppy+pooping+cartoon&t=ffab&ia=images&iax=images&iaf=license%3AAny&iai=https%3A%2F%2Fas2.ftcdn.net%2Fjpg%2F02%2F64%2F62%2F73%2F220_F_264627305_S0FW956xHxyU6xsyFyEQTnbQh6tRvqjE.jpg',False,False,False,False
+1307,3,'220_F_264627305_S0FW956xHxyU6xsyFyEQTnbQh6tRvqjE.jpg (JPEG Image, 220\xa0×\xa0158 pixels)','https://as2.ftcdn.net/jpg/02/64/62/73/220_F_264627305_S0FW956xHxyU6xsyFyEQTnbQh6tRvqjE.jpg',False,False,False,False
+1308,3,'harness engineering - Google Search','https://www.google.com/search?num=10&client=firefox-b-d&hs=qYaV&sca_esv=482091865ee10a72&sxsrf=APpeQnvKCJlMmnMF41z9qcyWUD1hiJgyGA:1784014528186&udm=2&fbs=ABfTbFVyMZGZf1hfvX9uKjN_-G8c4u0nXx4bEIpwm1lnNH832VstEKsVDqPorK0Gahnm2nrnv9E2M7LBl24a2kei5MIEjAy2_cot-HLfCGu1PoOYwgQebsqCb-oe7X8sTixrSrA8IwOPrWzMWbMEewlMIk9TOCTIgf1Nf63cqBKfdapshSecSJHZlTKWjqs3FgIQ34NGfrLQ&q=harness+engineering&sa=X&ved=2ahUKEwiH0ueB1NGVAxWcgf0HHZbbK4UQtKgLegQIRhAB&biw=1871&bih=2014&dpr=1#ip=1&sv=CAMSURoyKhBlLXpXWHNYemFWZnFWb0NNMg56V1hzWHphVmZxVm9DTToOVlo0YVhVVmIzUHJYWU0gBCoXCgFzEhBlLXpXWHNYemFWZnFWb0NNGAEwARgHIKuKv9QPSggQARgBIAEoAQ',False,False,False,False
+1309,3,'What Is Harness Engineering for AI Agents? | Milvus - Milvus Blog','https://milvus.io/blog/harness-engineering-ai-agents.md',False,False,False,False
+1310,3,'obra/superpowers: An agentic skills framework & software development methodology that works.','https://github.com/obra/superpowers/tree/main',False,False,False,False
+1311,3,'Qwen 3.6 Quantization Deep Dive: BF16 vs GGUF, Q4_K_M vs Q8_0 · Technical news about AI, coding and all','https://dasroot.net/posts/2026/05/qwen-36-quantization-bf16-gguf-q4-k-m-q8-0/',False,False,False,False
+1312,3,'New Tab','about:newtab',False,False,False,False
+1313,3,'What is Harness Engineering? A Complete Introduction (2026)','https://harnessengineering.academy/blog/what-is-harness-engineering-introduction-2026/',False,False,False,False
+1314,3,'pillars of harness engineering at DuckDuckGo','https://duckduckgo.com/?t=ffab&q=pillars+of+harness+engineering&ia=web',False,False,False,False
+1315,3,'harness engineering pillars at DuckDuckGo','https://duckduckgo.com/?q=harness+engineering+pillars&t=ffab&ia=web',False,False,False,False
+1317,3,'The Five Pillars of Harness Engineering in Agentic AI | by Vivek Pandit | May, 2026 | Medium','https://vivekpandit.medium.com/the-five-pillars-of-harness-engineering-in-agentic-ai-1c8d6c45bc92',False,False,False,False
+1318,3,'5 Pillars of AI harness engineering | LinkedIn','https://www.linkedin.com/pulse/5-pillars-ai-harness-engineering-vivek-pandit-rhlye/',False,False,False,False
+1320,3,'what are adverserial prompts for AI in terms of reviewing code at DuckDuckGo','https://duckduckgo.com/?q=what+are+adverserial+prompts+for+AI+in+terms+of+reviewing+code&t=ffab&ia=web',False,False,False,False
+1321,3,'Adversarial prompting - GeeksforGeeks','https://www.geeksforgeeks.org/artificial-intelligence/adversarial-prompting/',True,False,False,False
+3,15,'convert json into pyton object schema at DuckDuckGo','https://duckduckgo.com/?t=ffab&q=convert+json+into+pyton+object+schema&ia=web',False,False,False,False
+596,15,'"Programmable infrastructures for secure healthcare" at DuckDuckGo','https://duckduckgo.com/?t=ffab&q=%22Programmable+infrastructures+for+secure+healthcare%22&ia=web',False,False,False,True
+597,15,'voyage ai at DuckDuckGo','https://duckduckgo.com/?q=voyage+ai&t=ffab&ia=web',False,False,False,True
+598,15,'PDLLMS plant LLM at DuckDuckGo','https://duckduckgo.com/?q=PDLLMS+plant+LLM&t=ffab&ia=web',False,False,False,True
+599,15,'ewg etf stocks at DuckDuckGo','https://duckduckgo.com/?t=ffab&q=ewg+etf+stocks&ia=web',False,False,False,True
+600,15,'Defining a Knowledge Graph Development Process Through a Systematic Review | ACM Transactions on Software Engineering and Methodology','https://dl.acm.org/doi/10.1145/3522586',False,False,False,True
+601,15,'about:blank','about:blank',False,False,False,True
+602,15,'Metal–Organic Frameworks (MOFs)-Based Piezoelectric-Colorimetric Hybrid Sensor for Monitoring Green Leaf Volatiles | ACS Sensors','https://pubs.acs.org/doi/10.1021/acssensors.4c02016',False,False,False,True
+603,15,'ADVANCES IN CHEMICAL GENETICS | Annual Reviews','https://www.annualreviews.org/content/journals/10.1146/annurev.genom.6.080604.162136',False,False,False,True
+604,15,'Chemical Genetics–Based Target Identification in Drug Discovery | Annual Reviews','https://www.annualreviews.org/content/journals/10.1146/annurev-pharmtox-010611-134639',False,False,False,True
+605,15,'Learning skillful medium-range global weather forecasting | Science','https://www.science.org/stoken/author-tokens/ST-1550/full',False,False,False,True
+606,15,'Advancements in miniaturized infrared spectroscopic-based volatile organic compound sensors: A systematic review | Applied Physics Reviews | AIP Publishing','https://pubs.aip.org/aip/apr/article-abstract/11/3/031306/3302955/Advancements-in-miniaturized-infrared?redirectedFrom=fulltext',False,False,False,True
+607,15,'A New Directly Accessible Compression Scheme - paper100.pdf','https://ceur-ws.org/Vol-3811/paper100.pdf',False,False,False,True
+608,15,'EASJBG_65_101-107.pdf','https://www.easpublisher.com/media/features_articles/EASJBG_65_101-107.pdf',False,False,False,True
+609,15,'Functional Classification and Experimental Dissection of Long Noncoding RNAs: Cell','https://www.cell.com/cell/fulltext/S0092-8674(18)30048-5?_returnURL=https%3A%2F%2Flinkinghub.elsevier.com%2Fretrieve%2Fpii%2FS0092867418300485%3Fshowall%3Dtrue',False,False,False,True
+610,15,'CIKM_2011.pdf','https://stepanovpapers.com/CIKM_2011.pdf',False,False,False,True
+611,15,'ECIR19c.pdf','https://www.antoniomallia.it/uploads/ECIR19c.pdf',False,False,False,True
+612,15,'Systematic Characterization of Multi-Rust Resistance Genes from a ‘Parula × Thatcher’ Population with a High-Density Genetic Map | Phytopathology®','https://apsjournals.apsnet.org/doi/10.1094/PHYTO-06-22-0238-FI',False,False,False,True
+613,15,'Wheat Class III Peroxidase TaPOD70 Is a Potential Susceptibility Factor Negatively Regulating Wheat Resistance to Blumeria graminis f. sp. tritici | Phytopathology®','https://apsjournals.apsnet.org/doi/10.1094/PHYTO-01-23-0001-FI',False,False,False,True
+614,15,'Plant autoimmunity—fresh insights into an old phenomenon | Plant Physiology | Oxford Academic','https://academic.oup.com/plphys/article/188/3/1419/6484646',False,False,False,True
+615,15,'Application of wearable sensors in crop phenotyping and microenvironment monitoring - ScienceDirect','https://www.sciencedirect.com/science/article/pii/S1385894724105505?via%3Dihub',False,False,False,True
+616,15,'Fractional hitting sets for efficient multiset sketching | Algorithms for Molecular Biology | Full Text','https://almob.biomedcentral.com/articles/10.1186/s13015-024-00268-0',False,False,False,True
+617,15,'Hybrid Combinatorial Problems Used for Multimodal Optimisation | IEEE Conference Publication | IEEE Xplore','https://ieeexplore.ieee.org/document/10820475',False,False,False,True
+618,15,'Understanding Modern Techniques and Tools to Revolutionize Plant Breeding for Sustainable Crop Improvement - Premier Science','https://premierscience.com/pjpb-24-554/',False,False,False,True
+619,15,'(PDF) Kircher M, Kelso J.. High-throughput DNA sequencing-concepts and limitations. Bioessays 32: 524-536','https://www.researchgate.net/publication/44614816_Kircher_M_Kelso_J_High-throughput_DNA_sequencing-concepts_and_limitations_Bioessays_32_524-536',False,False,False,True
+620,15,'CSNMG: constructing sequence neighbourhood mapping graphs to compress FASTQ files','https://www.spiedigitallibrary.org/conference-proceedings-of-spie/12702/2680153/CSNMG--constructing-sequence-neighbourhood-mapping-graphs-to-compress-FASTQ/10.1117/12.2680153.short',False,False,False,True
+621,15,'Purchase Price Allocations: Do they Matter? - Paper_APR_v10-02-2012.pdf','https://shs.hal.science/halshs-00671611v1/file/Paper_APR_v10-02-2012.pdf',False,False,False,True
+622,15,'JEI-24-200.pdf','https://emerginginvestigators.org/articles/24-200/pdf',False,False,False,True
+623,15,'Evolutionary Scale · ESM3: Simulating 500 million years of evolution with a language model','https://www.evolutionaryscale.ai/blog/esm3-release',False,False,False,True
+624,15,'a review on protein language models','https://www.apoorva-srinivasan.com/plms/',False,False,False,True
+625,15,'Journal of Tekirdag Agricultural Faculty » Submission » Reciprocal Effect and Inbreeding Depression in Advanced Generations of Cotton (Gossypium hirsutum L.) Bulk Population','https://dergipark.org.tr/en/pub/jotaf/issue/91811/1425930',False,False,False,True
+626,15,'Viromics and infectivity analysis reveal the release of infective plant viruses from wastewater into the environment - ScienceDirect','https://www.sciencedirect.com/science/article/pii/S0043135420301640?via%3Dihub',False,False,False,True
+627,15,'!Towards an edit distance between pangenome graphs - 20nov_11h00.pdf','https://seqbim.cnrs.fr/wp-content/uploads/2023/11/20nov_11h00.pdf',False,False,False,True
+628,15,'21nov_10h20.pdf','https://seqbim.cnrs.fr/wp-content/uploads/2023/11/21nov_10h20.pdf',False,False,False,True
+629,15,'Burst Sort for DNA.','https://chatgpt.com/c/fc1e5598-97dc-4a63-ad5d-e148995e1646',False,False,False,True
+630,15,'Fractional hitting sets for efficient multiset sketching | Algorithms for Molecular Biology | Full Text','https://almob.biomedcentral.com/articles/10.1186/s13015-024-00268-0',False,False,False,True
+631,15,'Hybrid Combinatorial Problems Used for Multimodal Optimisation | IEEE Conference Publication | IEEE Xplore','https://ieeexplore.ieee.org/document/10820475',False,False,False,True
+632,15,'Understanding Modern Techniques and Tools to Revolutionize Plant Breeding for Sustainable Crop Improvement - Premier Science','https://premierscience.com/pjpb-24-554/',False,False,False,True
+633,15,'BINSEQ: A Family of High-Performance Binary Formats for Nucleotide Sequences | bioRxiv','https://www.biorxiv.org/content/10.1101/2025.04.08.647863v1',False,False,False,True
+634,15,'KeyChat','https://chat.keygene.com/',False,False,False,True
+635,15,'The genetics of inbreeding depression | Nature Reviews Genetics','https://www.nature.com/articles/nrg2664',False,False,False,True
+636,15,'Understanding Inbreeding Depression, Purging, and Genetic Rescue: Trends in Ecology & Evolution','https://www.cell.com/trends/ecology-evolution/abstract/S0169-5347(16)30158-6?_returnURL=https%3A%2F%2Flinkinghub.elsevier.com%2Fretrieve%2Fpii%2FS0169534716301586%3Fshowall%3Dtrue',False,False,False,True
+637,15,'Opportunities and computational challenges in large-scale whole genome sequencing data analysis | Journal of Animal Science | Oxford Academic','https://academic.oup.com/jas/advance-article-abstract/doi/10.1093/jas/skaf292/8242335?redirectedFrom=fulltext&login=false',False,False,False,True
+638,15,'Emerging Viral Threats in Rice: A Decade of Discovery and Implications for Crop Protection - Ding - Plant, Cell & Environment - Wiley Online Library','https://onlinelibrary.wiley.com/doi/10.1111/pce.70156',False,False,False,True
+639,15,'When tech says ‘no’ — Benedict Evans','https://www.ben-evans.com/benedictevans/2023/8/24/when-tech-says-no',False,False,False,True
+640,15,'Understanding Async Await in Rust: From State Machines to Assembly Code','https://www.eventhelix.com/rust/rust-to-assembly-async-await/',False,False,False,True
+641,15,'The Scary Future of the American Right - The Atlantic','https://www.theatlantic.com/ideas/archive/2021/11/scary-future-american-right-national-conservatism-conference/620746/',False,False,False,True
+642,15,'‘Parade’ Is Rachel Cusk’s Lonely Experiment - The Atlantic','https://www.theatlantic.com/magazine/archive/2024/07/parade-rachel-cusk-book-review/678500/?utm_medium=cr&utm_source=email&utm_campaign=06_20_2024_issue_promo_july_august_all_actives_large_subject_line_10_10_80_winner&utm_content=Final&utm_term=ISSUE%20PROMOS%20ONLY%20-%20ALL%20Active%20Subscribers%20%28Stripe%2BCDS%2BiTunes%29',False,False,False,True
+643,15,'7 Reasons to Think Social Media Has Peaked','https://nymag.com/intelligencer/article/7-reasons-to-think-social-media-has-peaked.html',False,False,False,True
+644,15,'Why Amazon Is Mad About AI Shoppers','https://nymag.com/intelligencer/article/amazon-vs-perplexity-ai-agent-shoppers.html',False,False,False,True
+645,15,'A new golden age of discovery - Google DeepMind','https://deepmind.google/public-policy/ai-for-science/',False,False,False,True
+646,15,'Deepseek: The Quiet Giant Leading China’s AI Race','https://www.chinatalk.media/p/deepseek-ceo-interview-with-chinas',False,False,False,True
+647,15,'Perspectives | Iran-Azerbaijan: A new cold war? | Eurasianet','https://eurasianet.org/perspectives-iran-azerbaijan-a-new-cold-war',False,False,False,True
+648,15,'An Intuitive Guide to Linear Algebra – BetterExplained','https://betterexplained.com/articles/linear-algebra-guide/',False,False,False,True
+649,15,'The Economic Impact of the Black Death – EH.net','https://eh.net/encyclopedia/the-economic-impact-of-the-black-death/',False,False,False,True
+650,15,'The Faces of Contemporary Cities - Rizzoli New York','https://www.rizzoliusa.com/book/9788891838759/',False,False,False,True
+651,15,'China’s EV industry faces a slowdown and lower prices - Rest of World','https://restofworld.org/2024/china-ev-industry-slowdown/',False,False,False,True
+652,15,'What The CEO Wants You To Know - Commoncog','https://commoncog.com/what-the-ceo-wants-you-to-know/#principle-2-cash-generation',False,False,False,True
+653,15,'From Mathematics to Generic Programming: An Interview with Alexander Stepanov and Daniel Rose | | InformIT','https://www.informit.com/articles/article.aspx?p=2314360',False,False,False,True
+654,15,'Fact-Checking Trump’s 2025 Inaugural Address - The New York Times','https://www.nytimes.com/2025/01/20/us/politics/trump-fact-check-inaugural-address.html?smid=nytcore-ios-share&referringSource=articleShare',False,False,False,True
+655,15,'The list of executive orders Trump signed on Day 1 in office - The Washington Post','https://www.washingtonpost.com/politics/2025/01/20/trump-executive-orders-list/',False,False,False,True
+656,15,'The Spanish Review of Financial Economics | Semantic Scholar','https://www.semanticscholar.org/paper/The-Spanish-Review-of-Financial-Economics-Camb%C3%B3n-Vaduva/19758332154738422079a863e47a5bc1c59d9a0a?utm_source=alert_email&utm_content=LibraryFolder&utm_campaign=AlertEmails_DAILY&utm_term=LibraryFolder&email_index=0-0-0&utm_medium=47873146',False,False,False,True
+657,15,'China Makes More Cars Than It Needs. Now, It’s Shakeout Time. - WSJ','https://www.wsj.com/business/autos/china-auto-industry-outlook-2025-1afec5a0?mod=djemMoneyBeat_us',False,False,False,True
+658,15,'Debt-Ceiling Fight Has New X Factor: Trump - WSJ','https://www.wsj.com/politics/policy/us-congress-debt-limit-trump-2c45575d?mod=djemMoneyBeat_us',False,False,False,True
+659,15,'Full article: The political economy of digital government: How Silicon Valley firms drove conversion to data science and artificial intelligence in public management','https://www.tandfonline.com/doi/full/10.1080/09540962.2024.2389915',False,False,False,True
+660,15,'Mrs Watanopportunity','https://www.economist.com/finance-and-economics/2011/10/29/mrs-watanopportunity?mod=djemMoneyBeat_us',False,False,False,True
+661,15,'Surprising Genetic Evidence Shows Human Evolution in Recent Millennia | Scientific American','https://www.scientificamerican.com/article/surprising-genetic-evidence-shows-human-evolution-in-recent-millennia/',False,False,False,True
+662,15,'How Big Banks Can Profit From Bond Market Angst - WSJ','https://www.wsj.com/finance/banking/how-big-banks-can-profit-from-bond-market-angst-1c1884d3?mod=djemMoneyBeat_us',False,False,False,True
+663,15,'How a Tokyo Earthquake Could Devastate Wall Street and the World Economy | Vanity Fair','https://www.vanityfair.com/news/2011/03/michael-lewis-japan-201103?mod=djemMoneyBeat_us',False,False,False,True
+664,15,'China’s Views on AI Safety Are Changing—Quickly | Carnegie Endowment for International Peace','https://carnegieendowment.org/research/2024/08/china-artificial-intelligence-ai-safety-regulation?lang=en',False,False,False,True
+665,15,'A new tool tracks when the Chinese government blocks websites like ChatGPT - Rest of World','https://restofworld.org/2024/when-china-blocked-ai-sites/',False,False,False,True
+666,15,'(PDF) Efficient algorithms for Longest Common Subsequence of two bucket orders to speed up pairwise genetic map comparison','https://www.researchgate.net/publication/329955047_Efficient_algorithms_for_Longest_Common_Subsequence_of_two_bucket_orders_to_speed_up_pairwise_genetic_map_comparison',False,False,False,True
+667,15,'Teddy: An Efficient SIMD-based Literal Matching Engine for Scalable Deep Packet Inspection | Proceedings of the 50th International Conference on Parallel Processing','https://dl.acm.org/doi/abs/10.1145/3472456.3473512',False,False,False,True
+668,15,'Ortholog assignment | PPT','https://www.slideshare.net/slideshow/ortholog-assignment/7825991',False,False,False,True
+669,15,'ChromaX: a fast and scalable breeding program simulator | bioRxiv','https://www.biorxiv.org/content/10.1101/2023.05.29.542709v2',False,False,False,True
+670,15,'Nagorno-Karabakh: This war changed 21st-century combat | Vox','https://www.vox.com/world-politics/351105/armenia-azerbaijan-war-combat-future-drones',False,False,False,True
+671,15,'How 2020 set off an entirely new kind of political backlash | Vox','https://www.vox.com/policy/351106/backlash-politics-2020-george-floyd-race',False,False,False,True
+672,15,'How to invest your enormous inheritance Elm Wealth','https://elmwealth.com/how-to-invest-your-inheritance/?mod=djemMoneyBeat_us',False,False,False,True
+673,15,'When Nothing Ever Goes Out of Print: Maintaining Backlist Ebooks | by Teresa Elsey | Medium','https://teresaelsey.medium.com/when-nothing-ever-goes-out-of-print-maintaining-backlist-ebooks-fcd63e680667',False,False,False,True
+674,15,'[2409.17253] Evaluation of Galaxy as a User-friendly Bioinformatics Tool for Enhancing Clinical Diagnostics in Genetics Laboratories','https://arxiv.org/abs/2409.17253',False,False,False,True
+675,15,'deepTFBS: Improving within‐ and Cross‐Species Prediction of Transcription Factor Binding Using Deep Multi‐Task and Transfer Learning - Zhai - 2025 - Advanced Science - Wiley Online Library','https://advanced.onlinelibrary.wiley.com/doi/10.1002/advs.202503135',False,False,False,True
+676,15,'[PDF] Characterization of the Pepper Virome in Oklahoma Reveals Emerging RNA and DNA Viruses | Semantic Scholar','https://www.semanticscholar.org/paper/Characterization-of-the-Pepper-Virome-in-Oklahoma-Paslay-Ali/94d2b9ea65e27a79b154871532780a83b6ad78f7?utm_source=alert_email&utm_content=LibraryFolder&utm_campaign=AlertEmails_DAILY&utm_term=LibraryFolder&email_index=0-0-0&utm_medium=64875553',False,False,False,True
+677,15,'From genes to ecosystems: omics insights into algae and cyanobacteria | Semantic Scholar','https://www.semanticscholar.org/paper/From-genes-to-ecosystems%3A-omics-insights-into-algae-Becker-Pushkareva/24a6492029f6527c266e5ef6c5a7248ad42dbe9c?utm_source=alert_email&utm_content=LibraryFolder&utm_campaign=AlertEmails_DAILY&utm_term=LibraryFolder&email_index=2-0-2&utm_medium=64875553',False,False,False,True
+678,15,'Characterization of the Pepper Virome in Oklahoma Reveals Emerging RNA and DNA Viruses - 5e433d6371efeb9bbea3eb4418647e983524.pdf','https://pdfs.semanticscholar.org/cc71/5e433d6371efeb9bbea3eb4418647e983524.pdf?_gl=1*15sn96n*_gcl_au*MTYxNDQ4MjA5OS4xNzU2MTEzMDY3*_ga*OTgzMTI1OTEyLjE3NTYxMTMwNjc.*_ga_H7P4ZT52H5*czE3NjI0MjI1MTgkbzQxJGcxJHQxNzYyNDIyNTg5JGo2MCRsMCRoMA..',False,False,False,True
+679,15,'Characterization of the Pepper Virome in Oklahoma Reveals Emerging RNA and DNA Viruses','https://www.mdpi.com/2076-0817/14/10/1035',False,False,False,True
+680,15,'Virgaviridae - Wikipedia','https://en.wikipedia.org/wiki/Virgaviridae',False,False,False,True
+681,15,'Application and development prospect of genomic selection breeding in coniferous trees. | Semantic Scholar','https://www.semanticscholar.org/paper/Application-and-development-prospect-of-genomic-in-Zhang-Sun/228ecd1a966635519be797462bdce72fe617add2?utm_source=alert_email&utm_content=LibraryFolder&utm_campaign=AlertEmails_DAILY&utm_term=LibraryFolder&email_index=13-0-27&utm_medium=64822879',False,False,False,True
+682,15,'Application and development prospect of genomic selection breeding in coniferous trees - PubMed','https://pubmed.ncbi.nlm.nih.gov/41144003/',False,False,False,True
+683,15,'Application and development prospect of genomic selection breeding in coniferous trees | Planta','https://link.springer.com/article/10.1007/s00425-025-04849-0',False,False,False,True
+684,15,'"Application and development prospect of genomic selection breeding in coniferous trees" - Google Search','https://www.google.com/search?q=%22Application+and+development+prospect+of+genomic+selection+breeding+in+coniferous+trees%22&num=10&sca_esv=eb68ead9e93085bb&source=hp&ei=bnUMaba7Hte4i-gP6_voqAw&iflsig=AOw8s4IAAAAAaQyDfgsjRu7TLnuSDs-QOMuUDu69ae_O&ved=0ahUKEwi2qvXWpd2QAxVX3AIHHes9GsUQ4dUDCBg&uact=5&oq=%22Application+and+development+prospect+of+genomic+selection+breeding+in+coniferous+trees%22&gs_lp=Egdnd3Mtd2l6IlgiQXBwbGljYXRpb24gYW5kIGRldmVsb3BtZW50IHByb3NwZWN0IG9mIGdlbm9taWMgc2VsZWN0aW9uIGJyZWVkaW5nIGluIGNvbmlmZXJvdXMgdHJlZXMiSABQAFgAcAB4AJABAJgBAKABAKoBALgBA8gBAPgBAvgBAZgCAKACAJgDAJIHAKAHALIHALgHAMIHAMgHAA&sclient=gws-wiz',False,False,False,True
+685,15,'Controlling the Overfitting of Heritability in Genomic Selection through Cross Validation | Scientific Reports','https://www.nature.com/articles/s41598-017-14070-z',False,False,False,True
+686,15,'Genetic Techniques - Recent articles and discoveries | SpringerLink','https://link.springer.com/subjects/genetic-techniques',False,False,False,True
+687,15,'Application and development prospect of genomic selection breeding in coniferous trees | Planta','https://link.springer.com/article/10.1007/s00425-025-04849-0',False,False,False,True
+688,15,'`uv add tensorflow` Fails in Python 3.9 · Issue #9840 · astral-sh/uv','https://github.com/astral-sh/uv/issues/9840',False,False,False,True
+689,15,'Resolving the "AttributeError: module \'tensorflow\' has no attribute \'placeholder\'" Issue - GeeksforGeeks','https://www.geeksforgeeks.org/deep-learning/resolving-the-attributeerror-module-tensorflow-has-no-attribute-placeholder-issue/',False,False,False,True
+690,15,'Repository · Settings · Marco Rietveld / tsptfbs-2.0 · GitLab','https://git.keygene.com/mri/tsptfbs-2.0/-/settings/repository#js-protected-branches-settings',False,False,False,True
+691,15,'Contact | Hotel & Strandpaviljoen Zoomers in Castricum aan Zee','https://zoomersaanzee.nl/en/contact-us/',False,False,False,True
+692,15,'Genomic prediction models based on a large-scale recombinant population allow quick breeding of high-yield rice | Semantic Scholar','https://www.semanticscholar.org/paper/Genomic-prediction-models-based-on-a-large-scale-of-Sakai-Abe/bdff805eaf0e419471bf5c8f12b35850785a7fdb?utm_source=alert_email&utm_content=LibraryFolder&utm_campaign=AlertEmails_DAILY&utm_term=LibraryFolder&email_index=13-5-32&utm_medium=64822879',False,False,False,True
+693,15,'python - Count the number of occurrences of a character in a string - Stack Overflow','https://stackoverflow.com/questions/1155617/count-the-number-of-occurrences-of-a-character-in-a-string',False,False,False,True
+694,15,'cskokgibbs/GLM-Prior: Transformer-based sequence classification model for inference of GRN prior-knowledge','https://github.com/cskokgibbs/GLM-Prior',False,False,False,True
+695,15,'cskokgibbs (Claudia Skok Gibbs)','https://huggingface.co/cskokgibbs',False,False,False,True
+696,15,'Google Translate','https://translate.google.com/?sl=auto&tl=en&text=%E2%80%99ai%20refus%C3%A9%20un%20CDI%20%C3%A0%2085k%E2%82%AC%20la%20semaine%20derni%C3%A8re.%0A%0AEt%20quand%20j%E2%80%99en%20ai%20parl%C3%A9%20%C3%A0%20ma%20m%C3%A8re%2C%0Aje%20crois%20qu%E2%80%99elle%20a%20failli%20faire%20une%20attaque.%0A%0ALe%20plus%20fou%20dans%20l%E2%80%99histoire%20%3F%0AAu%20d%C3%A9part%2C%20le%20recruteur%20me%20parlait%20d%E2%80%99un%20package%20%C3%A0%2055k%E2%82%AC.%0A%0AOn%20a%20discut%C3%A9.%0AOn%20a%20challeng%C3%A9.%0AOn%20a%20align%C3%A9%20le%20p%C3%A9rim%C3%A8tre.%0A%0AEt%20on%20a%20fini%20%C3%A0%2085k%E2%82%AC.%0A%0AIl%20y%20a%20encore%20deux%20ans%2C%0Aje%20n%E2%80%99aurais%20JAMAIS%20dit%20non.%0AJAMAIS.%0A%0AMais%20quelque%20chose%20a%20chang%C3%A9.%0A%0AJ%E2%80%99ai%20fait%20un%20vrai%20shift%20mental.%0A%0AAujourd%E2%80%99hui%2C%20je%20sais%20ce%20que%20je%20ne%20veux%20plus.%0AEt%20je%20sais%20aussi%20avec%20qui%20je%20ne%20veux%20plus%20travailler.%0A%0APas%20de%20micro-management.%20%0APas%20d%E2%80%99astreintes.%20%0AMes%20enfants%20d%E2%80%99abord.%0A%0ALa%20r%C3%A9putation%20de%20la%20bo%C3%AEte%20l%E2%80%99a%20pr%C3%A9c%C3%A9d%C3%A9e.%0AAlors%20j%E2%80%99ai%20fait%20ce%20que%20je%20fais%20toujours.%0A%0AGlassdoor.%20%0AReddit.%20%0AAvis%20terrain.%0A%0AEn%2030%20minutes%2C%20c%E2%80%99%C3%A9tait%20clair.%0ACe%20serait%20non.%0A%0ACe%20n%E2%80%99%C3%A9tait%20pas%20un%20probl%C3%A8me%20d%E2%80%99argent.%0AC%E2%80%99%C3%A9tait%20un%20probl%C3%A8me%20de%20cadre.%0ADe%20valeurs.%0ADe%20quotidien.%0A%0ADire%20non%20%C3%A0%2085k%E2%82%AC%2C%20apr%C3%A8s%20%C3%AAtre%20mont%C3%A9%20depuis%2055k%E2%82%AC%2C%0Ace%20n%E2%80%99est%20pas%20un%20caprice.%0A%0AC%E2%80%99est%20de%20la%20lucidit%C3%A9.%0A%0ASavoir%20ce%20que%20tu%20refuses%0Avaut%20parfois%20plus%20que%20savoir%20ce%20que%20tu%20acceptes.%0A&op=translate',False,False,False,True
+697,15,'Mammal in het Nederlands vertaald uit het Engels','https://www.interglot.nl/woordenboek/en/nl/vertaal/mammal?s=mammalian&l=en%7Cnl',False,False,False,True
+698,15,'Finite-State Likelihood: an Approximation for Genome Phylogeny Inference based on Generalized Gene Contents | Semantic Scholar','https://www.semanticscholar.org/paper/Finite-State-Likelihood%3A-an-Approximation-for-based-Gu/6f03f018c0e2dd84325eb3f3669995c476838012?utm_source=alert_email&utm_content=LibraryFolder&utm_campaign=AlertEmails_DAILY&utm_term=LibraryFolder&email_index=0-0-0&utm_medium=68064680',False,False,False,True
+699,15,'Cuckoo-PTHash: Exploring Cuckoo Hashing in the PTHash Framework | Semantic Scholar','https://www.semanticscholar.org/paper/Cuckoo-PTHash%3A-Exploring-Cuckoo-Hashing-in-the/c4174bf8592ee2981ccb97f6625863a984a025b6?utm_source=alert_email&utm_content=LibraryFolder&utm_campaign=AlertEmails_DAILY&utm_term=LibraryFolder&email_index=2-0-3&utm_medium=68064680',False,False,False,True
+700,15,'Compressed Data Representation Methods for High-Speed Search | Semantic Scholar','https://www.semanticscholar.org/paper/Compressed-Data-Representation-Methods-for-Search-Aruna-Hussein/9d03a3340903767545f8b06500c812fb8e2acb5b?utm_source=alert_email&utm_content=LibraryFolder&utm_campaign=AlertEmails_DAILY&utm_term=LibraryFolder&email_index=0-0-0&utm_medium=68038836',False,False,False,True
+701,15,'[PDF] Genomic Evolution of Tomato Spotted Wilt Virus and Its Resistance-Breaking Ability | Semantic Scholar','https://www.semanticscholar.org/paper/Genomic-Evolution-of-Tomato-Spotted-Wilt-Virus-and-Mandal-Kang/33a3ca2e367bd6b50d4f635fb2c80af16ad910a1?utm_source=alert_email&utm_content=LibraryFolder&utm_campaign=AlertEmails_DAILY&utm_term=LibraryFolder&email_index=2-0-2&utm_medium=68619408',False,False,False,True
+702,15,'[PDF] Candidate orphan genes: Reassessing uniqueness | Semantic Scholar','https://www.semanticscholar.org/paper/Candidate-orphan-genes%3A-Reassessing-uniqueness-Maan-Butzin/a222c3b334c32c1673d10aa4a7f4d527350ef822?utm_source=alert_email&utm_content=LibraryFolder&utm_campaign=AlertEmails_DAILY&utm_term=LibraryFolder&email_index=6-0-7&utm_medium=68594057',False,False,False,True
+703,15,'Out-of-Antarctica Cyanobacteria Theory','https://chatgpt.com/c/695b7fb4-3764-832d-9770-68fed23970c9',False,False,False,True
+704,15,'What is the ‘Out-of-Antarctica’ scenario with regards to cyanobacteria? And...','https://www.perplexity.ai/search/what-is-the-out-of-antarctica-erZR67auSq2NJdc5Ckgh6w',False,False,False,True
+705,15,'Using Math to Protect Fish in the Ocean | Semantic Scholar','https://www.semanticscholar.org/paper/Using-Math-to-Protect-Fish-in-the-Ocean-Pennino-Izquierdo/a099c3f117cc14589d78bc7d2bd98b1140c63b86?utm_source=alert_email&utm_content=LibraryFolder&utm_campaign=AlertEmails_DAILY&utm_term=LibraryFolder&email_index=14-2-31&utm_medium=68386000',False,False,False,True
+706,15,'Gravitational Wave Detectors—Past, Present, and Future · Frontiers for Young Minds','https://kids.frontiersin.org/articles/10.3389/frym.2024.1250122',False,False,False,True
+707,15,'Black body radiation in physics - Claude','https://claude.ai/chat/0ab2eb25-7ca4-4400-be31-feb111e5aad4',False,False,False,True
+708,15,'RiviereQuentin/Wimtrap: Wimtrap: An R package to predict transcription factor binding sites','https://github.com/RiviereQuentin/Wimtrap/',False,False,False,True
+709,15,'Metagenomics Study of the Commercial Tomato Virome Focused on Virus Species of Epidemiological Interest | MDPI','https://www.mdpi.com/1999-4915/17/10/1334',False,False,False,True
+710,15,'Wimtrap','https://htmlpreview.github.io/?https://github.com/RiviereQuentin/Wimtrap/blob/main/vignettes/Wimtrap.html',False,False,False,True
+711,15,'QuickProt: A Fast and Accurate Homology‐Based Protein Annotation Tool for Non‐Model Organisms to Advance Comparative Genomics | Semantic Scholar','https://www.semanticscholar.org/paper/QuickProt:-A-Fast-and-Accurate-Homology%E2%80%90Based-Tool-Chen-Du/a2f12b7b0ae1a7d09c1b6f1c3496b021e7df1ba1?utm_source=alert_email&utm_content=LibraryFolder&utm_campaign=AlertEmails_DAILY&utm_term=LibraryFolder&email_index=0-0-0&utm_medium=69288020',False,False,False,True
+712,15,'When looking at the data landscape of an organization, there are often...','https://www.perplexity.ai/search/when-looking-at-the-data-lands-iTR0En.MSzeeCb5_DRwROg',False,False,False,True
+713,15,'Please list 5 papers on data governance that talk about data classification,...','https://www.perplexity.ai/search/please-list-5-papers-on-data-g-EwMEYerRS8GSGnSvkoqwIA',False,False,False,True
+714,15,'Data Classification Methodology: The Way Forward to Data-Enabled Healthcare in Egypt - PMC','https://pmc.ncbi.nlm.nih.gov/articles/PMC12611462/',False,False,False,True
+715,15,'A conceptual framework for data governance in big data and cloud environments: Integrating security, compliance, and data quality - IJSRA-2024-1177.pdf','https://ijsra.net/sites/default/files/IJSRA-2024-1177.pdf',False,False,False,True
+716,15,'docs.nextstrain.org/src/learn/interpret/map-interpretation.md at master · nextstrain/docs.nextstrain.org','https://github.com/nextstrain/docs.nextstrain.org/blob/master/src/learn/interpret/map-interpretation.md',False,False,False,True
+717,15,'"nextstrain" "mapTiles" - Google Search','https://www.google.com/search?q=%22nextstrain%22+%22mapTiles%22&num=10&client=firefox-b-d&hs=TPr9&sca_esv=c8a3b072d1e1de02&biw=2356&bih=2020&aic=0&ei=3kVuaZHXDcKci-gPo9Cp0Ak&ved=0ahUKEwiRvuiM7peSAxVCzgIHHSNoCpoQ4dUDCBE&uact=5&oq=%22nextstrain%22+%22mapTiles%22&gs_lp=Egxnd3Mtd2l6LXNlcnAiFyJuZXh0c3RyYWluIiAibWFwVGlsZXMiMggQABiiBBiJBTIFEAAY7wUyBRAAGO8FMgUQABjvBUjVJ1DWD1jOJXADeACQAQCYAUugAdQBqgEBM7gBA8gBAPgBAZgCBqAC5AHCAgsQABiwAxiiBBiJBcICCBAAGLADGO8FmAMAiAYBkAYEkgcBNqAH-AqyBwEzuAfbAcIHAzEuNcgHB4AIAA&sclient=gws-wiz-serp',False,False,False,True
+718,15,'top-github-users/markdown/public_contributions/switzerland.md at main · gayanvoice/top-github-users','https://github.com/gayanvoice/top-github-users/blob/main/markdown/public_contributions/switzerland.md',False,False,False,True
+719,15,'Better document swapping map tilesets · Issue #1286 · nextstrain/auspice','https://github.com/nextstrain/auspice/issues/1286',False,False,False,True
+720,15,'Build with newest nextstrain/ncov has API requests to mapbox 403:Forbidden - General - Nextstrain Discussion','https://discussion.nextstrain.org/t/build-with-newest-nextstrain-ncov-has-api-requests-to-mapbox-403-forbidden/396/11?u=james',False,False,False,True
+721,15,'Client Customisation API — Auspice documentation','https://docs.nextstrain.org/projects/auspice/en/stable/customise-client/api.html#custom-map-tiles',False,False,False,True
+722,15,'Tile servers - OpenStreetMap Wiki','https://wiki.openstreetmap.org/wiki/Tile_servers',False,False,False,True
+723,15,'Cucumber green mottle mosaic virus - Wikipedia','https://en.wikipedia.org/wiki/Cucumber_green_mottle_mosaic_virus',False,False,False,True
+724,15,'Tobamovirus - Wikipedia','https://en.wikipedia.org/wiki/Tobamovirus',False,False,False,True
+725,15,'Research Feeds | Semantic Scholar','https://www.semanticscholar.org/me/recommendations?folderIds=13215004',False,False,False,True
+726,15,'Advanced molecular tools for surveillance and management of tobamoviruses | Semantic Scholar','https://www.semanticscholar.org/paper/Advanced-molecular-tools-for-surveillance-and-of-Mehmood-Iqbal/1ceb11461944ef1016056c4deabecccbf17b4394?utm_source=alert_email&utm_content=LibraryFolder&utm_campaign=AlertEmails_DAILY&utm_term=LibraryFolder&email_index=2-0-2&utm_medium=69421515',False,False,False,True
+727,15,'Frontiers | Advanced molecular tools for surveillance and management of tobamoviruses','https://www.frontiersin.org/journals/plant-science/articles/10.3389/fpls.2025.1718133/full',False,False,False,True
+728,15,'[PDF] The genome of Pleurosigma provides insights into the evolutionary adaptations of pelagic diatoms | Semantic Scholar','https://www.semanticscholar.org/paper/The-genome-of-Pleurosigma-provides-insights-into-of-Jian-Chen/d1994a3e1bb37bc2945d835fad4087c35b0345bc?utm_source=alert_email&utm_content=LibraryFolder&utm_campaign=AlertEmails_DAILY&utm_term=LibraryFolder&email_index=5-0-6&utm_medium=69421515',False,False,False,True
+729,15,'[PDF] CAMP: a modular metagenomics analysis system for integrated multistep data exploration | Semantic Scholar','https://www.semanticscholar.org/paper/CAMP%3A-a-modular-metagenomics-analysis-system-for-Mak-Tierney/a12bce25cb99b60875827a59dd79f66d014a2b74?utm_source=alert_email&utm_content=LibraryFolder&utm_campaign=AlertEmails_DAILY&utm_term=LibraryFolder&email_index=16-0-18&utm_medium=69702110',False,False,False,True
+730,15,'GenoME: a MoE-based generative model for individualized, multimodal prediction and perturbation of genomic profiles | Semantic Scholar','https://www.semanticscholar.org/paper/GenoME%3A-a-MoE-based-generative-model-for-multimodal-Wei-Xue/1b9f0ac78c8f3f033048084cb6af7c84bbdf621c?utm_source=alert_email&utm_content=LibraryFolder&utm_campaign=AlertEmails_DAILY&utm_term=LibraryFolder&email_index=18-0-20&utm_medium=69702110',False,False,False,True
+731,15,'Functional Annotation Workflow for Fungal Transcriptomes | Semantic Scholar','https://www.semanticscholar.org/paper/Functional-Annotation-Workflow-for-Fungal-Morihara-Bono/a7a23d8644c2e31865a2dcb2b4ec853da23198be?utm_source=alert_email&utm_content=LibraryFolder&utm_campaign=AlertEmails_DAILY&utm_term=LibraryFolder&email_index=20-0-22&utm_medium=69702110',False,False,False,True
+732,15,'Lazy lossless compression by symbol lookahead invalidation in universal adaptive stream-based entropy coding | Semantic Scholar','https://www.semanticscholar.org/paper/Lazy-lossless-compression-by-symbol-lookahead-in-Yamagiwa-Kato/8425c620310172ab8cad238fe51808bfb3ba8c9f?utm_source=alert_email&utm_content=LibraryFolder&utm_campaign=AlertEmails_DAILY&utm_term=LibraryFolder&email_index=25-0-28&utm_medium=69702110',False,False,False,True
+733,15,'Stock Screener: Search, Filter and Analyze Stocks - TipRanks.com','https://www.tipranks.com/screener/stocks',False,False,False,True
+734,15,'GSK 50.80 0.95%','https://www.tipranks.com/stocks/gsk#',False,False,False,True
+735,15,'From Web Search towards Agentic Deep Research: Incentivizing Search with Reasoning Agents','https://arxiv.org/html/2506.18959v3#S4',False,False,False,True
+736,15,'A metadata managed FAIR end-to-end workflow for microbial community Omics data analysis | Semantic Scholar','https://www.semanticscholar.org/paper/A-metadata-managed-FAIR-end-to-end-workflow-for-Ke-Koehorst/053c728552d6ddaba62e63b087fce7191ae20c46?utm_source=alert_email&utm_content=LibraryFolder&utm_campaign=AlertEmails_DAILY&utm_term=LibraryFolder&email_index=0-0-0&utm_medium=68504482',False,False,False,True
+737,15,'MLSH: a time series query indexing algorithm based on improved local sensitive hashing | Semantic Scholar','https://www.semanticscholar.org/paper/MLSH%3A-a-time-series-query-indexing-algorithm-based-Chen-Zhang/56fbb7dabc98fc97edebfe7bac1ff4804d1fc6b6?utm_source=alert_email&utm_content=LibraryFolder&utm_campaign=AlertEmails_DAILY&utm_term=LibraryFolder&email_index=4-0-5&utm_medium=68504482',False,False,False,True
+738,15,'[PDF] Multidimensional Gene Space as an Approach for Analyzing the Organization of Genomes | Semantic Scholar','https://www.semanticscholar.org/paper/Multidimensional-Gene-Space-as-an-Approach-for-the-Zaytsev-Bogatyreva/7f256e4efe6ad795ebac6d3a956cd11cd9eeaaaa?utm_source=alert_email&utm_content=LibraryFolder&utm_campaign=AlertEmails_DAILY&utm_term=LibraryFolder&email_index=2-0-2&utm_medium=68443157',False,False,False,True
+739,15,'Out of Antarctica: new insights into Antarctic Subcluster 5.2 picocyanobacteria based on high-quality genomes | Semantic Scholar','https://www.semanticscholar.org/paper/Out-of-Antarctica%3A-new-insights-into-Antarctic-5.2-Durieu-Savaglia/b85bd32283c6f49c547a2d9cffaa460738420bb0?utm_source=alert_email&utm_content=LibraryFolder&utm_campaign=AlertEmails_DAILY&utm_term=LibraryFolder&email_index=6-0-7&utm_medium=68443157',False,False,False,True
+740,15,'[PDF] Computing Maximal Repeating Subsequences in a String | Semantic Scholar','https://www.semanticscholar.org/paper/Computing-Maximal-Repeating-Subsequences-in-a-Gong-Liyanage/54a8b494d9ac34a40bad43d2e6b258f26c7b35e9?utm_source=alert_email&utm_content=LibraryFolder&utm_campaign=AlertEmails_DAILY&utm_term=LibraryFolder&email_index=11-0-13&utm_medium=69825856',False,False,False,True
+741,15,'Forecasting Influenza Epidemics and Pandemics in the Age of AI and Machine Learning | Semantic Scholar','https://www.semanticscholar.org/paper/Forecasting-Influenza-Epidemics-and-Pandemics-in-of-Kamyshnyi-Halabitska/2e0fb6c321f7ff1fa1e26710613f780f10e80d6d?utm_source=alert_email&utm_content=LibraryFolder&utm_campaign=AlertEmails_DAILY&utm_term=LibraryFolder&email_index=13-0-15&utm_medium=69825856',False,False,False,True
+742,15,'An alternative approach for predicting genotype performance in novel environments without genomic data | Semantic Scholar','https://www.semanticscholar.org/paper/An-alternative-approach-for-predicting-genotype-in-Montesinos-L%C3%B3pez-Kismiantini/412bcde44b2dbfd3a7498feb55b6ec70f8dedce2?utm_source=alert_email&utm_content=LibraryFolder&utm_campaign=AlertEmails_DAILY&utm_term=LibraryFolder&email_index=16-0-18&utm_medium=69825856',False,False,False,True
+743,15,'Dynamic Mode Decomposition: Data-Driven Modeling of Complex Systems | Semantic Scholar','https://www.semanticscholar.org/paper/Dynamic-Mode-Decomposition%3A-Data-Driven-Modeling-of-Kutz-Brunton/f72d3f58ff73353978e224af348448b34d27cf7b',False,False,False,True
+744,15,'Leveraging Big Data and Data Lakes for Advanced Data Science, Challenges and Opportunities | Semantic Scholar','https://www.semanticscholar.org/paper/Leveraging-Big-Data-and-Data-Lakes-for-Advanced-and-O%E2%80%99Connor/11dab16fd0ae1e985cfc5e93dcadc6676590c271?utm_source=alert_email&utm_content=LibraryFolder&utm_campaign=AlertEmails_DAILY&utm_term=LibraryFolder&email_index=5-0-5&utm_medium=69863219',False,False,False,True
+745,15,'Dynamic Mode Decomposition | SIAM Publications Library','https://epubs.siam.org/doi/book/10.1137/1.9781611974508',False,False,False,True
+746,15,'Unsorted Library Papers | Semantic Scholar','https://www.semanticscholar.org/me/library/unsorted?page=1&sort=recency',False,False,False,True
+747,15,'50% korting op Davitamon Vitamine D Kind Smelttabletten 50TB','https://www.deonlinedrogist.nl/drogist/davitamon-vitamine-d-kind-smelttabletten-50tb.htm?channable=00de4f6964003632313535c8&pid=62155&cross=0&dod_b=google&dod_m=cpc&dod_cp=650469897&dod_t=&dod_ct=1244648524177330&dod_g=&msclkid=eab0e510874e187b70af8c8caef8885f&utm_source=google&utm_medium=cpc&utm_campaign=650469897&utm_term=2329590261969013&utm_content=1244648524177330',False,False,False,True
+748,15,'what is 10 µg of vitamin D in iu at DuckDuckGo','https://duckduckgo.com/?t=ffab&q=what+is+%09++10+%C2%B5g+of+vitamin+D+in+iu&ia=web',False,False,False,True
+749,15,'Converting Vitamin D Mcg To IU | Chart And Calculator','https://geriatricacademy.com/vitamin-d-mcg-to-iu/',False,False,False,True
+750,15,'In data governance, at multiple points, useful datasets must be identified in...','https://www.perplexity.ai/search/in-data-governance-at-multiple-8EW6lIrWSWmzdpp3v7OiJg',False,False,False,True
+751,15,'Identifying useful datasets in data governance - Claude','https://claude.ai/chat/5ce7fa28-b2a1-47d1-adfd-5b448b0746af',False,False,False,True
+752,15,'An Empirical Study on Core Data Asset Identification in Data Governance | MDPI','https://www.mdpi.com/2504-2289/7/4/161',False,False,False,True
+753,15,'Data governance — Protecting and unleashing the value of your customer data assets | Journal of Direct, Data and Digital Marketing Practice | Springer Nature Link','https://link.springer.com/article/10.1057/dddmp.2011.16',False,False,False,True
+754,15,'🔍 Identifying Useful Datasets • Open WebUI','https://keychat.keygene.com/c/8641ca07-7a44-4267-9b01-c97e71340b82',False,False,False,True
+755,15,'View of The DCC Curation Lifecycle Model','https://ijdc.net/index.php/ijdc/article/view/48/48',False,False,False,True
+756,15,'data retention policies and data lifecycles at DuckDuckGo','https://duckduckgo.com/?t=ffab&q=data+retention+policies+and+data+lifecycles&ia=web',False,False,False,True
+757,15,'The importance of a data destruction policy | TechTarget','https://www.techtarget.com/searchdatabackup/tip/Increase-backup-efficiency-with-a-data-destruction-policy',False,False,False,True
+758,15,'nasdaq heatmap at DuckDuckGo','https://duckduckgo.com/?t=ffab&q=nasdaq+heatmap&ia=web',False,False,False,True
+759,15,'How I built Timeframe, our family e-paper dashboard - Joel Hawksley','https://hawksley.org/2026/02/17/timeframe.html',False,False,False,True
+760,15,'Crawling a billion web pages in just over 24 hours','https://andrewkchan.dev/posts/crawler.html',False,False,False,True
+761,15,'treetime limit earliest date at DuckDuckGo','https://duckduckgo.com/?t=ffab&q=treetime+limit+earliest+date&ia=web',False,False,False,True
+762,15,'neherlab/treetime: Maximum likelihood inference of time stamped phylogenies and ancestral reconstruction','https://github.com/neherlab/treetime',False,False,False,True
+763,15,'augur refine — Augur 23.1.0 documentation','https://docs.nextstrain.org/projects/augur/en/23.1.0/usage/cli/refine.html',False,False,False,True
+764,15,'augur refine — Augur 33.0.0 documentation','https://docs.nextstrain.org/projects/augur/en/stable/usage/cli/refine.html',False,False,False,True
+765,15,'snakefile specify working directory "workdir" at DuckDuckGo','https://duckduckgo.com/?q=snakefile+specify+working+directory+%22workdir%22&t=ffab&ia=web',False,False,False,True
+766,15,'Snakemake for Bioinformatics: Cleaning up','https://carpentries-incubator.github.io/snakemake-novice-bioinformatics/instructor/13-cleaning_up.html',False,False,False,True
+767,15,'python - snakemake declare temporary files in config - Stack Overflow','https://stackoverflow.com/questions/59720793/snakemake-declare-temporary-files-in-config#59721470',False,False,False,True
+768,15,'snakemake specify goal at DuckDuckGo','https://duckduckgo.com/?t=ffab&q=snakemake+specify+goal&ia=web',False,False,False,True
+769,15,'Chapter 5 Target Rules | Reproducible Data Analytic Workflows for Economics','https://lachlandeer.github.io/snakemake-econ-r-tutorial/target-rules.html',False,False,False,True
+770,15,'Snakefiles and Rules | Snakemake 9.16.3 documentation','https://snakemake.readthedocs.io/en/stable/snakefiles/rules.html',False,False,False,True
+771,15,'Hashing for Bioinformatics 🔬 • Open WebUI','https://co-scientist-tst.keygene.com/c/08eac104-4dde-4340-abc6-b7427ac15d75',False,False,False,True
+772,15,'Estimating similarity and distance using FracMinHash | Algorithms for Molecular Biology | Springer Nature Link','https://link.springer.com/article/10.1186/s13015-025-00276-8',False,False,False,True
+773,15,'what type of software system is Exact synergy at DuckDuckGo','https://duckduckgo.com/?q=what+type+of+software+system+is+Exact+synergy&t=ffab&ia=web',False,False,False,True
+774,15,'Exact Synergy. 1 system for all your business processes | Exact','https://www.exact.com/us/software/exact-synergy',False,False,False,True
+775,15,'Data access without documentation transparency - Claude','https://claude.ai/chat/6e7eb703-be27-454b-a5f5-9b65ff64fc9e',False,False,False,True
+776,15,'Please look for definitive papers that show the effects of hierarchy and...','https://www.perplexity.ai/search/please-look-for-definitive-pap-.JFPlnh0SWqj5X68kAD5QA',False,False,False,True
+777,15,'The Influence of Hierarchy on Idea Generation and Selection in the Innovation Process - Keum_See_Influence.pdf','https://business.columbia.edu/sites/default/files-efs/pubfiles/25545/Keum_See_Influence.pdf',False,False,False,True
+778,15,'The Influence of Hierarchy on Idea Generation and Selection in the Innovation Process | Organization Science','https://pubsonline.informs.org/doi/10.1287/orsc.2017.1142',False,False,False,True
+779,15,'Manifesto - 1809.02671v1.pdf','https://arxiv.org/pdf/1809.02671',False,False,False,True
+780,15,'googleworkspace/cli: Google Workspace CLI — one command-line tool for Drive, Gmail, Calendar, Sheets, Docs, Chat, Admin, and more. Dynamically built from Google Discovery Service. Includes AI agent skills.','https://github.com/googleworkspace/cli',False,False,False,True
+781,15,'How I Use Claude Code | Boris Tane','https://boristane.com/blog/how-i-use-claude-code/',False,False,False,True
+782,15,'[PDF] Ontology change: classification and survey | Semantic Scholar','https://www.semanticscholar.org/paper/Ontology-change%3A-classification-and-survey-Flouris-Manakanatas/237f46e2df5c280861a1e694927e54d332c2fc42',False,False,False,True
+783,15,'Pleast list 15 papers that focus on or mention how the structure of metadata...','https://www.perplexity.ai/search/pleast-list-15-papers-that-foc-S69UWnsFSAS1eUZpq2mVnw',False,False,False,True
+784,15,'OWLED-ORE-2016_paper_9.pdf','https://www.w3.org/community/owled/files/2016/11/OWLED-ORE-2016_paper_9.pdf',False,False,False,True
+785,15,'KAIS03.pdf','https://research.vu.nl/ws/portalfiles/portal/29675469/KAIS03.pdf',False,False,False,True
+786,15,'Verbs for Algorithm Impacts','https://chatgpt.com/c/69a999c0-986c-8394-ae6c-98f926501ff9',False,False,False,True
+787,15,'How do I use a huggingface model?','https://www.perplexity.ai/search/how-do-i-use-a-huggingface-mod-W.CGfTqlRpiw97dTNZmrog',False,False,False,True
+788,15,'Configuration files | uv','https://docs.astral.sh/uv/concepts/configuration-files/',False,False,False,True
+789,15,'transformers · PyPI','https://pypi.org/project/transformers/',False,False,False,True
+790,15,'python - Why `torch.cuda.is_available()` returns False even after installing pytorch with cuda? - Stack Overflow','https://stackoverflow.com/questions/60987997/why-torch-cuda-is-available-returns-false-even-after-installing-pytorch-with',False,False,False,True
+791,15,'How to Move PyTorch Model to GPU on Apple M1 Chips: Replace .cuda() with Metal/MPS (No CUDA Needed) — codegenes.net','https://www.codegenes.net/blog/how-to-move-pytorch-model-to-gpu-on-apple-m1-chips/',False,False,False,True
+792,15,'The Trinity Session\'s cultural and musical legacy - Claude','https://claude.ai/chat/50ba6368-41e1-454b-a0f9-29d85ff0a790',False,False,False,True
+793,15,'What was and has been the cultural and musical effect of Cowboy Junkies albium...','https://www.perplexity.ai/search/what-was-and-has-been-the-cult-vPjLrtpIR9iyLzVblLE4nA',False,False,False,True
+794,15,'platforms compatible with homey at DuckDuckGo','https://duckduckgo.com/?t=ffab&q=platforms+compatible+with+homey&ia=web',False,False,False,True
+795,15,'Homey – A better smart home','https://homey.app/en-us/',False,False,False,True
+796,15,'How I can use a Homey to coordinate and setup domotica in my house? What types...','https://www.perplexity.ai/search/how-i-can-use-a-homey-to-coord-CHcHNdWvS_GJbnlztT.adA',False,False,False,True
+797,15,'How I can use a Homey to coordinate and setup domotica in my house? What types...','https://www.perplexity.ai/search/how-i-can-use-a-homey-to-coord-AWCzLZboTxa0GNNw7wnUGg',False,False,False,True
+798,15,'Open-source domotica platforms ranking - Claude','https://claude.ai/chat/6c59fc45-c8f7-43eb-b5f4-139ff51b5524',False,False,False,True
+799,15,'Open-source domotica platforms ranking - Claude','https://claude.ai/chat/9c13f5e2-35a1-4485-9974-3fcbb9a08f70',False,False,False,True
+800,15,'Home Assistant Green - Home Assistant','https://www.home-assistant.io/green/',False,False,False,True
+801,15,'Home Assistant','https://github.com/home-assistant/',False,False,False,True
+802,15,'Given the following context, please suggest as many different types or...','https://www.perplexity.ai/search/given-the-following-context-pl-f6MNUOMfTreRPtFAMBLPUw',False,False,False,True
+803,15,'overbodig english at DuckDuckGo','https://duckduckgo.com/?t=ffab&q=overbodig+english&ia=web',False,False,False,True
+804,15,'markdown web CMS framework at DuckDuckGo','https://duckduckgo.com/?t=ffab&q=markdown+web+CMS+framework&ia=web',False,False,False,True
+805,15,'rakeshpatil1983/markdown-cms: Markdown-first web application framework built with FastHTML & HTMX. Build pages, forms, dashboards and interactive tools using pure Markdown files. File-based routing, multi-theme support, built-in admin, SQLite database. Inspired by TechArya.net.','https://github.com/rakeshpatil1983/markdown-cms',False,False,False,True
+806,15,'Getting Started - MkDocs','https://www.mkdocs.org/getting-started/',False,False,False,True
+807,15,'Insert a table of contents - Microsoft Support','https://support.microsoft.com/en-us/office/insert-a-table-of-contents-882e8564-0edb-435e-84b5-1d8552ccf0c0',False,False,False,True
+808,15,'A comprehensive assessment of tandem repeat genotyping methods for Nanopore long-read genomes | Semantic Scholar','https://www.semanticscholar.org/paper/A-comprehensive-assessment-of-tandem-repeat-methods-Aliyev-Avvaru/63d1b3d25a5e432c49a123a3f747748450f11076?utm_source=alert_email&utm_content=LibraryFolder&utm_campaign=AlertEmails_DAILY&utm_term=LibraryFolder&email_index=1-0-1&utm_medium=73025386',False,False,False,True
+809,15,'gSV: a general structural variant detector using the third-generation sequencing data | Semantic Scholar','https://www.semanticscholar.org/paper/gSV%3A-a-general-structural-variant-detector-using-Hao-Shi/538512033fa360444fbdbb96bd78d5c8ff9c1ec2?utm_source=alert_email&utm_content=LibraryFolder&utm_campaign=AlertEmails_DAILY&utm_term=LibraryFolder&email_index=2-0-3&utm_medium=72975596',False,False,False,True
+810,15,'Benchmarking foundation models for splice site and exon annotation | Semantic Scholar','https://www.semanticscholar.org/paper/Benchmarking-foundation-models-for-splice-site-and-He-Florea/3e436b7ce3d12cf529204c45256ae2dd5d13c6dd?utm_source=alert_email&utm_content=LibraryFolder&utm_campaign=AlertEmails_DAILY&utm_term=LibraryFolder&email_index=3-0-4&utm_medium=72975596',False,False,False,True
+811,15,'Inferring Gene Presence in Incomplete Data via Phylogenetic Occupancy Modeling | Semantic Scholar','https://www.semanticscholar.org/paper/Inferring-Gene-Presence-in-Incomplete-Data-via-Mattick-DeMontigny/c87b370444cde8a4a35367c56dc768e7aee4d7b0?utm_source=alert_email&utm_content=LibraryFolder&utm_campaign=AlertEmails_DAILY&utm_term=LibraryFolder&email_index=4-0-5&utm_medium=72975596',False,False,False,True
+812,15,'Analyzing article for factual errors - Claude','https://claude.ai/chat/28e967c3-f1ce-4ba9-9bcb-36f0237f95a4',False,False,False,True
+813,15,'google deep research at DuckDuckGo','https://duckduckgo.com/?t=ffab&q=google+deep+research&ia=web',False,False,False,True
+814,15,'literature research agents at DuckDuckGo','https://duckduckgo.com/?t=ffab&q=literature+research+agents+&ia=web',False,False,False,True
+815,15,'Edison Scientific | Pricing','https://edisonscientific.com/pricing',False,False,False,True
+816,15,'"nextstrain" "openstreetmap" referrer - Google Search','https://www.google.com/search?client=firefox-b-d&q=%22nextstrain%22+%22openstreetmap%22+referrer',False,False,False,True
+817,15,'Welcome to Nextstrain’s documentation! — Nextstrain documentation','https://docs.nextstrain.org/en/latest/',False,False,False,True
+818,15,'Add mapbox watermark logo · Issue #997 · nextstrain/auspice','https://github.com/nextstrain/auspice/issues/997',False,False,False,True
+819,15,'Leaflet/Leaflet: 🍃 JavaScript library for mobile-friendly interactive maps 🇺🇦','https://github.com/Leaflet/Leaflet',False,False,False,True
+820,15,'Tutorials - Leaflet - a JavaScript library for interactive maps','https://leafletjs.com/examples.html',False,False,False,True
+821,15,'leaflet referrer problem openstreetmap at DuckDuckGo','https://duckduckgo.com/?t=ffab&q=leaflet+referrer+problem+openstreetmap&ia=web',False,False,False,True
+822,15,'OpenStreetMap tiles "Access blocked" 403r - OpenStreetMap Foundation servers now enforced referer policy · Issue #10156 · Leaflet/Leaflet','https://github.com/Leaflet/Leaflet/issues/10156',False,False,False,True
+823,15,'How to Run Auspice — Auspice documentation','https://docs.nextstrain.org/projects/auspice/en/stable/introduction/how-to-run.html',False,False,False,True
+824,15,'Overview (Client) — Auspice documentation','https://docs.nextstrain.org/projects/auspice/en/stable/customise-client/overview.html',False,False,False,True
+825,15,'nextstrain.org/auspice-client/customisations/config.json at master · nextstrain/nextstrain.org','https://github.com/nextstrain/nextstrain.org/blob/master/auspice-client/customisations/config.json',False,False,False,True
+826,15,'nextstrain shell — Nextstrain CLI 10.5.0 documentation','https://docs.nextstrain.org/projects/cli/en/stable/commands/shell/',False,False,False,True
+827,15,'Leaflet referrerPolicy 403 error with OpenStreetMap - Claude','https://claude.ai/chat/0177bf88-28de-4272-9953-50a39457d98a',False,False,False,True
+828,15,'docker - What happens when you push a new image with same old tag? - Stack Overflow','https://stackoverflow.com/questions/58266026/what-happens-when-you-push-a-new-image-with-same-old-tag',False,False,False,True
+829,15,'View Settings — Auspice documentation','https://docs.nextstrain.org/projects/auspice/en/stable/advanced-functionality/view-settings.html',False,False,False,True
+830,15,'Include default zoom in Auspice defaults · Issue #1946 · nextstrain/auspice','https://github.com/nextstrain/auspice/issues/1946',False,False,False,True
+831,15,'Bordspellen voor twee spelers - Claude','https://claude.ai/chat/2ac9d488-09c7-4031-bdbd-57b3eebbea36',False,False,False,True
+832,15,'sagrada bordspel at DuckDuckGo','https://duckduckgo.com/?q=sagrada+bordspel&t=ffab&ia=web',False,False,False,True
+833,15,'The best prices today for Cartographers: A Roll Player Tale - TableTopFinder','https://www.tabletopfinder.eu/en/boardgame/13021/cartographers-a-roll-player-tale?utm_campaign=google_merchant&utm_campaign=bing_product_feed&msclkid=0d13bfae2f7c1b07b78bd671a597fd48',False,False,False,True
+834,15,'Sagrada | Image | BoardGameGeek','https://boardgamegeek.com/image/3533131/sagrada',False,False,False,True
+835,15,'which prominent scientific magazines does Elsevier publish at DuckDuckGo','https://duckduckgo.com/?t=ffab&q=which+prominent+scientific+magazines+does+Elsevier+publish&ia=web',False,False,False,True
+836,15,'List of Elsevier periodicals - Wikipedia','https://en.wikipedia.org/wiki/List_of_Elsevier_periodicals',False,False,False,True
+837,15,'oxford academic publisher at DuckDuckGo','https://duckduckgo.com/?t=ffab&q=oxford+academic+publisher&ia=web',False,False,False,True
+838,15,'Oxford University Press (OUP) - Academic Publishing - Homepage','https://global.oup.com/academic/?cc=nl&lang=en&',False,False,False,True
+839,15,'Oxford University Press - Wikipedia','https://en.wikipedia.org/wiki/Oxford_University_Press',False,False,False,True
+840,15,'Please find 10 different websites that talk about how to use AI well to...','https://www.perplexity.ai/search/please-find-10-different-websi-GUhiQSBrQv20onWEnPEEBA',False,False,False,True
+841,15,'7 Best Practices for Employers Using AI Resume Screeners | Fisher Phillips LLP','https://www.fisherphillips.com/en/insights/insights/7-best-practices-for-employers-using-ai-resume-screeners',False,False,False,True
+842,15,'AI Recruitment Mistakes: Top Pitfalls and How to Avoid Them','https://www.goco.io/blog/common-ai-recruitment-pitfalls-to-avoid',False,False,False,True
+843,15,'Ai2 Asta','https://asta.allen.ai/chat/ad90fbbe-4d04-4b31-9571-84b0ebda1c88',False,False,False,True
+844,15,'Please look for papers that use subspace clustering algorithms to identify...','https://www.perplexity.ai/search/please-look-for-papers-that-us-ni.bWfzQQ3yEWiawkY6wiQ',False,False,False,True
+845,15,'Clustering high-dimensional data - Wikipedia','https://en.wikipedia.org/wiki/Clustering_high-dimensional_data',False,False,False,True
+846,15,'Dimensionality reduction distills complex evolutionary relationships in seasonal influenza and SARS-CoV-2 | Semantic Scholar','https://www.semanticscholar.org/paper/Dimensionality-reduction-distills-complex-in-and-Nanduri-Black/bce3e18831dafcfb08ac6608b7c94813edaf0db9',False,False,False,True
+847,15,'[PDF] K-Pax2: Bayesian identification of cluster-defining amino acid positions in large sequence datasets | Semantic Scholar','https://www.semanticscholar.org/paper/K-Pax2%3A-Bayesian-identification-of-cluster-defining-Pessia-Grad/cd4ff4fb38c545a94d9c54e2f2c8dfe61ea32ec7',False,False,False,True
+848,15,'Genome classification by gene distribution: An overlapping subspace clustering approach | BMC Ecology and Evolution | Springer Nature Link','https://link.springer.com/article/10.1186/1471-2148-8-116',False,False,False,True
+849,15,'EnsCat: clustering of categorical data via ensembling | BMC Bioinformatics | Springer Nature Link','https://link.springer.com/article/10.1186/s12859-016-1245-9',False,False,False,True
+850,15,'python subspace clustering at DuckDuckGo','https://duckduckgo.com/?t=ffab&q=python+subspace+clustering&ia=web',False,False,False,True
+851,15,'Predicting evolution from the shape of genealogical trees | eLife','https://elifesciences.org/articles/03568#digest',False,False,False,True
+852,15,'mwanglab/beth-1: R code of a predictive evolutionary model for influenza virus by site-based mutation dynamics','https://github.com/mwanglab/beth-1',False,False,False,True
+853,15,'Changing case in Vim - Stack Overflow','https://stackoverflow.com/questions/2946051/changing-case-in-vim',False,False,False,True
+854,15,'Peng1.pdf','https://bmi231.stanford.edu/Projects%202007/Peng1.pdf',False,False,False,True
+855,15,'Subspace clustering identifies transcriptome constraints determining cell type identity at DuckDuckGo','https://duckduckgo.com/?t=ffab&q=Subspace+clustering+identifies+transcriptome+constraints+determining+cell+type+identity&ia=web',False,False,False,True
+856,15,'scVSC: Deep Variational Subspace Clustering for Single-Cell Transcriptome Data at DuckDuckGo','https://duckduckgo.com/?t=ffab&q=scVSC%3A+Deep+Variational+Subspace+Clustering+for+Single-Cell+Transcriptome+Data&ia=web',False,False,False,True
+857,15,'WHang98/scVSC','https://github.com/WHang98/scVSC',False,False,False,True
+858,15,'Frontiers | An Adaptive Sparse Subspace Clustering for Cell Type Identification','https://www.frontiersin.org/journals/genetics/articles/10.3389/fgene.2020.00407/full',False,False,False,True
+859,15,'Prijs aanpassen met prijsindexatie | Ondernemersplein','https://ondernemersplein.overheid.nl/geldzaken-en-belastingen/cashflow/prijs-aanpassen-met-prijsindexatie/',False,False,False,True
+860,15,'Vestdijk-aanbevelingen voor fans van De dokter - Claude','https://claude.ai/chat/77d1300a-7bf5-4658-9feb-ea46bd53237e',False,False,False,True
+861,15,'Simon Vestdijk Boeken kopen? Kijk snel! | bol','https://www.bol.com/nl/nl/b/boeken-simon-vestdijk/3763461+8299/',False,False,False,True
+862,15,'De koperen tuin, Simon Vestdijk | 9789038803630 | Boeken | bol','https://www.bol.com/nl/nl/p/de-koperen-tuin/9200000065914081/?cid=1776683434440-7826050739707&bltgh=2cfc2362-f167-48eb-9023-b49d3a716bb6.ProductList_Middle.1.ProductTitle',False,False,False,True
+863,15,'De kellner en de levenden, Simon Vestdijk | 9789038817392 | Boeken | bol','https://www.bol.com/nl/nl/p/de-kellner-en-de-levenden/9300000247482374/?cid=1776683434433-4571867618593&bltgh=2cfc2362-f167-48eb-9023-b49d3a716bb6.ProductList_Middle.0.ProductTitle',False,False,False,True
+864,15,'Postmodernisme in de Nederlandse en Vlaamse poëzie Een verkenning, "Postmodernisme in de Nederlandse en Vlaamse poëzie. Een verkenning", Jos Joosten, Thomas Vaessens - DBNL','https://www.dbnl.org/tekst/joos006post01_01/joos006post01_01_0001.php',False,False,False,True
+865,15,'Foundational papers for chain-of-thought prompting - Claude','https://claude.ai/chat/303fcb65-c537-40ca-b8f8-c45374fb23fa',False,False,False,True
+866,15,'Courses - DeepLearning.AI','https://www.deeplearning.ai/courses/?courses_date_desc%5BrefinementList%5D%5Btopic%5D%5B0%5D=Agents&courses_date_desc%5BsortBy%5D=courses_date_asc&courses_date_desc%5Bpage%5D=2',False,False,False,True
+867,15,'LangChain for LLM Application Development - DeepLearning.AI','https://www.deeplearning.ai/short-courses/langchain-for-llm-application-development/',False,False,False,True
+868,15,'Event-Driven Agentic Document Workflows - DeepLearning.AI','https://www.deeplearning.ai/short-courses/event-driven-agentic-document-workflows/',False,False,False,True
+869,15,'Long-Term Agentic Memory with LangGraph - DeepLearning.AI','https://www.deeplearning.ai/short-courses/long-term-agentic-memory-with-langgraph/',False,False,False,True
+870,15,'Bedankt | Thermen Maarssen','https://www.thermenmaarssen.nl/bedankt?transaction=de225e47-6439-44b3-ae9d-0c30a8ad5faa&_gl=1%2A1y33a45%2A_ga_G8MSDVMV1X%2AczE3NzY3NjU3MTgkbzEkZzEkdDE3NzY3NjYxNjUkajQ1JGwwJGgxMjAyODkyOTI2',False,False,False,True
+871,15,'Please list 3 other albums produced after 2015 by other artists for fans of...','https://www.perplexity.ai/search/please-list-3-other-albums-by-2AMdd3YcTfalaNLGIS1HFw?sm=d',False,False,False,True
+872,15,'Harbor','https://harbor.keygene.com/harbor/projects/11/repositories',False,False,False,True
+873,15,'F1 F2 Plant Breeding Terms','https://chatgpt.com/c/69e76849-8998-8333-a57e-0217a8dc3f19',False,False,False,True
+874,15,'Instagram, TikTok: Doom-Scrolling Dangers Are a Worthy Legal Target - Bloomberg','https://www.bloomberg.com/opinion/articles/2026-04-21/instagram-tiktok-doom-scrolling-dangers-are-a-worthy-legal-target?srnd=homepage-europe',False,False,False,True
+875,15,'As Putin Ramps Up Russia Submarine Fleet, NATO Returns to Cold War Readiness','https://www.bloomberg.com/features/2026-russian-arctic-submarines-nato-response/?srnd=homepage-europe',False,False,False,True
+876,15,'UniCredit\'s Pursuit of Commerzbank Reaches Decisive Phase - Bloomberg','https://www.bloomberg.com/news/articles/2026-04-21/unicredit-s-pursuit-of-commerzbank-reaches-decisive-phase?srnd=homepage-europe',False,False,False,True
+877,15,'PCA principle component python at DuckDuckGo','https://duckduckgo.com/?t=ffab&q=PCA+principle+component+python&ia=web',False,False,False,True
+878,15,'PCA — scikit-learn 1.8.0 documentation','https://scikit-learn.org/stable/modules/generated/sklearn.decomposition.PCA.html',False,False,False,True
+879,15,'Please list libraries in C, C++, Python and Java that can be used to do...','https://www.perplexity.ai/search/please-list-libraries-in-c-c-p-Et0T9KqdTjK0.Zij.DJv2w',False,False,False,True
+880,15,'Lallapallooza/clustering: Header-Only Collection of Clustering Algorithms for C++','https://github.com/Lallapallooza/clustering',False,False,False,True
+881,15,'Subspace and Correlation Clustering','https://blog.xa0.de/post/Subspace-and-Correlation-Clustering/',False,False,False,True
+882,15,'Self-organizing maps as neural networks - Claude','https://claude.ai/chat/69388627-4e7c-4073-bd02-4b2e3e550eaf',False,False,False,True
+883,15,'which paper introduces local-branching index for viral prediction at DuckDuckGo','https://duckduckgo.com/?q=which+paper+introduces+local-branching+index+for+viral+prediction&t=ffab&ia=web',False,False,False,True
+884,15,'Predictive evolutionary modelling for influenza virus by site-based dynamics of mutations | Nature Communications','https://www.nature.com/articles/s41467-024-46918-0',False,False,False,True
+885,15,'ai to create slide graphics at DuckDuckGo','https://duckduckgo.com/?t=ffab&q=ai+to+create+slide+graphics&ia=web',False,False,False,True
+886,15,'📂 Dataset Submission Workflow • Open WebUI','https://keychat.keygene.com/c/08676476-c6c4-44ef-803f-2f2fb605f5d7',False,False,False,True
+887,15,'Open WebUI','https://keychat.keygene.com/c/af4da777-dc1e-4584-b116-bc803e28c532',False,False,False,True
+888,15,'openags/paper-search-mcp: MCP, CLI, Skills for searching and downloading academic papers from multiple sources like arXiv, PubMed, bioRxiv, etc.','https://github.com/openags/paper-search-mcp',False,False,False,True
+889,15,'Pengsong Zhang\'s Homepage','https://universea.github.io/',False,False,False,True
+890,15,'Rapid prediction of SARS-CoV-2 variant fitness using early frequency data | Semantic Scholar','https://www.semanticscholar.org/paper/Rapid-prediction-of-SARS-CoV-2-variant-fitness-data-Fort/b48a5c45d2e463a24100df4d7e56b9f0fe1d24a6?utm_source=alert_email&utm_content=LibraryFolder&utm_campaign=AlertEmails_DAILY&utm_term=LibraryFolder&email_index=0-1-1&utm_medium=75571406',False,False,False,True
+891,15,'Benchmarking multiple sequence alignment tools for SARS-CoV-2 genome and spike data - Academia.edu','https://www.academia.edu/3064-9765/3/2/10.20935/AcadMolBioGen8244#sec1-Acad.Mol.Biol.Genom.-3-324195',False,False,False,True
+892,15,'Please write a python script that converts a nucleotide sequence to the...','https://www.perplexity.ai/search/please-write-a-python-script-t-p0deXmXJQeybYBaU4clXSw',False,False,False,True
+893,15,'about:blank','about:blank',False,False,False,True
+894,15,'Understanding patterns of variant emergence and spread in an ongoing epidemic | Semantic Scholar','https://www.semanticscholar.org/paper/Understanding-patterns-of-variant-emergence-and-in-Nande-Levy/1f809ca8233e81f04017ce7e7008d24e1738b5ad?utm_source=alert_email&utm_content=LibraryFolder&utm_campaign=AlertEmails_DAILY&utm_term=LibraryFolder&email_index=0-4-4&utm_medium=75571406',False,False,False,True
+895,15,'Adaptive Multi-Criteria Re-Ranking for Hybrid Semantic Information Retrieval in Metadata-Rich Collections | Semantic Scholar','https://www.semanticscholar.org/paper/Adaptive-Multi-Criteria-Re-Ranking-for-Hybrid-in-Julianto-Evanza/2d6c84e1db5d990e220186b8d7b2f5c919b219b7?utm_source=alert_email&utm_content=LibraryFolder&utm_campaign=AlertEmails_DAILY&utm_term=LibraryFolder&email_index=1-0-10&utm_medium=75571406',False,False,False,True
+896,15,'Epigenetic mechanism of abiotic stress responses in plants | Semantic Scholar','https://www.semanticscholar.org/paper/Epigenetic-mechanism-of-abiotic-stress-responses-in-Zaid-Singh/9ce0492fe8ca869d6f88f731f8b7f180e6ded49f?utm_source=alert_email&utm_content=LibraryFolder&utm_campaign=AlertEmails_DAILY&utm_term=LibraryFolder&email_index=2-0-11&utm_medium=75571406',False,False,False,True
+897,15,'DIOPT: the DRSC Integrative Ortholog Prediction Tool, 2026 update | Semantic Scholar','https://www.semanticscholar.org/paper/DIOPT%3A-the-DRSC-Integrative-Ortholog-Prediction-Hu-Comjean/9a779b5984851fa74cde36522b42faaf827d6b33?utm_source=alert_email&utm_content=LibraryFolder&utm_campaign=AlertEmails_DAILY&utm_term=LibraryFolder&email_index=5-0-14&utm_medium=75571406',False,False,False,True
+898,15,'Data Harmonization Techniques for Multi-Source Healthcare Records | Semantic Scholar','https://www.semanticscholar.org/paper/Data-Harmonization-Techniques-for-Multi-Source-Kalyanasundaram/0a038083b2c400b541855ba6d03c30cf702c22cc?utm_source=alert_email&utm_content=LibraryFolder&utm_campaign=AlertEmails_DAILY&utm_term=LibraryFolder&email_index=6-0-15&utm_medium=75571406',False,False,False,True
+899,15,'A two-phase clustering procedure based on allele specific expression | BMC Bioinformatics | Springer Nature Link','https://link.springer.com/article/10.1186/s12859-026-06398-z',False,False,False,True
+900,15,'GitHub - RobertoPagliarini/Two-phase-clustering-procedure: We developed a novel two-phase unsupervised clustering procedure rooted on the spectral clustering algorithm, with the goal to partition the population into groups of similar individuals, according to their allelic expression. · GitHub','https://github.com/RobertoPagliarini/Two-phase-clustering-procedure/tree/main',False,False,False,True
+901,15,'Spectral Clustering Overview \ud83d... • Open WebUI','https://keychat.keygene.com/c/2a709183-5ca8-4b57-aab0-8f55a2a4b44b',False,False,False,True
+902,15,'Intro | AI coding agent built for the terminal','https://opencode.ai/docs',False,False,False,True
+903,15,'Dwindling Savings Are the US Economy’s Achilles Heel - Bloomberg','https://www.bloomberg.com/opinion/articles/2026-05-29/dwindling-savings-are-the-us-economy-s-achilles-heel?cmpid=BBD053126_SUNNL&utm_campaign=sundaynl&utm_medium=email&utm_source=newsletter&utm_term=260531&utm_content=5012',False,False,False,True
+904,15,'Primer - Bloomberg','https://www.bloomberg.com/originals/series/primer?sref=fSOf3OlP',False,False,False,True
+905,15,'Where to Invest 100 Million Nigerian Naira','https://www.bloomberg.com/features/2026-how-to-invest-naira/',False,False,False,True
+906,15,'Politics - Bloomberg','https://www.bloomberg.com/politics',False,False,False,True
+907,15,'Why Live Nation Is Being Blamed for High Concert Ticket Prices - Bloomberg','https://www.bloomberg.com/news/articles/2026-04-15/why-live-nation-is-being-blamed-for-high-concert-ticket-prices',False,False,False,True
+908,15,'10 GitHub Repositories To Master Claude Code - KDnuggets','https://www.kdnuggets.com/10-github-repositories-to-master-claude-code',False,False,False,True
+909,15,'cheat.sh/:firstpage','https://cheat.sh/',False,False,False,True
+910,15,'GitHub - iKenndac/Keyhole: Mac app to keep your media key presses focused on your media player. · GitHub','https://github.com/iKenndac/Keyhole',False,False,False,True
+911,15,'Please compare the Pi coding agent to the Nanobot agent for the purpose of...','https://www.perplexity.ai/search/c112f1d1-9f45-441a-a0f9-853974a68382',False,False,False,True
+912,15,'Template for Scalable Agent Skill Creation (Looking for Feedback) - Community - OpenAI Developer Community','https://community.openai.com/t/template-for-scalable-agent-skill-creation-looking-for-feedback/1379825',False,False,False,True
+913,15,'Python Column Transformation','https://chatgpt.com/c/6a32b634-f8ec-83ed-a6a1-47f72b7db959',False,False,False,True
+1124,15,'Setting Up a Local AI Co-Pilot for PyCharm with Continue and Ollama','https://gist.github.com/valosekj/d4e81f1a1ca58091d0a4230eec8ce5ba',False,False,False,False
+1125,15,'Continue Plugin for JetBrains IDEs | JetBrains Marketplace','https://plugins.jetbrains.com/plugin/22707-continue/versions',False,False,False,False
+1126,15,'New Tab','about:newtab',False,False,False,False
+1128,15,'Integration and ODEs (scipy.integrate) — SciPy v1.18.0 Manual','https://docs.scipy.org/doc/scipy/reference/integrate.html#solving-initial-value-problems-for-ode-systems',False,False,False,False
+1129,15,'Phylo - Working with Phylogenetic Trees · Biopython','https://biopython.org/wiki/Phylo',False,False,False,False
+1131,15,'[Bug]: ValueError: Unable to determine Axes to steal space for Colorbar. · Issue #23973 · matplotlib/matplotlib','https://github.com/matplotlib/matplotlib/issues/23973',False,False,False,False
+1132,15,'biopython how to plot newick tree at DuckDuckGo','https://duckduckgo.com/?t=ffab&q=biopython+how+to+plot+newick+tree&ia=web',False,False,False,False
+1134,15,'Bioinformatics and other bits - Plot a phylogenetic tree with bokeh and biopython','https://dmnfarrell.github.io/bioinformatics/bokeh-phylogeny',False,False,False,False
+1136,15,'bokeh.io.saving — Bokeh 3.9.1 Documentation','https://docs.bokeh.org/en/latest/_modules/bokeh/io/saving.html',False,False,False,False
+1137,15,'test','file:///private/tmp/test.html',False,False,False,False
+1138,15,'auspice / tobrfv','https://nextstrain-ez.portal.keygene.com/tobrfv',False,False,False,False
+1139,15,'Fixing \'Attempted Relative Import Beyond Top-Level Package\' Error in Python: A Guide for Test Imports — pythontutorials.net','https://www.pythontutorials.net/blog/beyond-top-level-package-error-in-relative-import/',False,False,False,False
+1140,15,'Stiff equation - Wikipedia','https://en.wikipedia.org/wiki/Stiff_equation',False,False,False,False
+1141,15,'Stiff vs Nonstiff ODEs 🧮 • Open WebUI','https://keychat.keygene.com/c/6aa54ea4-8bce-4198-8cbd-ee582cbdf415',False,False,False,False
+1146,15,'scipy ode BDF at DuckDuckGo','https://duckduckgo.com/?t=ffab&q=scipy+ode+BDF&ia=web',False,False,False,False
+1147,15,'BDF — SciPy v1.18.0 Manual','https://docs.scipy.org/doc/scipy/reference/generated/scipy.integrate.BDF.html',False,False,False,False
+1148,15,'sorted lambda key python at DuckDuckGo','https://duckduckgo.com/?t=ffab&q=sorted+lambda+key+python&ia=web',False,False,False,False
+1149,15,'Sorting a Python list by two fields - Stack Overflow','https://stackoverflow.com/questions/5212870/sorting-a-python-list-by-two-fields',False,False,False,False
+1150,15,'python - Syntax behind sorted(key=lambda: ...) - Stack Overflow','https://stackoverflow.com/questions/8966538/syntax-behind-sortedkey-lambda',False,False,False,False
+1151,15,'biopython get alphabet from motif at DuckDuckGo','https://duckduckgo.com/?t=ffab&q=biopython+get+alphabet+from+motif&ia=web',False,False,False,False
+1152,15,'"0. reading" (340) - marcolof@gmail.com - Gmail','https://mail.google.com/mail/u/0/#label/0.+reading',False,False,False,False
+1236,15,'The Measles Uptick Edition - by Colin Nagy','https://whyisthisinteresting.substack.com/p/the-measles-uptick-edition?mod=djemMarketsAM',False,False,False,False
+1231,15,'The Measles Uptick Edition - by Colin Nagy','https://whyisthisinteresting.substack.com/p/the-measles-uptick-edition',False,False,False,False
+1235,15,'Measles in Florida Right Now: 68 Reported Cases in 2026 | Local Health Signal','https://localhealthsignal.com/measles/florida/',False,False,False,False
+1237,15,'Search results - marcolof@gmail.com - Gmail','https://mail.google.com/mail/u/0/#search/aannemer',True,False,False,False
+1238,15,'Problem loading page','https://discuss.huggingface.co/t/context-gravity/177329',False,False,False,False
+1239,15,'Problem loading page','https://discuss.huggingface.co/t/a-new-kind-of-ai-that-isnt-an-llm-where-does-it-belong-on-the-hub/177423',False,False,False,False
+1240,15,'Problem loading page','https://discuss.huggingface.co/t/llm-agents-need-a-cognitive-grammar-not-just-more-tools/177442',False,False,False,False
+1241,15,'Problem loading page','https://discuss.huggingface.co/t/are-we-benchmarking-the-wrong-thing-a-humor-leaderboard-for-llms/177479',False,False,False,False
+1255,15,'ido aannemer wageningen at DuckDuckGo','https://duckduckgo.com/?t=ffab&q=ido+aannemer+wageningen&ia=web',False,False,False,False
+914,17,'How I Maxed ALL ARC Raiders Workshops In A Single Day (After Expedition) - YouTube','https://www.youtube.com/watch?v=jSoZrnOqexo',False,False,False,True
+915,17,'The L in "LLM" Stands for Lying — Acko.net','https://acko.net/blog/the-l-in-llm-stands-for-lying/',False,False,False,True
+916,17,'The Self-Help Trap: What 20+ Years of "Optimizing" Has Taught Me - The Blog of Author Tim Ferriss','https://tim.blog/2026/03/04/the-self-help-trap/',False,False,False,True
+917,17,'No right to relicense this project · Issue #327 · chardet/chardet','https://github.com/chardet/chardet/issues/327',False,False,False,True
+918,17,'Arabic document from 17th-century rubbish heap confirms existence of semi-legendary Nubian king','https://phys.org/news/2026-02-arabic-document-17th-century-rubbish.html',False,False,False,True
+919,17,'Are there any known causes of a smaller or thinner placenta in pregnant women?','https://www.perplexity.ai/search/are-there-any-known-causes-of-Mf5R8EjQRIKTROk.Sh0qqw',False,False,False,True
+920,17,'10 Must-Read Nonfiction Books on Intelligence, Espionage, and Intrigue | Novel Suspects','https://www.novelsuspects.com/book-list/10-must-read-nonfiction-books-on-intelligence-espionage-and-intrigue/',False,False,False,True
+921,17,'The Missing Semester of Your CS Education','https://missing.csail.mit.edu/',False,False,False,True
+922,17,'Tomato brown rugose fruit virus isolate 9055 RNA-dependent RNA polymer - Nucleotide - NCBI','https://www.ncbi.nlm.nih.gov/nuccore/PV232875',False,False,False,True
+923,17,'No items found - Nucleotide - NCBI','https://www.ncbi.nlm.nih.gov/nuccore?term=PX585267',False,False,False,True
+924,17,'No items found - Nucleotide - NCBI','https://www.ncbi.nlm.nih.gov/nuccore?term=PX585270',False,False,False,True
+925,17,'PV611514 - Nucleotide - NCBI','https://www.ncbi.nlm.nih.gov/nuccore/PV611514',False,False,False,True
+926,17,'No items found - Nucleotide - NCBI','https://www.ncbi.nlm.nih.gov/nuccore?term=PX585269',False,False,False,True
+927,17,'No items found - Nucleotide - NCBI','https://www.ncbi.nlm.nih.gov/nuccore?term=PX585268',False,False,False,True
+928,17,'Tomato brown rugose fruit virus isolate 6736 RNA-dependent RNA polymer - Nucleotide - NCBI','https://www.ncbi.nlm.nih.gov/nuccore/PV232883',False,False,False,True
+929,17,'PV611516 - Nucleotide - NCBI','https://www.ncbi.nlm.nih.gov/nuccore/PV611516',False,False,False,True
+930,17,'PV611515 - Nucleotide - NCBI','https://www.ncbi.nlm.nih.gov/nuccore/PV611515',False,False,False,True
+931,17,'Tomato brown rugose fruit virus isolate 3470 RNA-dependent RNA polymer - Nucleotide - NCBI','https://www.ncbi.nlm.nih.gov/nuccore/PV232884',False,False,False,True
+932,17,'Synthesizing scientific literature with retrieval-augmented language models | Nature','https://www.nature.com/articles/s41586-025-10072-4?utm_source=bluesky&utm_medium=organic_social&utm_content=null&utm_campaign=CONR_JRNLS_AWA1_GL_PCOM_SMEDA_NATUREPORTFOLIO',False,False,False,True
+933,17,'We will be giving a presentation about Agentic AI to a collection of people...','https://www.perplexity.ai/search/we-will-be-giving-a-presentati-YQTd8QwnRKCqBlmmyLnI.Q',False,False,False,True
+934,17,'Please summarize the progress and success of classical viral prediction...','https://www.perplexity.ai/search/please-summarize-the-progress-7g7e98K3QfqCqw.iXUAkyg',False,False,False,True
+935,17,'[PDF] International Review of Financial Analysis | Semantic Scholar','https://www.semanticscholar.org/paper/International-Review-of-Financial-Analysis-Smith-Meyer-Haugom/9a8583b30891ccf38d005ba2e5655f8a9bcfb315?utm_source=alert_email&utm_content=LibraryFolder&utm_campaign=AlertEmails_DAILY&utm_term=LibraryFolder&email_index=5-0-5&utm_medium=73576543',False,False,False,True
+936,17,'Manus Platform Overview','https://chatgpt.com/c/69c28021-44c8-8325-af41-41f710167c32',False,False,False,True
+937,17,'AutoGen - Microsoft Research: Tools','https://www.microsoft.com/en-us/research/project/autogen/tools/',False,False,False,True
+938,17,'microsoft/autogen: A programming framework for agentic AI','https://github.com/microsoft/autogen',False,False,False,True
+939,17,'Please compare the following frameworks with eachother: Agno, AutoGen...','https://www.perplexity.ai/search/please-compare-the-following-f-0s0YI3ddRqefEBKVhQa.aw?sm=d',False,False,False,True
+940,17,'How AutoGen Framework Helps You Build Multi-Agent Systems | Galileo','https://galileo.ai/blog/autogen-framework-multi-agents',False,False,False,True
+941,17,'CrewAI Opinionated Framework','https://chatgpt.com/c/69c2823a-f06c-8333-a249-e7a1267f5759',False,False,False,True
+942,17,'How CrewAI is evolving beyond orchestration to create the most powerful Agentic AI platform','https://crewai.com/blog/how-crewai-is-evolving-beyond-orchestration-to-create-the-most-powerful-agentic-ai-platform?utm_source=chatgpt.com',False,False,False,True
+943,17,'guardrails in Agno at DuckDuckGo','https://duckduckgo.com/?t=ffab&q=guardrails+in+Agno&ia=web',False,False,False,True
+944,17,'how to stop perplexity from saving background info about user at DuckDuckGo','https://duckduckgo.com/?t=ffab&q=how+to+stop+perplexity+from+saving+background+info+about+user&ia=web',False,False,False,True
+945,17,'What data does Perplexity collect about me? | Perplexity Help Center','https://www.perplexity.ai/help-center/en/articles/10354855-what-data-does-perplexity-collect-about-me',False,False,False,True
+946,17,'Worried About Perplexity Using Your Data? How to Stop, Prevent, or Opt Out Perplexity for AI Training - PUPUWEB','https://pupuweb.com/worried-perplexity-use-data-how-stop-prevent-opt-out-ai-training/',False,False,False,True
+947,17,'autogen vs langchain at DuckDuckGo','https://duckduckgo.com/?t=ffab&q=autogen+vs+langchain&ia=web',False,False,False,True
+948,17,'Difference between LangChain and AutoGen | Nitor Infotech','https://www.nitorinfotech.com/blog/langchain-vs-autogen-architecting-the-future-of-multi-agent-ai-frameworks/',False,False,False,True
+949,17,'Cookie policy | Nitor Infotech','https://www.nitorinfotech.com/cookie-policy/',False,False,False,True
+950,17,'deerflow framework example at DuckDuckGo','https://duckduckgo.com/?t=ffab&q=deerflow+framework+example+&ia=web',False,False,False,True
+951,17,'Configuration Quickstart | bytedance/deer-flow | DeepWiki','https://deepwiki.com/bytedance/deer-flow/2.2-configuration-quickstart',False,False,False,True
+952,17,'Deer-Flow Deep Dive: Managing Long-Running Autonomous Tasks','https://www.sitepoint.com/deerflow-deep-dive-managing-longrunning-autonomous-tasks/',False,False,False,True
+953,17,'DeerFlow Review: ByteDance's Open-Source AI Agent Framework With Multi-Agent Orchestration | OpenAIToolsHub','https://www.openaitoolshub.org/en/blog/deerflow-bytedance-ai-agent-review',False,False,False,True
+954,17,'agno-agi/agno: Build, run, manage agentic software at scale.','https://github.com/agno-agi/agno',False,False,False,True
+955,17,'is agno built on langchain? at DuckDuckGo','https://duckduckgo.com/?t=ffab&q=is+agno+built+on+langchain%3F+&ia=web',False,False,False,True
+956,17,'Agno vs LangChain Workflows: A Comparison for LLM Orchestration | by Seahorse | Medium','https://medium.com/@seahorse.technologies.sl/agno-vs-langchain-workflows-a-comparison-for-llm-orchestration-78cb737dc4be',False,False,False,True
+957,17,'Agno Vs ADK Vs LangGraph Vs Langchain','https://www.devstree.com/agno-vs-adk-vs-langgraph-vs-langchain/',False,False,False,True
+958,17,'LangChain vs Agno: How to Choose the Right AI Agent Framework for Your Use Case -','https://bixtech.ai/langchain-vs-agno-how-to-choose-the-right-ai-agent-framework-for-your-use-case/',False,False,False,True
+959,17,'How to Build Internal Technical Assistants with LangGraph: A Practical Guide to Reliable, Secure Multi‑Agent Workflows -','https://bixtech.ai/how-to-build-internal-technical-assistants-with-langgraph-a-practical-guide-to-reliable-secure-multiagent-workflows/',False,False,False,True
+960,17,'OpenAI Agents SDK vs langchain at DuckDuckGo','https://duckduckgo.com/?t=ffab&q=OpenAI+Agents+SDK++vs+langchain&ia=web',False,False,False,True
+5,17,'agent-baselines/solvers/sqa at main · allenai/agent-baselines','https://github.com/allenai/agent-baselines/tree/main/solvers/sqa',True,False,False,False
+961,17,'Plant Care Pictures | Download Free Images on Unsplash','https://unsplash.com/s/photos/plant-care',False,False,False,True
+962,17,'Alignment-Free Microhaplotype Genotyping for GT-seq (Genotyping-in-Thousands by Sequencing) Using a Diploid Abundance Model | Semantic Scholar','https://www.semanticscholar.org/paper/Alignment-Free-Microhaplotype-Genotyping-for-GT-seq-Campbell-Campbell/f9a588430f736ed3b7bce5d51b5283a2307c5e90?utm_source=alert_email&utm_content=LibraryFolder&utm_campaign=AlertEmails_DAILY&utm_term=LibraryFolder&email_index=2-0-2&utm_medium=74796748',False,False,False,True
+963,17,'cuteHap: Haplotype-Aware Structural Variant Detection in Phased Long-Read Sequencing Data. | Semantic Scholar','https://www.semanticscholar.org/paper/cuteHap%3A-Haplotype-Aware-Structural-Variant-in-Cao-Liu/170e66862dfa2e338656a7aa9b8c33aeb379b543?utm_source=alert_email&utm_content=LibraryFolder&utm_campaign=AlertEmails_DAILY&utm_term=LibraryFolder&email_index=5-0-5&utm_medium=74796748',False,False,False,True
+964,17,'cuteHap: Haplotype‐Aware Structural Variant Detection in Phased Long‐Read Sequencing Data - Cao - 2026 - Advanced Science - Wiley Online Library','https://advanced.onlinelibrary.wiley.com/doi/10.1002/advs.202519314',False,False,False,True
+965,17,'What is HDLSS?. High-dimensional low-sample size… | by Dr.Tiya Vaj 🇹🇭 | Medium','https://vtiya.medium.com/what-is-hdlss-c6663c28d484',False,False,False,True
+966,17,'Improvement of Distance-Based Phylogenetic Methods by a Local Maximum Likelihood Approach Using Triplets | Molecular Biology and Evolution | Oxford Academic','https://academic.oup.com/mbe/article/19/11/1952/1012489',False,False,False,True
+967,19,'KeyChat','https://chat.keygene.com/',True,False,False,False
+968,19,'Biopython Alignment Alphabet \ud83e... • Open WebUI','https://keychat.keygene.com/c/ef069d98-0db5-4e1c-9cb4-50f2a32ca6a6',False,False,False,True
+969,19,'Bio.Align package — Biopython 1.75 documentation','https://biopython.org/docs/1.75/api/Bio.Align.html',False,False,False,True
+970,19,'Perplexity','https://www.perplexity.ai/',False,False,False,True
+971,19,'https://chatgpt.com/','https://chatgpt.com/',False,False,False,True
+972,19,'chatgpt is down at DuckDuckGo','https://duckduckgo.com/?t=ffab&q=chatgpt+is+down&ia=web',False,False,False,True
+973,19,'struct - C-like structures in Python - Stack Overflow','https://stackoverflow.com/questions/35988/c-like-structures-in-python',False,False,False,True
+974,19,'Bio.Seq module — Biopython 1.75 documentation','https://biopython.org/docs/1.75/api/Bio.Seq.html',False,False,False,True
+975,19,'dataclasses — Data Classes — Python 3.14.6 documentation','https://docs.python.org/3/library/dataclasses.html',False,False,False,True
+976,19,'FIFA backs referee after Trump criticism | Reuters','https://www.reuters.com/sports/soccer/fifa-backs-referee-after-trump-criticism-2026-07-07/',False,False,False,True
+977,19,'Balogun is quiet on pitch after kicking up an international storm | Reuters','https://www.reuters.com/sports/soccer/balogun-is-quiet-pitch-after-kicking-up-an-international-storm-2026-07-07/',False,False,False,True
+978,19,'No clear favourites for World Cup, says Argentina\'s Scaloni ahead of Egypt clash | Reuters','https://www.reuters.com/sports/soccer/no-clear-favourites-world-cup-says-argentinas-scaloni-ahead-egypt-clash-2026-07-06/',False,False,False,True
+979,19,'numpy.zeros — NumPy v2.5 Manual','https://numpy.org/doc/stable/reference/generated/numpy.zeros.html',False,False,False,False
+980,21,'📐 LBI with Participation Rati... • Open WebUI','https://keychat.keygene.com/c/e007fb1f-34c9-4426-bcc9-754b72f3240b',False,False,False,True
+981,21,'HDLSS GCV Explanation','https://chatgpt.com/c/6a427c96-9f0c-83eb-a475-bb05f362914e',False,False,False,True
+982,21,'Participation ratio and eigenvalues explained - Claude','https://claude.ai/chat/2fef592d-e606-4dce-9ef4-cec9390b9d92',False,False,False,True
+983,21,'To someone who is unfamiliar with linear algebra, please explain step-by-step...','https://www.perplexity.ai/search/813f4099-bf30-4f50-a8c0-763584e1903d',False,False,False,True
+984,21,'I am looking for a (local) LLM inference engine that is perforrmant on Ubuntu...','https://www.perplexity.ai/search/37abc1ce-6315-4be3-b2b2-37b2f1d1371c',False,False,False,True
+985,21,'The 2025 AI Index Report | Stanford HAI','https://hai.stanford.edu/ai-index/2025-ai-index-report',False,False,False,True
+986,21,'LLM model engine at DuckDuckGo','https://duckduckgo.com/?t=ffab&q=LLM+model+engine&ia=web',False,False,False,True
+987,21,'Local LLM Inference Engines Compared: The Definitive 2026 Guide | local-llm.net','https://www.local-llm.net/compare/inference-engines-2026/',False,False,False,True
+988,21,'turboderp-org/exllamav3: An optimized quantization and inference library for running LLMs locally on modern consumer-class GPUs','https://github.com/turboderp-org/exllamav3',False,False,False,True
+989,21,'Smart Portfolio - Holdings | TipRanks - TipRanks.com','https://www.tipranks.com/smart-portfolio/holdings',False,False,False,True
+990,21,'Search results - marcolof@gmail.com - Gmail','https://mail.google.com/mail/u/0/#search/pino',False,False,False,True
+991,21,'build vllm with cmake at DuckDuckGo','https://duckduckgo.com/?q=build+vllm+with+cmake&t=ffab&ia=web',False,False,False,True
+992,21,'Peregrine/README.md at master · xInference/Peregrine','https://github.com/xInference/Peregrine/blob/master/README.md',False,False,False,True
+993,21,'Incremental Compilation Workflow - vLLM','https://docs.vllm.ai/en/latest/contributing/incremental_build/',False,False,False,True
+994,21,'How to check the Version of GPU to dynamically set \'-gencode=arch=compute_?\'? - CUDA / CUDA Programming and Performance - NVIDIA Developer Forums','https://forums.developer.nvidia.com/t/how-to-check-the-version-of-gpu-to-dynamically-set-gencode-arch-compute/261162/7',False,False,False,True
+995,21,'nvcc warning : Cannot find valid GPU for "-arch=native", default arch is used at DuckDuckGo','https://duckduckgo.com/?t=ffab&q=nvcc+warning+%3A+Cannot+find+valid+GPU+for+%27-arch%3Dnative%27%2C+default+arch+is+used&ia=web',False,False,False,True
+996,21,'compiler errors - If I tell NVCC to -gencode arch=native, what do I use for the code= argument? - Stack Overflow','https://stackoverflow.com/questions/79193932/if-i-tell-nvcc-to-gencode-arch-native-what-do-i-use-for-the-code-argument',False,False,False,True
+997,21,'Nvidia A100 make error · Issue #2404 · ggml-org/whisper.cpp','https://github.com/ggml-org/whisper.cpp/issues/2404',False,False,False,True
+998,21,'cuda runtime error (802) : system not yet initialized .../THCGeneral.cpp:50 · Issue #35710 · pytorch/pytorch','https://github.com/pytorch/pytorch/issues/35710#issuecomment-901013741',False,False,False,True
+999,21,'nvidia Could NOT find GLUT linux GLUT_glut_LIBRARY at DuckDuckGo','https://duckduckgo.com/?q=nvidia+Could+NOT+find+GLUT+linux+GLUT_glut_LIBRARY&t=ffab&ia=web',False,False,False,True
+1000,21,'How to Install OpenGL Library on Ubuntu 20.04 LTS (Focal Fossa) | CyberITHub','https://www.cyberithub.com/how-to-install-opengl-library-on-ubuntu-20-04-lts-focal-fossa/',False,False,False,True
+1001,21,'apt-get install tileiras at DuckDuckGo','https://duckduckgo.com/?t=ffab&q=apt-get+install+tileiras&ia=web',False,False,False,True
+1002,21,'NVIDIA/cutile-python: cuTile is a programming model for writing parallel kernels for NVIDIA GPUs','https://github.com/nvidia/cutile-python',False,False,False,True
+1003,21,'How to Install Vulkan on Ubuntu 24.04 or 22.04 LTS Linux - LinuxShout','https://linux.how2shout.com/how-to-install-vulkan-on-ubuntu-24-04-or-22-04-lts-linux/',False,False,False,True
+1004,21,'vulkan install driver from source at DuckDuckGo','https://duckduckgo.com/?t=ffab&q=vulkan+install+driver+from+source&ia=web',False,False,False,True
+1005,21,'Vulkan Driver Support | NVIDIA Developer','https://developer.nvidia.com/vulkan-driver',False,False,False,True
+1006,21,'Installation — vLLM','https://docs.vllm.ai/en/v0.6.3.post1/getting_started/installation.html',False,False,False,True
+1007,21,'Check Ollama GPU Usage','https://chatgpt.com/c/6a452aac-b2c8-83ed-8743-cefe51a27971',False,False,False,True
+1008,21,'ollama cmake use GPU at DuckDuckGo','https://duckduckgo.com/?t=ffab&q=ollama+cmake+use+GPU&ia=web',False,False,False,True
+1009,21,'Ollama Not Using GPU: Complete Fix Guide (2026) | InsiderLLM','https://insiderllm.com/guides/ollama-not-using-gpu-fix/',False,False,False,True
+1010,21,'Ollama Not Using GPU? Fix CPU-Only Inference on Windows, WSL2, and Linux (2026)','https://runaihome.com/blog/ollama-not-using-gpu-fix-cpu-2026/',False,False,False,True
+1011,21,'Development - Ollama','https://docs.ollama.com/development',False,False,False,True
+1012,21,'Get started | ChatGPT','https://chatgpt.com/auth/login?next=%2Fc%2F6a452c18-c234-83ed-a977-0f5031384992',False,False,False,True
+1013,21,'NVIDIA/cuda-samples: Samples for CUDA Developers which demonstrates features in CUDA Toolkit','https://github.com/NVIDIA/cuda-samples',False,False,False,True
+1014,21,'Google whitepapers at DuckDuckGo','https://duckduckgo.com/?t=ffab&q=Google+whitepapers&ia=web',False,False,False,True
+1015,21,'Publications – Google Research','https://research.google/pubs/',False,False,False,True
+1016,21,'Google Just Dropped 70 Pages on Context Engineering. Here’s What Actually Matters. | by Aakash Gupta | Medium','https://aakashgupta.medium.com/google-just-dropped-70-pages-on-context-engineering-heres-what-actually-matters-c0df8d8e82cc',False,False,False,True
+1017,21,'Context Engineering: Sessions & Memory.pdf - Google Drive','https://drive.google.com/file/d/1JW6Q_wwvBjMz9xzOtTldFfPiF7BrdEeQ/view',False,False,False,True
+1018,21,'We’re One Step Closer to Understanding Consciousness - Bloomberg','https://www.bloomberg.com/opinion/articles/2026-07-02/we-re-one-step-closer-to-understanding-consciousness?cmpid=070226_morningamer&utm_campaign=morningamer&utm_medium=email&utm_source=newsletter&utm_term=260702&utm_content=6154',False,False,False,True
+1019,21,'Why Hotels, Theme Parks and Summer Camps Are Harder to Access - Bloomberg','https://www.bloomberg.com/news/features/2026-07-02/why-hotels-theme-parks-and-summer-camps-are-harder-to-access?cmpid=070226_morningamer&utm_campaign=morningamer&utm_medium=email&utm_source=newsletter&utm_term=260702&utm_content=6154',False,False,False,True
+1020,21,'Google Keep','https://keep.google.com/#LIST/13OT3kgWK03gyHcjNiMkdhvceYYahVWgpLmP_Bg4DsoWzeqELkL-V1VGrG2LDf2UQ0ZQa',False,False,False,True
+1021,21,'🌿 Nextstrain for Plant Viruse... • Open WebUI','https://keychat.keygene.com/c/9cec6898-aea5-46df-bc29-b6042670345b',False,False,False,True
+1022,21,'KeyChat','https://chat.keygene.com/',False,False,False,True
+1023,21,'Search results - marcolof@gmail.com - Gmail','https://mail.google.com/mail/u/0/#search/van+doorn',False,False,False,True
+1024,21,'10-1 - ACFrOgDF0us5faJsz00YsOv6GXMlQU5JfH-uakPYl620KdWFsuP_ZwOZO0d1qBIZ6cqFFOeztfjD4yoN8jIBObROTzAWNecpdaRoso3wRKHuTT6XZR7fZxceJnqg0cPtpV4IQMVhz1GT_W5Oh9t3lX6DPtC4qeeWurPo1HW-ow==','https://doc-0g-4k-apps-viewer.googleusercontent.com/viewer/secure/pdf/tr5r4f4ruc93cviv52iqjofh9u2ojd5j/4vre0grgjrtruts4i1lc2d6lqra676us/1782996600000/gmail/06167954310448492797/ACFrOgDF0us5faJsz00YsOv6GXMlQU5JfH-uakPYl620KdWFsuP_ZwOZO0d1qBIZ6cqFFOeztfjD4yoN8jIBObROTzAWNecpdaRoso3wRKHuTT6XZR7fZxceJnqg0cPtpV4IQMVhz1GT_W5Oh9t3lX6DPtC4qeeWurPo1HW-ow==?authuser=0&print=true&nonce=k2naad0vngd6c&user=06167954310448492797&hash=esoa4imj7fqfbr69p32gaig4qovf1tf4',False,False,False,True
+1025,21,'Pairwise Identity Matrix 🧬 • Open WebUI','https://keychat.keygene.com/c/13f75c56-d586-49b4-8bfc-bc91e5107566',False,False,False,True
+1026,21,'AddyOsmani.com - Agentic Code Review','https://addyosmani.com/blog/agentic-code-review/',False,False,False,True
+1027,21,'My Automated Doubt Development Process — Alex Self','https://www.alexself.dev/blog/automated-doubt',False,False,False,False
+1028,21,'aself101/agents-and-pipelines: Agents, Commands and Pipelines for Claude code & other harnesses','https://github.com/aself101/agents-and-pipelines',False,False,False,False
+1174,21,'aself101/agents-and-pipelines: Agents, Commands and Pipelines for Claude code & other harnesses','https://github.com/aself101/agents-and-pipelines',False,False,False,False
+1029,21,'KeyChat','https://chat.keygene.com/',False,False,False,True
+1030,21,'Pairwise Identity Script 🧬 • Open WebUI','https://keychat.keygene.com/c/1611ae1b-4e5f-4799-9eaa-140a8c5137b7',False,False,False,True
+1031,21,'EMBOSS needle vs needleall at DuckDuckGo','https://duckduckgo.com/?t=ffab&q=EMBOSS+needle+vs+needleall&ia=web',False,False,False,True
+1032,21,'EMBOSS: needleall','https://emboss.sourceforge.net/apps/cvs/emboss/apps/needleall.html',False,False,False,True
+1033,21,'needleall per chunk at DuckDuckGo','https://duckduckgo.com/?t=ffab&q=needleall+per+chunk&ia=web',False,False,False,True
+1034,21,'about:newtab','about:newtab',False,False,False,True
+1035,21,'KeyChat','https://chat.keygene.com/',False,False,False,True
+1036,21,'script to find duplicate file linux at DuckDuckGo','https://duckduckgo.com/?t=ffab&q=script+to+find+duplicate+file+linux&ia=web',False,False,False,True
+1037,21,'Linux: find duplicate files by hash, list them, and remove duplicates safely | GoLinuxCloud','https://www.golinuxcloud.com/find-remove-duplicate-files-hash-shell-script/',False,False,False,True
+1038,21,'Inbox (21) - marcolof@gmail.com - Gmail','https://mail.google.com/mail/u/0/?nocheckbrowser#inbox',False,False,False,True
+1039,21,'samtools/INSTALL at develop · samtools/samtools','https://github.com/samtools/samtools/blob/develop/INSTALL',False,False,False,True
+1040,21,'samtools/htslib: C library for high-throughput sequencing data formats','https://github.com/samtools/htslib',False,False,False,True
+1041,21,'Plant and human immune systems are closer than we think, study finds - Salon.com','https://www.salon.com/2025/03/05/plant-and-human-immune-systems-are-closer-than-we-think-study-finds/',False,False,False,True
+1042,21,'News & Politics Archives - Salon.com','https://www.salon.com/category/news-and-politics',False,False,False,True
+1043,21,'Why Democrats are running against the "Epstein class" - Salon.com','https://www.salon.com/2026/06/27/why-democrats-are-running-against-the-epstein-class-partner/',False,False,False,True
+1044,21,'The rising price of Trump\'s anti-science agenda - Salon.com','https://www.salon.com/2026/06/30/the-rising-price-of-trumps-anti-science-agenda/',False,False,False,True
+1045,21,'european pubmed central at DuckDuckGo','https://duckduckgo.com/?t=ffab&q=european+pubmed+central&ia=web',False,False,False,True
+1046,21,'Search results - marcolof@gmail.com - Gmail','https://mail.google.com/mail/u/0/#search/jan+albert',False,False,False,True
+1047,21,'context in language at DuckDuckGo','https://duckduckgo.com/?t=ffab&q=context+in+language&ia=images&iax=images&iai=https%3A%2F%2Fslideplayer.com%2Fslide%2F6339041%2F22%2Fimages%2F30%2FLow%2520v%2Fs%2520High%2520Context%2520Language.jpg',False,False,False,True
+1048,21,'rising costs of LLM use at DuckDuckGo','https://duckduckgo.com/?q=rising+costs+of+LLM+use&iar=images&t=ffab&iai=http%3A%2F%2Foxiohealth.io%2Fwp-content%2Fuploads%2F2025%2F01%2F113.3.png',False,False,False,True
+1049,21,'Understanding context windows in Claude Code ❯ ~/code.charliegleason.com','https://code.charliegleason.com/understanding-context-windows',False,False,False,True
+1050,21,'Please look for statistics and in particular graphs of costs of using an LLM...','https://www.perplexity.ai/search/3c8bbb1c-c98c-4b9e-88ec-e4b621e6400d?sm=d',False,False,False,True
+1051,21,'LLM API Pricing History — How AI Model Costs Have Changed Over Time | BenchLM.ai','https://benchlm.ai/llm-pricing-trends',False,False,False,True
+1052,21,'Delete characters in vim','https://chatgpt.com/c/6a4e092b-1a70-83ed-b774-1f3bf2cc6cf2',False,False,False,True
+1053,21,'all knowledge is experience maxim at DuckDuckGo','https://duckduckgo.com/?t=ffab&q=all+knowledge+is+experience+maxim&ia=web',False,False,False,True
+1054,21,'Knowledge and Experience: Ehsan Sehgal and John Locke | by Media Channel | Medium','https://medium.com/@channelsehgalmedia/knowledge-and-experience-ehsan-sehgal-and-john-locke-40ec448173df',False,False,False,True
+1055,21,'ChatGPT','https://chatgpt.com/',False,False,False,True
+1056,21,'bio.seq.seq alphabet at DuckDuckGo','https://duckduckgo.com/?t=ffab&q=bio.seq.seq+alphabet&ia=web',False,False,False,True
+1057,21,'Bio.Seq module — Biopython 1.75 documentation','https://biopython.org/docs/1.75/api/Bio.Seq.html',False,False,False,True
+1058,21,'History and replacement of Bio.Alphabet · Biopython','https://biopython.org/wiki/Alphabet',False,False,False,True
+1059,21,'Ai2 Asta','https://asta.allen.ai/chat/f173ef69-17a1-4b58-a666-c57f26da1f99',False,False,False,True
+1060,21,'Exact Synergy Enterprise - Marco Rietveld','http://loki/synergy/docs/Portal.aspx',False,False,False,False
+1061,21,'Runge-Kutta integration for phylogenetic fitness evolution - Claude','https://claude.ai/chat/bcf61cac-948f-4521-907f-6854eb6a7ae0',False,False,False,True
+1062,21,'Tomato brown rugose fruit virus genome assembly ViralProj304915 - NCBI - NLM','https://www.ncbi.nlm.nih.gov/datasets/genome/GCF_001461485.1/',False,False,False,True
+1063,21,'Tomato brown rugose fruit virus isolate Tom1-Jo, complete genome - Nucleotide - NCBI','https://www.ncbi.nlm.nih.gov/nuccore/KT383474.1/',False,False,False,True
+1064,21,'auspice','https://nextstrain.nrcnvwa.nl/',False,False,False,True
+1065,21,'NPPO-NL/nextstrain-ToBRFV','https://github.com/NPPO-NL/nextstrain-ToBRFV',False,False,False,True
+1066,21,'cognitive debt AI - Google Search','https://www.google.com/search?q=cognitive+debt+AI&num=10&client=firefox-b-d&hs=zuu&sca_esv=98ee674815491cbe&sxsrf=APpeQntqTJugz6jg4wOUU8poicOrz27_Xg%3A1783943062942&ei=ls9Uaq6ROeLri-gPkKTfuQs&biw=1871&bih=2014&ved=0ahUKEwiutMPkyc-VAxXi9QIHHRDSN7cQ4dUDCBA&uact=5&oq=cognitive+debt+AI&gs_lp=Egxnd3Mtd2l6LXNlcnAiEWNvZ25pdGl2ZSBkZWJ0IEFJMgUQABiABDIFEAAYgAQyBRAAGIAEMgUQABiABDIFEAAYgAQyBhAAGBYYHjIIEAAYFhgeGAoyBhAAGBYYHjIGEAAYFhgeMgYQABgWGB5IsDNQhQpYozJwA3gAkAEAmAFgoAGKB6oBAjE5uAEDyAEA-AEBmAIWoALJB8ICCBAAGO8FGLADwgILEAAYgAQYigUYkQLCAgoQABiABBiKBRhDwgILEC4YgAQYxwEY0QPCAgUQLhiABJgDAIgGAZAGBZIHBDIxLjGgB41_sgcEMTguMbgHwAfCBwYwLjE4LjTIByqACAE&sclient=gws-wiz-serp',False,False,False,False
+1182,21,'Cognitive debt: The hidden risk in AI-driven software development','https://getdx.com/blog/cognitive-debt-the-hidden-risk-in-ai-driven-software-development/',False,False,False,False
+1183,21,'Cognitive Debt: Staying Sharp When AI Writes Most of Your Code | by Kaaveh Mohamedi | Jul, 2026 | Towards AI','https://pub.towardsai.net/cognitive-debt-4c8dddd696c8',False,False,False,False
+1186,21,'Inbox (38) - marcolof@gmail.com - Gmail','https://mail.google.com/mail/u/0/#inbox',False,False,False,False
+1187,21,'harness engineering hands heart head pattern at DuckDuckGo','https://duckduckgo.com/?q=harness+engineering+hands+heart+head+pattern&t=ffab&ia=web',False,False,False,False
+1188,21,'AddyOsmani.com - Agent Harness Engineering','https://addyosmani.com/blog/agent-harness-engineering/',False,False,False,False
+1189,21,'Viv on X: "https://t.co/Lb2gtM9SNs" / X','https://x.com/Vtrivedy10/status/2031408954517971368',False,False,False,False
+1190,21,'AddyOsmani.com','https://addyosmani.com/blog/',False,False,False,False
+1191,21,'AddyOsmani.com - The Agent-Era Career','https://addyosmani.com/blog/career-advice-age-of-agents/',False,False,False,False
+1192,21,'AddyOsmani.com - Agentic Autonomy Levels','https://addyosmani.com/blog/agentic-autonomy-levels/',False,False,False,False
+1193,21,'AddyOsmani.com - The New Software Lifecycle','https://addyosmani.com/blog/new-sdlc-vibe-coding/',False,False,False,False
+1194,21,'AddyOsmani.com - Agentic Code Review','https://addyosmani.com/blog/agentic-code-review/',False,False,False,False
+1195,21,'AddyOsmani.com - Loop Engineering','https://addyosmani.com/blog/loop-engineering/',False,False,False,False
+1196,21,'AddyOsmani.com - The Intent Debt','https://addyosmani.com/blog/intent-debt/',False,False,False,False
+1197,21,'AddyOsmani.com - Long-running Agents','https://addyosmani.com/blog/long-running-agents/',False,False,False,False
+1323,21,'how to craft "review" prompts for code Ai at DuckDuckGo','https://duckduckgo.com/?q=how+to+craft+%22review%22+prompts+for+code+Ai&t=ffab&ia=web',False,False,False,False
+1325,21,'45+ Best AI Prompts for Code Review | INSIDEA','https://insidea.com/blog/ai/prompts/best-ai-prompts-for-code-review',False,False,False,False
+1326,21,'fluidfocuschannel/ai-code-review-prompts: Comprehensive AI code review prompts for enterprise development teams. Covers security scanning, SOLID principles, performance optimization, and framework-specific best practices. Ready-to-use with GitHub Copilot, ChatGPT, and Claude for consistent, detailed code quality analysis.','https://github.com/fluidfocuschannel/ai-code-review-prompts',False,False,False,False
+1327,21,'My Automated Doubt Development Process — Alex Self','https://www.alexself.dev/blog/automated-doubt',False,False,False,False
+1328,21,'aself101/agents-and-pipelines: Agents, Commands and Pipelines for Claude code & other harnesses','https://github.com/aself101/agents-and-pipelines',False,False,False,False
+1329,21,'New Tab','about:newtab',False,False,False,False
+1330,21,'New Tab','about:newtab',False,False,False,False
+1333,21,'Picking the Right Size Brain: FP16, BF16, FP8, GGUF and What They Actually Mean','https://www.instasd.com/post/picking-the-right-size-brain-fp16-bf16-fp8-gguf-and-what-they-actually-mean',False,False,False,False
+1334,21,'Problem loading page','https://www.zalando.nl/only-and-sons-onscaiden-solid-overhemd-nirvana-os322d06m-i11.html',False,False,False,False
+1335,21,'ONSCAIDEN LIFE SOLID BLEND - at DuckDuckGo','https://duckduckgo.com/?t=ffab&q=ONSCAIDEN+LIFE+SOLID+BLEND+-+&ia=web',False,False,False,False
+1337,21,'ONLY & SONS Onscaiden Ss Solid Resort Linen Noos (Nirvana/Paars) - 17.50 € | Boozt.com','https://www.boozt.com/nl/nl/only-sons/onscaiden-ss-solid-resort-linen-shirt_31832563/225756376',False,False,False,False
+1338,21,'ONSCAIDEN SS SOLID RESORT LINEN NOOS - Google Search','https://www.google.com/search?client=firefox-b-d&q=ONSCAIDEN+SS+SOLID+RESORT+LINEN+NOOS',False,False,False,False
+1341,21,'ONSCAIDEN Linnen Overhemd | Midden Groen | ONLY & SONS®','https://www.onlyandsons.com/nl-nl/product/22025116_1863/slim-fit-resort-kraag-overhemd?gad_source=1&gad_campaignid=17879504764&gclid=CjwKCAjwvNfSBhBiEiwAyaGMCfrhbu33U70ug2EBEyuUETOO2in3cvvNMytF3NWE0CZsYlLBGg0NMRoCAoIQAvD_BwE',False,False,False,False
+1342,21,'Drafts (12) - marcolof@gmail.com - Gmail','https://mail.google.com/mail/u/0/#drafts',False,False,False,False
+1346,21,'"noting" mindfulness at DuckDuckGo','https://duckduckgo.com/?t=ffab&q=%22noting%22+mindfulness&ia=web',False,False,False,False
+1347,21,'How to use the noting technique in meditation: 7 steps to try — Calm Blog','https://blog.calm.com/blog/noting-meditation',False,False,False,False
+1348,21,'how emotions are made at DuckDuckGo','https://duckduckgo.com/?t=ffab&q=how+emotions+are+made&ia=web',False,False,False,False
+1349,21,'Bloomberg Europe','https://www.bloomberg.com/europe',False,False,False,False
+1350,21,'Trump Drops 20% Fee for Hormuz Cargo After Gulf Pressure - Bloomberg','https://www.bloomberg.com/news/articles/2026-07-14/trump-backs-off-20-fee-for-strait-of-hormuz-shipments?srnd=homepage-europe',False,False,False,False
+1351,21,'ASML Earnings: Full-Year Outlook Raised as AI Boosts Demand at Chipmakers - Bloomberg','https://www.bloomberg.com/news/articles/2026-07-15/asml-raises-full-year-outlook-as-ai-boosts-demand-at-chipmakers?srnd=homepage-europe',False,False,False,False
+1352,21,'China’s GDP Growth Unexpectedly Dips Below Official Target Range - Bloomberg','https://www.bloomberg.com/news/articles/2026-07-15/china-s-gdp-growth-weakens-to-4-3-below-official-target-range?srnd=homepage-europe',False,False,False,False
+1353,21,'JPMorgan Chase, Goldman Sachs Face New Competition From Apollo on Lending - Bloomberg','https://www.bloomberg.com/news/features/2026-07-14/jpmorgan-chase-goldman-sachs-face-new-competition-from-apollo-on-lending?srnd=homepage-europe',False,False,False,False
+1354,21,'Ukraine Says It Hit Russian Oil and Gas Tankers in the Black Sea - Bloomberg','https://www.bloomberg.com/news/articles/2026-07-15/ukraine-says-it-hit-russian-oil-and-gas-tankers-in-the-black-sea?srnd=homepage-europe',False,False,False,False
+1355,21,'Solar Is Sending European Power Prices on a Roller-Coaster - Bloomberg','https://www.bloomberg.com/news/articles/2026-07-15/solar-is-sending-european-power-prices-on-a-roller-coaster?srnd=homepage-europe',False,False,False,False
+1356,21,'Warsh Says Inflation Mission Not Accomplished, Hints at Options - Bloomberg','https://www.bloomberg.com/news/articles/2026-07-14/trump-backs-off-20-fee-for-strait-of-hormuz-shipments?srnd=homepage-europe',False,False,False,False
+1357,21,'US Inflation: CPI Falls for First Time Since 2020, Core Gauge Unchanged - Bloomberg','https://www.bloomberg.com/news/articles/2026-07-14/us-cpi-falls-for-the-first-time-since-2020-core-gauge-unchanged',False,False,False,False
+1358,21,'Bio.Phylo.BaseTree module — Biopython 1.75 documentation','https://biopython.org/docs/1.75/api/Bio.Phylo.BaseTree.html',False,False,False,False
+1359,21,'obra/superpowers: An agentic skills framework & software development methodology that works.','https://github.com/obra/superpowers/tree/main',False,False,False,False
+1360,21,'openai codex at DuckDuckGo','https://duckduckgo.com/?t=ffab&q=openai+codex&ia=web',False,False,False,False
+1362,21,'openai/codex: Lightweight coding agent that runs in your terminal','https://github.com/openai/codex',False,False,False,False
+1366,21,'rotavirus at DuckDuckGo','https://duckduckgo.com/?t=ffab&q=rotavirus+&ia=web',False,False,False,False
+1371,21,'Inbox (38) - marcolof@gmail.com - Gmail','https://mail.google.com/mail/u/0/#inbox',False,False,False,False
+1377,21,'Our 25 Most Popular Recipes of 2026 So Far - NYT Cooking','https://cooking.nytimes.com/article/most-popular-recipes-2026-so-far?emc=edit_fwd_20260714&nl=five-weeknight-dishes&segment_id=223071',False,False,False,False
+1376,21,'Subscription Manager and Custom Budgeting App | Rocket Money','https://www.rocketmoney.com/',False,False,False,False
+1378,21,'Bio.Phylo.Newick module — Biopython 1.87 documentation','https://biopython.org/docs/latest/api/Bio.Phylo.Newick.html',False,False,False,False
+1379,21,'python add 6 months to datetime at DuckDuckGo','https://duckduckgo.com/?t=ffab&q=python+add+6+months+to+datetime+&ia=web',False,False,False,False
+1380,21,'python - How do I add a month to my date object in datetime? - Stack Overflow','https://stackoverflow.com/questions/65621298/how-do-i-add-a-month-to-my-date-object-in-datetime#65621411',False,False,False,False
+1381,21,'rneher/FitnessInference: Prediction fitness of leaves on a genealogical tree','https://github.com/rneher/FitnessInference',True,False,False,False
