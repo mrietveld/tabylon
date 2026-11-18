@@ -1,7 +1,9 @@
 # Tab Organizer MVP Design
 
+> Historical implementation design. The add-on described here is now Tabylon, maintained by mrietveld, in [the Tabylon repository](https://github.com/mrietveld/tabylon). It was based on the former Simple Tab Groups add-on; references below to modified Simple Tab Groups (STG) describe the original design, not a separate current plugin.
+
 ## Summary
-Build a Firefox WebExtension that collects tab data, sends it to a local Python backend running on `localhost`, shows a proposed grouping plan to the user, and applies the approved plan through a modified Simple Tab Groups (STG) extension.
+Build a Firefox WebExtension that collects tab data, sends it to a local Python backend running on `localhost`, shows a proposed grouping plan to the user, and applies the approved plan through the modified Simple Tab Groups fork that is now Tabylon.
 
 ## Goals
 - Collect current Firefox tabs from the browser session.
@@ -32,10 +34,8 @@ The MVP contains three parts:
    - Builds prompts, calls the LLM, validates model output, and returns a strict grouping plan.
    - Logs startup, request handling, validation, and errors to `backend/logs/tab_organizer_backend.log`.
 
-3. **Modified Simple Tab Groups extension**
-   - Adds a narrow external API for the trusted `tab-organizer` extension.
-   - Supports exact creation of new STG groups and exact tab-to-group assignment from an approved plan.
-   - Rejects unknown senders and malformed requests.
+3. **Modified Simple Tab Groups fork (now Tabylon)**
+   - Applies approved groups within the add-on; this repository's current implementation uses Tabylon's internal messaging.
 
 ## Data Flow
 1. User clicks the extension action.

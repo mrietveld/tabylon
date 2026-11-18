@@ -1,4 +1,6 @@
-# Multiple-window evaluation: simple-tab-grouper backend
+# Multiple-window evaluation: Tabylon backend
+
+Tabylon is the current add-on in this repository, maintained by mrietveld. It was forked from the former Simple Tab Groups add-on; that is historical context, not the current plugin name. [Tabylon repository](https://github.com/mrietveld/tabylon).
 
 ## Summary
 

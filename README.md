@@ -1,9 +1,5 @@
 
-# <img width="48" src="addon/src/icons/icon.svg" alt="main-icon"> Simple Tab Groups
-
-<https://addons.mozilla.org/firefox/addon/simple-tab-groups/>
-
-[![Mozilla Add-on](https://img.shields.io/amo/v/simple-tab-groups.svg)](https://addons.mozilla.org/firefox/addon/simple-tab-groups/) [![downloads](https://img.shields.io/amo/dw/simple-tab-groups.svg)](https://addons.mozilla.org/firefox/addon/simple-tab-groups/statistics/?last=365) [![users](https://img.shields.io/amo/users/simple-tab-groups.svg)](https://addons.mozilla.org/firefox/addon/simple-tab-groups/statistics/usage/?last=365) [![rating](https://img.shields.io/amo/rating/simple-tab-groups.svg)](https://addons.mozilla.org/firefox/addon/simple-tab-groups/reviews/)
+# <img width="48" src="addon/src/icons/icon.svg" alt="main-icon"> Tabylon
 
 ## Usage
 
@@ -28,19 +24,23 @@ Zip file is located in `dist-zip` folder.
 
 ## Description
 
-Simple Tab Groups works across browser instances/windows too. If you select a group in another window, the selected window will jump to the foreground with the chosen group selected. You can even select the specific tab within that group in background browser windows. [GIF example](https://user-images.githubusercontent.com/7843031/33828871-806ccf6e-de76-11e7-9a0e-1ddfb97e878d.gif)
+Tabylon is the current Firefox add-on in this repository, maintained by **mrietveld**. It was forked from the former Simple Tab Groups add-on; this project is now called **Tabylon**.
+
+[Tabylon source repository](https://github.com/mrietveld/tabylon)
+
+Tabylon works across browser instances/windows too. If you select a group in another window, the selected window will jump to the foreground with the chosen group selected. You can even select the specific tab within that group in background browser windows. [GIF example](https://user-images.githubusercontent.com/7843031/33828871-806ccf6e-de76-11e7-9a0e-1ddfb97e878d.gif)
 
 This allows for easy switching between active and pre-loaded tabs across multiple browser windows.
 
 ### Smart organize
 
-Smart organize proposes new Simple Tab Groups for related tabs. To set it up, open **Settings** → **Smart Organizer**, enter the HTTP or HTTPS URL of the organizer service, choose a minimum group size, and select a default scope. The default local service URL is `http://127.0.0.1:5050`.
+Smart organize proposes new tab groups for related tabs. To set it up, open **Settings** → **Smart Organizer**, enter the HTTP or HTTPS URL of the organizer service, choose a minimum group size, and select a default scope. The default local service URL is `http://127.0.0.1:5050`.
 
 Use **Smart organize** in the popup to open the organizer. You can organize ungrouped tabs in the current window, the current group, selected tabs from the popup, or all eligible tabs across browser windows. Pinned and unsupported tabs are skipped and left unchanged.
 
-When a plan is generated, STG sends the titles and URLs of tabs in the chosen scope to the configured organizer service. Review its proposed groups before applying: rename or remove proposed groups, drag tabs between them, or leave tabs unassigned. The page uses STG's internal messaging only; it does not expose an external-extension messaging interface.
+When a plan is generated, Tabylon sends the titles and URLs of tabs in the chosen scope to the configured organizer service. Review its proposed groups before applying: rename or remove proposed groups, drag tabs between them, or leave tabs unassigned. The page uses Tabylon's internal messaging only; it does not expose an external-extension messaging interface.
 
-Selecting **Apply groups** first checks that the planned tabs have not changed window, URL, or group since the plan was generated. STG then creates the approved groups and moves the assigned tabs. If the plan is stale, generate a fresh one. If an apply operation cannot complete, inspect the recovery details and your groups before trying again.
+Selecting **Apply groups** first checks that the planned tabs have not changed window, URL, or group since the plan was generated. Tabylon then creates the approved groups and moves the assigned tabs. If the plan is stale, generate a fresh one. If an apply operation cannot complete, inspect the recovery details and your groups before trying again.
 
 Open popup shortcut: `F8`. [You can change this hotkey](https://support.mozilla.org/kb/manage-extension-shortcuts-firefox)
 

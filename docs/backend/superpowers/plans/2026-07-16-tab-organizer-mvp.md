@@ -1,12 +1,14 @@
 # Tab Organizer MVP Implementation Plan
 
+> Historical plan: its modified Simple Tab Groups add-on became Tabylon, maintained by mrietveld in [this repository](https://github.com/mrietveld/tabylon). Simple Tab Groups refers to the former upstream add-on.
+>
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
-**Goal:** Build a Firefox extension plus a local Python backend that generates tab grouping plans and applies approved plans through a modified Simple Tab Groups extension.
+**Goal:** Build a Firefox extension plus a local Python backend that generates tab grouping plans and applies approved plans through the modified Simple Tab Groups fork, now Tabylon.
 
-**Architecture:** The Firefox extension collects tabs, calls a Python FastAPI backend on localhost, renders a review UI, and applies approved grouping plans through STG external messaging. The backend owns prompt construction, LLM calls, validation, and file logging. STG exposes a narrow trusted API for exact group creation and tab assignment.
+**Architecture:** The Firefox extension collects tabs, calls a Python FastAPI backend on localhost, renders a review UI, and applies approved grouping plans through the modified add-on (now Tabylon). The backend owns prompt construction, LLM calls, validation, and file logging.
 
-**Tech Stack:** Firefox WebExtension, plain JavaScript/HTML/CSS, Python 3.11+, FastAPI, Pydantic, pytest, Simple Tab Groups source tree
+**Tech Stack:** Firefox WebExtension, plain JavaScript/HTML/CSS, Python 3.11+, FastAPI, Pydantic, pytest, Tabylon source tree
 
 ## Global Constraints
 
@@ -17,7 +19,7 @@
 - The backend must validate all model output before returning it.
 - Groups must contain at least 5 tabs.
 - No tabs are modified until a validated plan is explicitly approved by the user.
-- STG must trust only the tab-organizer extension ID for the new external API.
+- Group changes must occur only after user approval.
 
 ---
 
@@ -133,9 +135,8 @@
 ### Task 7: Add STG external API for tab-organizer
 
 **Files:**
-- Modify: `/Users/mrietveld/Workspaces/coding-models/simple-tab-groups/addon/src/js/constants.js`
-- Modify: `/Users/mrietveld/Workspaces/coding-models/simple-tab-groups/addon/src/background.js`
-- Possibly create: `/Users/mrietveld/Workspaces/coding-models/simple-tab-groups/addon/src/js/tab-organizer-external.js`
+- Modify: `addon/src/js/organizer/apply-plan.js`
+- Modify: `addon/src/background.js`
 
 **Interfaces:**
 - Produces: external STG action `tab-organizer-apply-grouping-plan`

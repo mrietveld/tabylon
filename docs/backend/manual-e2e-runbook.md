@@ -1,17 +1,17 @@
-# Manual End-to-End Runbook
+# Tabylon Manual End-to-End Runbook
 
-This runbook walks through a manual test of the full MVP system:
+Tabylon is the current Firefox add-on in this repository, maintained by mrietveld. It is based on the former Simple Tab Groups add-on; use Tabylon when referring to the current project. Source: https://github.com/mrietveld/tabylon.
+
+This runbook walks through a manual test of the full system:
 - local Python backend
-- Tab Organizer Firefox extension
-- modified Simple Tab Groups extension
+- Tabylon Firefox add-on
 
 ## Preconditions
 - Firefox is installed.
 - The repositories exist at:
-  - `/Users/mrietveld/Workspaces/coding-models/tab-organizer`
-  - `/Users/mrietveld/Workspaces/coding-models/simple-tab-groups`
+  - `/Users/mrietveld/Workspaces/various/tabylon`
 - Python 3.11 is available at `/opt/homebrew/bin/python3.11`.
-- Node/npm are available for rebuilding STG.
+- Node/npm are available for rebuilding the Tabylon add-on.
 - You have a valid LLM API key for an OpenAI-compatible endpoint.
 
 ## 1. Prepare the backend environment
@@ -87,11 +87,11 @@ Optional live tail:
 tail -f backend/logs/tab_organizer_backend.log
 ```
 
-## 5. Rebuild and load the modified STG extension
-From the STG repository:
+## 5. Rebuild and load the Tabylon add-on
+From the Tabylon repository:
 
 ```bash
-cd /Users/mrietveld/Workspaces/coding-models/simple-tab-groups/addon
+cd /Users/mrietveld/Workspaces/various/tabylon/addon
 npm run build
 ```
 
@@ -99,20 +99,17 @@ In Firefox:
 1. Open `about:debugging#/runtime/this-firefox`
 2. Click **Load Temporary Add-on**
 3. Select:
-   - `/Users/mrietveld/Workspaces/coding-models/simple-tab-groups/addon/dist/manifest.json`
+   - `/Users/mrietveld/Workspaces/various/tabylon/addon/dist/manifest.json`
 
 Expected result:
-- Simple Tab Groups loads without runtime errors
+- Tabylon loads without runtime errors
 
-## 6. Load the Tab Organizer extension
-In the same Firefox debug page:
-1. Click **Load Temporary Add-on**
-2. Select:
-   - `/Users/mrietveld/Workspaces/coding-models/tab-organizer/extension/manifest.json`
+## 6. Start the Tabylon organizer
+Start the local Python backend, then use Tabylon’s **Smart organize** action to generate and review the grouping plan.
 
 Expected result:
-- Tab Organizer loads without runtime errors
-- a toolbar action appears for the extension
+- Tabylon contacts the configured backend
+- the review page opens when a plan is ready
 
 ## 7. Prepare browser tabs for grouping
 Open at least 15 tabs with a few obvious themes, for example:
