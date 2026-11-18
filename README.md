@@ -1,5 +1,5 @@
 
-# <img width="48" src="addon/src/icons/icon.svg" alt="main-icon"> Tabylon
+# <img width="48" src="addon/src/icons/noun_babylon_polshin.png" alt="main-icon"> Tabylon
 
 ## Usage
 
