@@ -7,11 +7,7 @@ clusters and leave noise tabs ungrouped.
 import pytest
 
 from app.api.schemas import BrowserTab, GroupingConstraints, GroupingRequest
-from app.core.config import get_settings
-from app.services.cluster_label_store import ClusterLabelStore
-from app.services.clusterer import Clusterer
-from app.services.embedding_client import EmbeddingClient, EmbeddingClientError
-from app.services.embedding_store import EmbeddingStore
+from app.services.embedding_client import EmbeddingClientError
 from app.services.grouping_service import GroupingService
 
 
@@ -44,8 +40,8 @@ class FakeEmbeddingClient:
 
     def embed(self, texts):
         self.calls.append(list(texts))
-        # Return simple 1D embeddings that group by tens: 1-5, 6-10, etc.
-        return [[float(int(text.split()[1]) // 5)] for text in texts]
+        # Return simple 1D embeddings that group tab IDs by tens.
+        return [[float(int(text.split()[1]) // 10)] for text in texts]
 
 
 class FakeEmbeddingStore:
@@ -100,15 +96,14 @@ class FakeLabelingClient:
 
 def test_grouping_service_forms_groups_from_clusters():
     """Embedding-based clustering should produce groups meeting the minimum size."""
-    request = make_request(15)
+    request = make_request(40)
 
     embedding_client = FakeEmbeddingClient()
     labeling_client = FakeLabelingClient()
     store = FakeEmbeddingStore()
-    store = FakeEmbeddingStore()
     clusterer = FakeClusterer()
 
-    service = GroupingService(embedding_client, labeling_client, store, clusterer)
+    service = GroupingService(embedding_client, labeling_client, store, store, clusterer)
     plan = service.generate_grouping_plan(request)
 
     assert len(plan.groups) >= 1
@@ -139,7 +134,7 @@ def test_grouping_service_batches_embedding_requests_and_saves_per_batch():
     store = TrackingStore()
     clusterer = FakeClusterer()
 
-    service = GroupingService(embedding_client, labeling_client, store, clusterer)
+    service = GroupingService(embedding_client, labeling_client, store, store, clusterer)
     plan = service.generate_grouping_plan(request)
 
     # Embedding client should be called once per batch, with batch size <= 32
@@ -184,7 +179,7 @@ def test_grouping_service_retries_embedding_batch_once_then_succeeds():
     store = TrackingStore()
     clusterer = FakeClusterer()
 
-    service = GroupingService(embedding_client, labeling_client, store, clusterer)
+    service = GroupingService(embedding_client, labeling_client, store, store, clusterer)
     plan = service.generate_grouping_plan(request)
 
     # One initial attempt + one retry
@@ -221,7 +216,7 @@ def test_grouping_service_aborts_after_two_failed_embedding_attempts():
     store = TrackingStore()
     clusterer = FakeClusterer()
 
-    service = GroupingService(embedding_client, labeling_client, store, clusterer)
+    service = GroupingService(embedding_client, labeling_client, store, store, clusterer)
 
     with pytest.raises(EmbeddingClientError):
         service.generate_grouping_plan(request)
