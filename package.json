@@ -1,8 +1,9 @@
 {
-    "name": "stg-root",
+    "name": "tabylon-root",
     "version": "1.0.0",
-    "description": "stg root packages",
-    "author": "Mriet <marcolof@gmail.com>",
+    "description": "Tabylon root packages",
+    "author": "mrietveld <marcolof@gmail.com>",
+    "repository": "https://github.com/mrietveld/tabylon",
     "type": "module",
     "dependencies": {
         "eslint": "^9.39.2",

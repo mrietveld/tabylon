@@ -1,8 +1,9 @@
 {
-    "name": "simple-tab-grouper",
+    "name": "tabylon",
     "version": "1.0.0",
     "description": "Create, modify and quickly change tab groups",
-    "author": "Mriet <marcolof@gmail.com>",
+    "author": "mrietveld <marcolof@gmail.com>",
+    "repository": "https://github.com/mrietveld/tabylon",
     "type": "module",
     "scripts": {
         "build": "webpack --mode production",

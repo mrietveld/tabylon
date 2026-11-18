@@ -1369,7 +1369,7 @@ export default {
                 </div>
                 <div class="column is-four-fifths">
                     <span>Marco Rietveld</span>
-                    <span>(Mriet)</span>
+                    <span>(mrietveld)</span>
                     <br>
                     <span v-text="lang('email')"></span>:
                     <a href="mailto:marcolof@gmail.com" target="_blank">marcolof@gmail.com</a>
@@ -1397,16 +1397,6 @@ export default {
                         </span>
                     </a>
                     <br>
-                    <a href="https://addons.mozilla.org/firefox/addon/simple-tab-groups/" target="_blank">
-                        <span class="icon-text">
-                            <span class="icon">
-                                <figure class="image is-16x16">
-                                    <img class="no-fill" src="/icons/extension-generic.svg" />
-                                </figure>
-                            </span>
-                            <span v-text="lang('aboutExtensionPage')"></span>
-                        </span>
-                    </a>
                 </div>
 
                 <div class="column is-one-fifth">
@@ -1491,7 +1481,7 @@ export default {
 
             <div class="block">
                 <div class="has-text-weight-bold mb-5">
-                    <a href="https://addons.mozilla.org/firefox/user/1017663/" target="_blank" class="colon" v-text="lang('plugins')"></a>
+                    <a href="https://github.com/mrietveld/tabylon" target="_blank" class="colon" v-text="lang('homepage')"></a>
                 </div>
 
                 <div v-for="(plugin, guid) in PLUGINS" :key="guid" class="field">

@@ -1,11 +1,11 @@
 {
     "extensionName": {
-        "message": "Simple Tab Groups",
+        "message": "Tabylon",
         "description": "Name of the extension."
     },
     "stgHostName": {
         "message": "__MSG_extensionName__ Host",
-        "description": "STG Host name"
+        "description": "Tabylon Host name"
     },
     "extensionDescription": {
         "message": "Create, modify and quickly change tab groups",
@@ -41,7 +41,7 @@
     },
     "organizerScopeCurrentGroup": {
         "message": "Current group",
-        "description": "Smart Organizer scope for the active Simple Tab Groups group"
+        "description": "Smart Organizer scope for the active Tabylon group"
     },
     "organizerScopeSelected": {
         "message": "Selected tabs",
@@ -161,7 +161,7 @@
     },
     "exportAddonSettingsTitle": {
         "message": "Backup your __MSG_extensionName__",
-        "description": "Backup your Simple Tab Groups"
+        "description": "Backup your Tabylon"
     },
     "exportAddonSettingsDescription": {
         "message": "Export your tab groups into a backup file for safe-keeping, so that you can restore them at a later time if necessary.",
@@ -177,7 +177,7 @@
     },
     "importAddonSettingsTitle": {
         "message": "Restore __MSG_extensionName__ from backup",
-        "description": "Restore Simple Tab Groups"
+        "description": "Restore Tabylon"
     },
     "importAddonSettingsDescription": {
         "message": "Load a backup file containing the tab groups you want to restore.",
@@ -334,7 +334,7 @@
         "description": "Regular expressions"
     },
     "regexpForTabsHelp": {
-        "message": "Insert regular expressions for web addresses here. Matching tabs will be automatically moved to this group.\nUse one line per rule, there can be as many as you want.\nExamples:\ngithub\\.com/drive4ik/simple-tab-groups - catch all pages in the add-on's repository\nbugzilla\\.mozilla\\.org - catch Firefox bug reports\n(facebook|twitter|youtube)\\.com - catch all your social pages",
+        "message": "Insert regular expressions for web addresses here. Matching tabs will be automatically moved to this group.\nUse one line per rule, there can be as many as you want.\nExamples:\ngithub\\.com/mrietveld/tabylon - catch all pages in the add-on's repository\nbugzilla\\.mozilla\\.org - catch Firefox bug reports\n(facebook|twitter|youtube)\\.com - catch all your social pages",
         "description": "Regular exceptions helper"
     },
     "hotkeysTitle": {
@@ -574,8 +574,8 @@
         }
     },
     "clickHereToReloadAddon": {
-        "message": "Something went wrong, click here to reload STG addon",
-        "description": "Something went wrong, click here to reload STG addon"
+        "message": "Something went wrong, click here to reload Tabylon",
+        "description": "Something went wrong, click here to reload Tabylon"
     },
     "extendedTabSearch": {
         "message": "Extended search",
@@ -933,7 +933,7 @@
     },
     "helpPageWelcomeTitle": {
         "message": "Welcome to __MSG_extensionName__",
-        "description": "Welcome to Simple Tab Groups"
+        "description": "Welcome to Tabylon"
     },
     "helpPageWelcomeDescription": {
         "message": "Please enable \"**Open previous windows and tabs**\" in browser settings.\nThis is necessary to maintain communication between the group and the tab, otherwise the tabs will not open when the browser starts and will be lost from the addon - the addon will stop working.",
@@ -956,7 +956,7 @@
         "description": "logging was auto-enabled due to an error in addon"
     },
     "loggingDescription": {
-        "message": "Please enable this checkbox only if you need to record bug and send logs to me. Enabling this checkbox will lead to a noticeable slowdown of the addon, as all addon actions are logged. When you reproduce the error, turn off this checkbox, and the addon will offer to save the log file. This option can be enabled by itself if an error occurs. You need to disable the DEBUG checkbox and save the log file.\n\nPlease send this log file to me by email: <a email>author-email</a> <p warn>**__MSG_warning__** There are no personal data, passwords, bookmarks etc., in this log file!</p> This is necessary to be able to reproduce the problem and try to fix it.\nBest regards.",
+        "message": "Please enable this checkbox only if you need to record bug and send logs to me. Enabling this checkbox will lead to a noticeable slowdown of the addon, as all addon actions are logged. When you reproduce the error, turn off this checkbox, and the addon will offer to save the log file. This option can be enabled by itself if an error occurs. You need to disable the DEBUG checkbox and save the log file.\n\nPlease send this log file to me by email: <a email>marcolof@gmail.com</a> <p warn>**__MSG_warning__** There are no personal data, passwords, bookmarks etc., in this log file!</p> This is necessary to be able to reproduce the problem and try to fix it.\nBest regards.",
         "description": "logging description"
     },
     "archiveGroup": {
@@ -1171,11 +1171,11 @@
     },
     "helpPageDbErrorReinstallTitle": {
         "message": "Database error in __MSG_extensionName__",
-        "description": "Database error in Simple Tab Groups"
+        "description": "Database error in Tabylon"
     },
     "helpPageDbErrorReinstallDescription": {
-        "message": "Unfortunately, an error occurred while reading data from the STG addon from the Firefox database. At the moment, the addon is stopped. To resume the add-on, do the following:",
-        "description": "Unfortunately, an error occurred while reading data from the STG addon from the Firefox database. At the moment, the addon is stopped. To resume the add-on, do the following:"
+        "message": "Unfortunately, an error occurred while reading data from the Tabylon addon from the Firefox database. At the moment, the addon is stopped. To resume the add-on, do the following:",
+        "description": "Unfortunately, an error occurred while reading data from the Tabylon addon from the Firefox database. At the moment, the addon is stopped. To resume the add-on, do the following:"
     },
     "helpPageDbErrorReinstallDescription2": {
         "message": "Restart Firefox Browser (for Linux and Mac OS with process termination)",
@@ -1186,20 +1186,20 @@
         "description": "If you see this window again, try reinstalling the addon:"
     },
     "helpPageDbErrorReinstallDescription4": {
-        "message": "Remove STG Addon",
-        "description": "Remove STG Addon"
+        "message": "Remove Tabylon Addon",
+        "description": "Remove Tabylon Addon"
     },
     "helpPageDbErrorReinstallDescription5": {
         "message": "Restart Firefox Browser",
         "description": "Restart Firefox Browser"
     },
     "helpPageDbErrorReinstallDescription6": {
-        "message": "Install STG Addon",
-        "description": "Install STG Addon"
+        "message": "Install Tabylon Addon",
+        "description": "Install Tabylon Addon"
     },
     "helpPageDbErrorReinstallDescription7": {
-        "message": "Restore the latest STG addon data backup located in the Firefox downloads folder \"STG-backups\".\nYou can restore backup in addon settings",
-        "description": "Restore the latest STG addon data backup located in the Firefox downloads folder \"STG-backups\".\nYou can restore backup in addon settings"
+        "message": "Restore the latest Tabylon addon data backup located in the Firefox downloads folder \"STG-backups\".\nYou can restore backup in addon settings",
+        "description": "Restore the latest Tabylon addon data backup located in the Firefox downloads folder \"STG-backups\".\nYou can restore backup in addon settings"
     },
     "helpPageDbErrorReinstallOpenFFDownloadsFolder": {
         "message": "Open Firefox downloads folder",
@@ -1302,16 +1302,16 @@
         "description": "Disabled text"
     },
     "helpPageExtensionsThatConflictWithStgTitle": {
-        "message": "Extensions that conflict with STG",
-        "description": "Extensions that conflict with STG"
+        "message": "Extensions that may conflict with Tabylon",
+        "description": "Extensions that may conflict with Tabylon"
     },
     "helpPageExtensionsThatConflictWithStgDesc1": {
         "message": "__MSG_extensionName__ addon conflicts with the following enabled extensions:",
-        "description": "Simple Tab Groups addon conflicts with the following enabled extensions:"
+        "description": "Tabylon addon conflicts with the following enabled extensions:"
     },
     "helpPageExtensionsThatConflictWithStgDesc2": {
         "message": "To avoid losing tabs or their location in windows and groups, it is strongly recommended to turn off or remove enabled extensions that conflict with the __MSG_extensionName__ addon.\nYou can do this on the addons settings page \"about:addons\" or by pressing the key combination `Ctrl+Shift+A`",
-        "description": "To avoid losing tabs or their location in windows and groups, it is strongly recommended to turn off or remove enabled extensions that conflict with the Simple Tab Groups addon. You can do this on the addons settings page about:addons or by pressing the key combination Ctrl+Shift+A"
+        "description": "To avoid losing tabs or their location in windows and groups, it is strongly recommended to turn off or remove enabled extensions that conflict with the Tabylon addon. You can do this on the addons settings page about:addons or by pressing the key combination Ctrl+Shift+A"
     },
     "ignoreConflictedExtIgnore": {
         "message": "Ignore this extension",
@@ -1326,8 +1326,8 @@
         "description": "Extension is ignored"
     },
     "ignoreConflictedExtConfirm": {
-        "message": "This addon will interfere with the STG, which may cause you to lose tabs.\nStill ignore it?",
-        "description": "This addon will interfere with the STG, which may cause you to lose tabs.\nStill ignore it?"
+        "message": "This addon may interfere with Tabylon, which could cause you to lose tabs.\nStill ignore it?",
+        "description": "This addon may interfere with Tabylon, which could cause you to lose tabs.\nStill ignore it?"
     },
     "colorScheme": {
         "message": "Theme",
@@ -1366,8 +1366,8 @@
         "description": "Copy URL"
     },
     "helpPageStgDebugTitle": {
-        "message": "STG debug page",
-        "description": "STG debug page"
+        "message": "Tabylon debug page",
+        "description": "Tabylon debug page"
     },
     "helpPageStgDebugAutoDebugMainTitle": {
         "message": "An error occurred in the addon",
@@ -1491,7 +1491,7 @@
     },
     "githubGistBackupDescription": {
         "message": "__MSG_extensionName__ backup file for cloud sync",
-        "description": "Simple Tab Groups backup file for cloud sync"
+        "description": "Tabylon backup file for cloud sync"
     },
     "githubInvalidGistContent": {
         "message": "GitHub Gist backup has incorrect data",
@@ -1560,15 +1560,15 @@
         "description": "one or the other"
     },
     "helpPageHowToGithubGistTitle": {
-        "message": "Configuring STG synchronization via GitHub Gist",
-        "description": "Configuring STG synchronization via GitHub Gist"
+        "message": "Configuring Tabylon synchronization via GitHub Gist",
+        "description": "Configuring Tabylon synchronization via GitHub Gist"
     },
     "helpPageHowToGithubGistWhatIsQ": {
         "message": "What is this for?",
         "description": "What is this for?"
     },
     "helpPageHowToGithubGistWhatIsDesc": {
-        "message": "This is to synchronize your tabs and __MSG_extensionName__ settings between two or more computers.\nYour data will be stored in a GitHub Gist file. This file will be private. Apart from you, no one will have access to it unless you yourself provide a GitHub Gist link to this data to another person. STG will only send this data to your GitHub account.",
+        "message": "This is to synchronize your tabs and __MSG_extensionName__ settings between two or more computers.\nYour data will be stored in a GitHub Gist file. This file will be private. Apart from you, no one will have access to it unless you yourself provide a GitHub Gist link to this data to another person. Tabylon will only send this data to your GitHub account.",
         "description": "What is description"
     },
     "helpPageHowToGithubGistHowSetupQ": {
@@ -1580,7 +1580,7 @@
         "description": "How set up gist, 1th step"
     },
     "helpPageHowToGithubGistCreateTokenDesc": {
-        "message": "You need to create a private token in your GitHub account. The token should only be stored by you and in the STG settings. It will be used to transfer your tabs to your GitHub account.",
+        "message": "You need to create a private token in your GitHub account. The token should only be stored by you and in the Tabylon settings. It will be used to transfer your tabs to your GitHub account.",
         "description": "How set up gist, 2th step"
     },
     "helpPageHowToGithubGistCreateTokenPermission": {
@@ -1596,8 +1596,8 @@
         "description": "How set up gist, personal token"
     },
     "helpPageHowToGithubGistWriteToSettings": {
-        "message": "Write the created token to the STG settings.",
-        "description": "How set up gist, write token to the STG settings"
+        "message": "Write the created token to the Tabylon settings.",
+        "description": "How set up gist, write token to the Tabylon settings"
     },
     "helpPageHowToGithubGistSave": {
         "message": "Click the \"__MSG_saveSettings__\" button",

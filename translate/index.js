@@ -1,9 +1,9 @@
 (async function() {
     'use strict';
 
-    const USER_NAME = 'Drive4ik';
-    const REPOSITORY = 'simple-tab-groups';
-    const MY_EMAIL = 'drive4ik+stg@protonmail.com';
+    const USER_NAME = 'mrietveld';
+    const REPOSITORY = 'tabylon';
+    const MY_EMAIL = 'no@email.com';
     const LOCALE_FILE_EXT = '.json';
     const apiUrlPrefix = `https://api.github.com/repos/${USER_NAME}/${REPOSITORY}/`;
     const contentUrlPrefix = `https://raw.githubusercontent.com/${USER_NAME}/${REPOSITORY}/`;
@@ -57,10 +57,10 @@
 
             componentLoading: true,
             components: [{
-                name: 'simple-tab-groups-addon',
+                name: 'tabylon-addon',
                 path: 'addon/src',
             }],
-            componentName: 'simple-tab-groups-addon',
+            componentName: 'tabylon-addon',
 
             availableLocalesLoading: false,
             locales: [],
@@ -159,7 +159,7 @@
                         return false;
                     }
 
-                    return ['simple-', 'stg-'].some(str => element.name.startsWith(str));
+                    return ['tabylon-'].some(str => element.name.startsWith(str));
                 });
 
                 this.components = [this.components[0], ...plugins];

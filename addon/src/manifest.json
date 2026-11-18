@@ -9,8 +9,9 @@
     },
 
     "name": "__MSG_extensionName__",
-    "short_name": "STG",
+    "short_name": "Tabylon",
     "description": "__MSG_extensionDescription__",
+    "homepage_url": "https://github.com/mrietveld/tabylon",
     "version": "6.0",
 
     "incognito": "not_allowed",

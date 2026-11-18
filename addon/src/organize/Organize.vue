@@ -19,12 +19,12 @@ const SCOPE_OPTIONS = Object.freeze([
     {
         value: 'ungrouped-current-window',
         label: 'Ungrouped tabs in this window',
-        description: 'Organize tabs that are not already in an STG group.',
+        description: 'Organize tabs that are not already in a group.',
     },
     {
         value: 'current-group',
         label: 'Current group',
-        description: 'Reorganize the tabs in the active STG group.',
+        description: 'Reorganize the tabs in the active group.',
     },
     {
         value: 'selected',
@@ -379,7 +379,7 @@ export default {
             <div class="organizer-heading">
                 <img class="organizer-logo" src="/icons/sparkles.svg" alt="">
                 <div>
-                    <p class="eyebrow">Simple Tab Groups</p>
+                    <p class="eyebrow">Tabylon</p>
                     <h1 class="title is-3 mb-1">Smart Organizer</h1>
                     <p class="has-text-grey">Turn related tabs into a clear set of groups.</p>
                 </div>
